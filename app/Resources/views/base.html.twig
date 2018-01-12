@@ -21,6 +21,7 @@
                 <link href="{{ asset('css/bootstrap.min.css') }}" type="text/css" rel="stylesheet">
                 <link href="{{ asset('css/bootstrap-theme.min.css') }}" type="text/css" rel="stylesheet">
                 <link href="{{ asset('css/font-awesome.min.css') }}" type="text/css" rel="stylesheet">
+                <link href="{{ asset('css/app.css') }}" type="text/css" rel="stylesheet">
             {% else %}
                 <link href="{{ asset('css/app.min.css') }}" type="text/css" rel="stylesheet">
             {% endif %}
@@ -46,9 +47,9 @@
     {% embed '@MopaBootstrap/Navbar/navbar.html.twig' with {'fixedTop': true, 'inverse': true , 'fluid': true } %}
 {% block brand %}
     {% if is_granted('ROLE_ADMIN') %}
-    <a class="navbar-brand" href="{{ path('dashboard') }}">Egutegiak</a>
+    <a class="navbar-brand" href="{{ path('homepage') }}">Egutegiak</a>
     {% else %}
-    <a class="navbar-brand" href="{{ path('user_homepage') }}">
+    <a class="navbar-brand" href="{{ path('homepage') }}">
         {% if is_granted('ROLE_USER') %}
             {% if app.user.displayname %}
                 {{ app.user.displayname }}{% else %}{{ app.user.username }}
@@ -122,9 +123,6 @@
     <footer>
 {% endblock footer_tag_start %}
 
-    {% block footer %}
-        <p>Pasaiako Udala 2017</p>
-    {% endblock footer %}
 
 {% block footer_tag_end %}
     </footer>
@@ -142,6 +140,7 @@
     {% if app.debug %}
         <script src="{{ asset('js/jquery.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('js/app.js') }}"></script>
     {% else %}
         <script src="{{ asset('js/app.min.js') }}"></script>
     {% endif %}
