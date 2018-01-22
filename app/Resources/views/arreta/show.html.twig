@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Arretum</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ arretum.id }}</td>
+            </tr>
+            <tr>
+                <th>Fetxa</th>
+                <td>{% if arretum.fetxa %}{{ arretum.fetxa|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Nan</th>
+                <td>{{ arretum.nan }}</td>
+            </tr>
+            <tr>
+                <th>Remitente</th>
+                <td>{{ arretum.remitente }}</td>
+            </tr>
+            <tr>
+                <th>Genero</th>
+                <td>{{ arretum.genero }}</td>
+            </tr>
+            <tr>
+                <th>Adina</th>
+                <td>{{ arretum.adina }}</td>
+            </tr>
+            <tr>
+                <th>Nazionalitatea</th>
+                <td>{{ arretum.nazionalitatea }}</td>
+            </tr>
+            <tr>
+                <th>Hizkuntza</th>
+                <td>{{ arretum.hizkuntza }}</td>
+            </tr>
+            <tr>
+                <th>Barrutia</th>
+                <td>{{ arretum.barrutia }}</td>
+            </tr>
+            <tr>
+                <th>Administrazioa</th>
+                <td>{{ arretum.administrazioa }}</td>
+            </tr>
+            <tr>
+                <th>Oharra</th>
+                <td>{{ arretum.oharra }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if arretum.created %}{{ arretum.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if arretum.updated %}{{ arretum.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Contentchangedby</th>
+                <td>{{ arretum.contentChangedBy }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_arreta_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_arreta_edit', { 'id': arretum.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Arretas list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Fetxa</th>
+                <th>Nan</th>
+                <th>Remitente</th>
+                <th>Genero</th>
+                <th>Adina</th>
+                <th>Nazionalitatea</th>
+                <th>Hizkuntza</th>
+                <th>Barrutia</th>
+                <th>Administrazioa</th>
+                <th>Oharra</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Contentchangedby</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for arretum in arretas %}
+            <tr>
+                <td><a href="{{ path('admin_arreta_show', { 'id': arretum.id }) }}">{{ arretum.id }}</a></td>
+                <td>{% if arretum.fetxa %}{{ arretum.fetxa|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ arretum.nan }}</td>
+                <td>{{ arretum.remitente }}</td>
+                <td>{{ arretum.genero }}</td>
+                <td>{{ arretum.adina }}</td>
+                <td>{{ arretum.nazionalitatea }}</td>
+                <td>{{ arretum.hizkuntza }}</td>
+                <td>{{ arretum.barrutia }}</td>
+                <td>{{ arretum.administrazioa }}</td>
+                <td>{{ arretum.oharra }}</td>
+                <td>{% if arretum.created %}{{ arretum.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if arretum.updated %}{{ arretum.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ arretum.contentChangedBy }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_arreta_show', { 'id': arretum.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_arreta_edit', { 'id': arretum.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_arreta_new') }}">Create a new arretum</a>
+        </li>
+    </ul>
+{% endblock %}
