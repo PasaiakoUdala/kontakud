@@ -42,7 +42,11 @@ class ArretaController extends Controller
      */
     public function newAction(Request $request)
     {
+        $user = $this->getUser();
         $arretum = new Arreta();
+        $arretum->setUser( $user );
+
+
         $form = $this->createForm('AppBundle\Form\ArretaType', $arretum);
         $form->handleRequest($request);
 

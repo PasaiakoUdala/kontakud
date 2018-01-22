@@ -1,16 +1,68 @@
-{% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Arretum creation</h1>
+{{ form_start(form) }}
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+    <div class="form-group">
+        {{ form_label(form.remitente) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.remitente) }}
+        </div>
+        {{ form_errors(form.remitente) }}
+    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_arreta_index') }}">Back to the list</a>
-        </li>
-    </ul>
-{% endblock %}
+    <div class="form-group">
+        {{ form_label(form.genero) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.genero) }}
+        </div>
+        {{ form_errors(form.genero) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.adina) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.adina) }}
+        </div>
+        {{ form_errors(form.adina) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.nazionalitatea) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.nazionalitatea) }}
+        </div>
+        {{ form_errors(form.nazionalitatea) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.hizkuntza) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.hizkuntza) }}
+        </div>
+        {{ form_errors(form.hizkuntza) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.barrutia) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.barrutia) }}
+        </div>
+        {{ form_errors(form.barrutia) }}
+    </div>
+
+    <div class="form-group">
+        {{ form_label(form.administrazioa) }}
+        <div class="col-sm-10">
+            {{ form_widget(form.administrazioa) }}
+        </div>
+        {{ form_errors(form.administrazioa) }}
+    </div>
+
+    <div class="hidden">
+        {{ form_row(form.user) }}
+        {{ form_row(form.fetxa) }}
+        {{ form_row(form.nan) }}
+
+    </div>
+
+{{ form_end(form) }}
+

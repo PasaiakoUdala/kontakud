@@ -2,15 +2,69 @@
 
 
 {% block headline %}Gerturatze berria{% endblock headline %}
-
 {% block content_content %}
 
-    <div class="row"></div>
-    <div class="row">
-        <div class="col-md-12">
-            {{ render(controller('AppBundle:Arreta:new')) }}
+
+    <div>
+
+        <!-- Nav tabs -->
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#datuak" aria-controls="home" role="tab" data-toggle="tab">Datos</a></li>
+            <li role="presentation"><a href="#tramites" aria-controls="profile" role="tab" data-toggle="tab">Tramites</a></li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div class="tab-content">
+
+            {#Datos Tab#}
+            <div role="tabpanel" class="tab-pane active" id="datuak">
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-md-12">
+                        {{ render(controller('AppBundle:Arreta:new')) }}
+                    </div>
+                </div>
+            </div>
+
+            {#Tramites Tab#}
+            <div role="tabpanel" class="tab-pane" id="tramites">
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" id="cmdZerbikat" class="btn btn-primary">Zerbikat</button>
+                            <button type="button" id="cmdGerkud" class="btn btn-primary">Gerkud</button>
+                            <button type="button" id="cmdInformacion" class="btn btn-primary">{{ "Información" | trans }}</button>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-md-1"></div>
+                    <div class="col-md-10">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>Nº</th>
+                                <th>Tramite</th>
+                                <th>Resultado</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="col-md-1"></div>
+                </div>
+            </div>
         </div>
+
     </div>
+
+
 
 {% endblock content_content %}
 
@@ -26,8 +80,4 @@
             <label>Etxebizitza Zenbakia <span id="txtBizilekuZenbakia"></span></label>
         </div>
     </div>
-
-
-
-
 {% endblock content_sidebar %}
