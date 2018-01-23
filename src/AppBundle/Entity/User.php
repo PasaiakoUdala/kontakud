@@ -77,8 +77,8 @@ class User extends BaseUser implements LdapUserInterface
     /**
      * @var arretak[]
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Arreta", mappedBy="arreta",cascade={"persist"})
-     * @ORM\OrderBy({"name" = "ASC"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Arreta", mappedBy="user",cascade={"persist"})
+     * @ORM\OrderBy({"fetxa" = "ASC"})
      */
     private $arretak;
 

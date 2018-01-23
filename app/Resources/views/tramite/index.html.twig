@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Tramites list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Isresolved</th>
+                <th>Notes</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Contentchangedby</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for tramite in tramites %}
+            <tr>
+                <td><a href="{{ path('admin_tramite_show', { 'id': tramite.id }) }}">{{ tramite.id }}</a></td>
+                <td>{% if tramite.isResolved %}Yes{% else %}No{% endif %}</td>
+                <td>{{ tramite.notes }}</td>
+                <td>{% if tramite.created %}{{ tramite.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if tramite.updated %}{{ tramite.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ tramite.contentChangedBy }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_tramite_show', { 'id': tramite.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_tramite_edit', { 'id': tramite.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_tramite_new') }}">Create a new tramite</a>
+        </li>
+    </ul>
+{% endblock %}

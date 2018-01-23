@@ -23,6 +23,20 @@ class Tramite
     private $id;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length=255)
+     */
+    private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="zerbikatkodea", type="string", length=255,nullable=true)
+     */
+    private $zerbikatkodea;
+
+    /**
      * @var bool
      *
      * @ORM\Column(name="isResolved", type="boolean", nullable=true)
@@ -63,7 +77,7 @@ class Tramite
     /**
      * @var \AppBundle\Entity\Arreta
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Arreta")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Arreta", inversedBy="tramiteak")
      * @ORM\JoinColumn(name="arreta_id", referencedColumnName="id",onDelete="SET NULL")
      */
     private $arreta;
@@ -86,7 +100,7 @@ class Tramite
 
     public function __toString()
     {
-        return "";
+        return $this->getName();
     }
 
     /*****************************************************************************************************************/
@@ -271,5 +285,53 @@ class Tramite
     public function getMota()
     {
         return $this->mota;
+    }
+
+    /**
+     * Set name.
+     *
+     * @param string $name
+     *
+     * @return Tramite
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set zerbikatkodea.
+     *
+     * @param string $zerbikatkodea
+     *
+     * @return Tramite
+     */
+    public function setZerbikatkodea($zerbikatkodea)
+    {
+        $this->zerbikatkodea = $zerbikatkodea;
+
+        return $this;
+    }
+
+    /**
+     * Get zerbikatkodea.
+     *
+     * @return string
+     */
+    public function getZerbikatkodea()
+    {
+        return $this->zerbikatkodea;
     }
 }

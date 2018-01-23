@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Tramite</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ tramite.id }}</td>
+            </tr>
+            <tr>
+                <th>Isresolved</th>
+                <td>{% if tramite.isResolved %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Notes</th>
+                <td>{{ tramite.notes }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if tramite.created %}{{ tramite.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if tramite.updated %}{{ tramite.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Contentchangedby</th>
+                <td>{{ tramite.contentChangedBy }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_tramite_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_tramite_edit', { 'id': tramite.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,7 +1,7 @@
 $(function () {
 
-    // var url = "http://zerbikat.sare.gipuzkoa.net/api/familiaks/064.json";
-    var url = "http://zerbikat.test/app_dev.php/api/familiaks/064.json";
+    var url = "http://zerbikat.sare.gipuzkoa.net/api/familiaks/064.json";
+    // var url = "http://zerbikat.test/app_dev.php/api/familiaks/064.json";
     $.getJSON(url, function( data ) {
         $.each( data, function( key, val ) {
             if (!("parent" in val)) {
@@ -39,8 +39,8 @@ $(function () {
         });
 
 
-        // var url = "http://zerbikat.sare.gipuzkoa.net/api/fitxaks/"+ this.value + ".json";
-        var url = "http://zerbikat.test/app_dev.php/api/fitxaks/"+ this.value + ".json";
+        var url = "http://zerbikat.sare.gipuzkoa.net/api/fitxaks/"+ this.value + ".json";
+        // var url = "http://zerbikat.test/app_dev.php/api/fitxaks/"+ this.value + ".json";
         $.getJSON(url, function( data ) {
             $.each( data, function( key, val ) {
                 if ( $('#txtLocale').val() === "eu") {
@@ -60,11 +60,10 @@ $(function () {
 
     $(document).on("change", "#cmbAzpiFamilia", function () {
 
-        // var url = "http://zerbikat.sare.gipuzkoa.net/api/fitxaks/"+ this.value + ".json";
-
         $("#cmbFitxa").empty();
 
-        var url = "http://zerbikat.test/app_dev.php/api/fitxaks/"+ this.value + ".json";
+        var url = "http://zerbikat.sare.gipuzkoa.net/api/fitxaks/"+ this.value + ".json";
+        // var url = "http://zerbikat.test/app_dev.php/api/fitxaks/"+ this.value + ".json";
         $.getJSON(url, function( data ) {
             $.each( data, function( key, val ) {
                 if ( $('#txtLocale').val() === "eu") {

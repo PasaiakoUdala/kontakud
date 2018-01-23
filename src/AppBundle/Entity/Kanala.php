@@ -65,8 +65,8 @@ class Kanala
     /**
      * @var arretak[]
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Arreta", mappedBy="arreta",cascade={"persist"})
-     * @ORM\OrderBy({"name" = "ASC"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Arreta", mappedBy="kanala",cascade={"persist"})
+     * @ORM\OrderBy({"fetxa" = "ASC"})
      */
     private $arretak;
 

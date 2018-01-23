@@ -1,9 +1,17 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Arretas list</h1>
+{% block headline %}
+    <div class="row">
+        <div class="col-md-1"><a class="btn btn-success" href="{{ path('admin_arreta_new') }}">Arreta berria</a></div>
+        <div class="col-md-10"></div>
+        <div class="col-md-1"><a id="btnArretaGorde" class="btn btn-primary" href="javascript:void(0);">Gorde</a></div>
+    </div>
+{% endblock headline %}
 
-    <table>
+{% block content_content %}
+    <h1>Azken arretak</h1>
+
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>Id</th>
@@ -17,9 +25,6 @@
                 <th>Barrutia</th>
                 <th>Administrazioa</th>
                 <th>Oharra</th>
-                <th>Created</th>
-                <th>Updated</th>
-                <th>Contentchangedby</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -37,9 +42,6 @@
                 <td>{{ arretum.barrutia }}</td>
                 <td>{{ arretum.administrazioa }}</td>
                 <td>{{ arretum.oharra }}</td>
-                <td>{% if arretum.created %}{{ arretum.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if arretum.updated %}{{ arretum.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ arretum.contentChangedBy }}</td>
                 <td>
                     <ul>
                         <li>
@@ -54,10 +56,4 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <ul>
-        <li>
-            <a href="{{ path('admin_arreta_new') }}">Create a new arretum</a>
-        </li>
-    </ul>
 {% endblock %}

@@ -33,7 +33,7 @@ class Arreta
     /**
      * @var string
      *
-     * @ORM\Column(name="nan", type="string", length=255)
+     * @ORM\Column(name="nan", type="string", length=255, nullable=true)
      */
     private $nan;
 
@@ -138,7 +138,7 @@ class Arreta
     /**
      * @var \AppBundle\Entity\Kanala
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Kanala")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Kanala", inversedBy="arretak")
      * @ORM\JoinColumn(name="kanala_id", referencedColumnName="id",onDelete="SET NULL")
      */
     private $kanala;
@@ -153,7 +153,7 @@ class Arreta
 
     public function __toString()
     {
-        return $this-getNan();
+        return $this->getFetxa()->format('YYYY-mm-dd');
     }
 
     /*****************************************************************************************************************/

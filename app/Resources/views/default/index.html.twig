@@ -1,7 +1,14 @@
 {% extends 'base.html.twig' %}
 
 
-{% block headline %}Gerturatze berria{% endblock headline %}
+{% block headline %}
+    <div class="row">
+        <div class="col-md-1"><a href="#">froga</a></div>
+        <div class="col-md-10"></div>
+        <div class="col-md-1"><a href="#dd">dddd</a></div>
+    </div>
+
+{% endblock headline %}
 {% block content_content %}
 
 
@@ -94,8 +101,6 @@
                             </div>
                         </div>
                     </div>
-
-
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Itxi</button>

@@ -42,26 +42,36 @@ class ArretaController extends Controller
      */
     public function newAction(Request $request)
     {
+        $em = $this->getDoctrine()->getManager();
         $user = $this->getUser();
-        $arretum = new Arreta();
-        $arretum->setUser( $user );
+        $arreta = new Arreta();
+        $arreta->setUser( $user );
+        $arreta->setFetxa( new \DateTime() );
+        $em->persist( $arreta );
+        $em->flush();
 
 
-        $form = $this->createForm('AppBundle\Form\ArretaType', $arretum);
-        $form->handleRequest($request);
+        return $this->redirectToRoute( 'admin_arreta_edit', array( 'id' => $arreta->getId()) );
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($arretum);
-            $em->flush();
 
-            return $this->redirectToRoute('admin_arreta_show', array('id' => $arretum->getId()));
-        }
 
-        return $this->render('arreta/new.html.twig', array(
-            'arretum' => $arretum,
-            'form' => $form->createView(),
-        ));
+
+
+//        $form = $this->createForm('AppBundle\Form\ArretaType', $arretum);
+//        $form->handleRequest($request);
+//
+//        if ($form->isSubmitted() && $form->isValid()) {
+//            $em = $this->getDoctrine()->getManager();
+//            $em->persist($arretum);
+//            $em->flush();
+//
+//            return $this->redirectToRoute('admin_arreta_show', array('id' => $arretum->getId()));
+//        }
+//
+//        return $this->render('arreta/new.html.twig', array(
+//            'arretum' => $arretum,
+//            'form' => $form->createView(),
+//        ));
     }
 
     /**
@@ -106,7 +116,7 @@ class ArretaController extends Controller
         }
 
         return $this->render('arreta/edit.html.twig', array(
-            'arretum' => $arretum,
+            'arreta' => $arretum,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
