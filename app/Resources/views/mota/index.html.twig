@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Motas list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>Created</th>
+                <th>Updated</th>
+                <th>Contentchangedby</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for motum in motas %}
+            <tr>
+                <td><a href="{{ path('admin_mota_show', { 'id': motum.id }) }}">{{ motum.id }}</a></td>
+                <td>{{ motum.name }}</td>
+                <td>{% if motum.created %}{{ motum.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if motum.updated %}{{ motum.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ motum.contentChangedBy }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_mota_show', { 'id': motum.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_mota_edit', { 'id': motum.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_mota_new') }}">Create a new motum</a>
+        </li>
+    </ul>
+{% endblock %}

@@ -26,9 +26,16 @@ class Mota
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255, unique=true)
+     * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="namees", type="string", length=255)
+     */
+    private $namees;
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -185,5 +192,65 @@ class Mota
     public function getContentChangedBy()
     {
         return $this->contentChangedBy;
+    }
+
+    /**
+     * Add tramiteak.
+     *
+     * @param \AppBundle\Entity\Tramite $tramiteak
+     *
+     * @return Mota
+     */
+    public function addTramiteak(\AppBundle\Entity\Tramite $tramiteak)
+    {
+        $this->tramiteak[] = $tramiteak;
+
+        return $this;
+    }
+
+    /**
+     * Remove tramiteak.
+     *
+     * @param \AppBundle\Entity\Tramite $tramiteak
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeTramiteak(\AppBundle\Entity\Tramite $tramiteak)
+    {
+        return $this->tramiteak->removeElement($tramiteak);
+    }
+
+    /**
+     * Get tramiteak.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTramiteak()
+    {
+        return $this->tramiteak;
+    }
+
+    /**
+     * Set namees.
+     *
+     * @param string $namees
+     *
+     * @return Mota
+     */
+    public function setNamees($namees)
+    {
+        $this->namees = $namees;
+
+        return $this;
+    }
+
+    /**
+     * Get namees.
+     *
+     * @return string
+     */
+    public function getNamees()
+    {
+        return $this->namees;
     }
 }

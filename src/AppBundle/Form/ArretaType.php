@@ -2,6 +2,7 @@
 
 namespace AppBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,6 +18,14 @@ class ArretaType extends AbstractType
         $builder
             ->add('fetxa')
             ->add('nan')
+            ->add('kanala',EntityType::class,array(
+                'class' => 'AppBundle:Kanala',
+                'expanded' => true,
+                'multiple' => false,
+                'label_attr' => array(
+                    'class' => 'radio-inline'
+                )
+            ))
             ->add('remitente', ChoiceType::class, array(
                 'choices' => array(
                     'Persona individual' => 'Individual',

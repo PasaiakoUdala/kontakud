@@ -30,6 +30,13 @@ class Kanala
      */
     private $name;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="namees", type="string", length=255)
+     */
+    private $namees;
+
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -73,7 +80,7 @@ class Kanala
 
     public function __toString()
     {
-        return $this-getName();
+        return $this->getName();
     }
 
     /*****************************************************************************************************************/
@@ -185,5 +192,65 @@ class Kanala
     public function getContentChangedBy()
     {
         return $this->contentChangedBy;
+    }
+
+    /**
+     * Add arretak.
+     *
+     * @param \AppBundle\Entity\Arreta $arretak
+     *
+     * @return Kanala
+     */
+    public function addArretak(\AppBundle\Entity\Arreta $arretak)
+    {
+        $this->arretak[] = $arretak;
+
+        return $this;
+    }
+
+    /**
+     * Remove arretak.
+     *
+     * @param \AppBundle\Entity\Arreta $arretak
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeArretak(\AppBundle\Entity\Arreta $arretak)
+    {
+        return $this->arretak->removeElement($arretak);
+    }
+
+    /**
+     * Get arretak.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArretak()
+    {
+        return $this->arretak;
+    }
+
+    /**
+     * Set namees.
+     *
+     * @param string $namees
+     *
+     * @return Kanala
+     */
+    public function setNamees($namees)
+    {
+        $this->namees = $namees;
+
+        return $this;
+    }
+
+    /**
+     * Get namees.
+     *
+     * @return string
+     */
+    public function getNamees()
+    {
+        return $this->namees;
     }
 }

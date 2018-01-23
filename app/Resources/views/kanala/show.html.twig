@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Kanala</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ kanala.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ kanala.name }}</td>
+            </tr>
+            <tr>
+                <th>Created</th>
+                <td>{% if kanala.created %}{{ kanala.created|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updated</th>
+                <td>{% if kanala.updated %}{{ kanala.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Contentchangedby</th>
+                <td>{{ kanala.contentChangedBy }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_kanala_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_kanala_edit', { 'id': kanala.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -224,4 +224,52 @@ class Tramite
     {
         return $this->contentChangedBy;
     }
+
+    /**
+     * Set arreta.
+     *
+     * @param \AppBundle\Entity\Arreta|null $arreta
+     *
+     * @return Tramite
+     */
+    public function setArreta(\AppBundle\Entity\Arreta $arreta = null)
+    {
+        $this->arreta = $arreta;
+
+        return $this;
+    }
+
+    /**
+     * Get arreta.
+     *
+     * @return \AppBundle\Entity\Arreta|null
+     */
+    public function getArreta()
+    {
+        return $this->arreta;
+    }
+
+    /**
+     * Set mota.
+     *
+     * @param \AppBundle\Entity\Mota|null $mota
+     *
+     * @return Tramite
+     */
+    public function setMota(\AppBundle\Entity\Mota $mota = null)
+    {
+        $this->mota = $mota;
+
+        return $this;
+    }
+
+    /**
+     * Get mota.
+     *
+     * @return \AppBundle\Entity\Mota|null
+     */
+    public function getMota()
+    {
+        return $this->mota;
+    }
 }

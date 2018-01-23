@@ -508,4 +508,64 @@ class Arreta
     {
         return $this->user;
     }
+
+    /**
+     * Add tramiteak.
+     *
+     * @param \AppBundle\Entity\Tramite $tramiteak
+     *
+     * @return Arreta
+     */
+    public function addTramiteak(\AppBundle\Entity\Tramite $tramiteak)
+    {
+        $this->tramiteak[] = $tramiteak;
+
+        return $this;
+    }
+
+    /**
+     * Remove tramiteak.
+     *
+     * @param \AppBundle\Entity\Tramite $tramiteak
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeTramiteak(\AppBundle\Entity\Tramite $tramiteak)
+    {
+        return $this->tramiteak->removeElement($tramiteak);
+    }
+
+    /**
+     * Get tramiteak.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTramiteak()
+    {
+        return $this->tramiteak;
+    }
+
+    /**
+     * Set kanala.
+     *
+     * @param \AppBundle\Entity\Kanala|null $kanala
+     *
+     * @return Arreta
+     */
+    public function setKanala(\AppBundle\Entity\Kanala $kanala = null)
+    {
+        $this->kanala = $kanala;
+
+        return $this;
+    }
+
+    /**
+     * Get kanala.
+     *
+     * @return \AppBundle\Entity\Kanala|null
+     */
+    public function getKanala()
+    {
+        return $this->kanala;
+    }
 }

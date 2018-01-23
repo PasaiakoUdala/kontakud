@@ -263,4 +263,40 @@ class User extends BaseUser implements LdapUserInterface
     {
         return $this->notes;
     }
+
+    /**
+     * Add arretak.
+     *
+     * @param \AppBundle\Entity\Arreta $arretak
+     *
+     * @return User
+     */
+    public function addArretak(\AppBundle\Entity\Arreta $arretak)
+    {
+        $this->arretak[] = $arretak;
+
+        return $this;
+    }
+
+    /**
+     * Remove arretak.
+     *
+     * @param \AppBundle\Entity\Arreta $arretak
+     *
+     * @return boolean TRUE if this collection contained the specified element, FALSE otherwise.
+     */
+    public function removeArretak(\AppBundle\Entity\Arreta $arretak)
+    {
+        return $this->arretak->removeElement($arretak);
+    }
+
+    /**
+     * Get arretak.
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArretak()
+    {
+        return $this->arretak;
+    }
 }
