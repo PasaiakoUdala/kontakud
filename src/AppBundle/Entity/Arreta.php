@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -127,11 +128,27 @@ class Arreta
 
 
     /**
+     * @var tramiteak[]
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Tramite", mappedBy="arreta",cascade={"persist"})
+     * @ORM\OrderBy({"name" = "ASC"})
+     */
+    private $tramiteak;
+
+    /**
+     * @var \AppBundle\Entity\Kanala
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Kanala")
+     * @ORM\JoinColumn(name="kanala_id", referencedColumnName="id",onDelete="SET NULL")
+     */
+    private $kanala;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
-
+        $this->tramiteak = new ArrayCollection();
     }
 
     public function __toString()

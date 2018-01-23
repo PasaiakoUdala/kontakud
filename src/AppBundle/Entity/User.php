@@ -74,6 +74,13 @@ class User extends BaseUser implements LdapUserInterface
     /*** ERLAZIOAK ***************************************************************************************************/
     /*****************************************************************************************************************/
 
+    /**
+     * @var arretak[]
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Arreta", mappedBy="arreta",cascade={"persist"})
+     * @ORM\OrderBy({"name" = "ASC"})
+     */
+    private $arretak;
 
     /**
      * Constructor.
@@ -86,6 +93,7 @@ class User extends BaseUser implements LdapUserInterface
         if (empty($this->roles)) {
             $this->roles[] = 'ROLE_USER';
         }
+        $this->arretak = new ArrayCollection();
     }
 
     public function __toString()

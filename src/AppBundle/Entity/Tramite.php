@@ -60,6 +60,21 @@ class Tramite
     /*** ERLAZIOAK ***************************************************************************************************/
     /*****************************************************************************************************************/
 
+    /**
+     * @var \AppBundle\Entity\Arreta
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Arreta")
+     * @ORM\JoinColumn(name="arreta_id", referencedColumnName="id",onDelete="SET NULL")
+     */
+    private $arreta;
+
+    /**
+     * @var \AppBundle\Entity\Mota
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Mota")
+     * @ORM\JoinColumn(name="mota_id", referencedColumnName="id",onDelete="SET NULL")
+     */
+    private $mota;
 
     /**
      * Constructor.

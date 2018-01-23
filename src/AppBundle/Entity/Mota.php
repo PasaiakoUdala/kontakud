@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -53,13 +54,20 @@ class Mota
     /*** ERLAZIOAK ***************************************************************************************************/
     /*****************************************************************************************************************/
 
+    /**
+     * @var tramiteak[]
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Tramite", mappedBy="arreta",cascade={"persist"})
+     * @ORM\OrderBy({"name" = "ASC"})
+     */
+    private $tramiteak;
 
     /**
      * Constructor.
      */
     public function __construct()
     {
-
+        $this->tramiteak = new ArrayCollection();
     }
 
     public function __toString()

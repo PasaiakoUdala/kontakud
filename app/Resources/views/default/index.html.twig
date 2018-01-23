@@ -65,6 +65,47 @@
     </div>
 
 
+    <!-- Modal -->
+    {#<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">#}
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Zerbikat</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select id="cmbFamilia" multiple class="form-control" size="9">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select id="cmbAzpiFamilia" multiple class="form-control" size="9">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select id="cmbFitxa" multiple class="form-control" size="9">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Itxi</button>
+                    <button type="button" class="btn btn-primary">Gorde </button>
+                </div>
+            </div>
+        </div>
+    {#</div>#}
+
+    <input id="txtLocale" type="text" value="{{ app.request.locale }}">
 
 {% endblock content_content %}
 
