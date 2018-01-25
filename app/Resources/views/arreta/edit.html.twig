@@ -11,136 +11,192 @@
 
 {% block content_content %}
 
-<!-- Nav tabs -->
-<ul class="nav nav-tabs" role="tablist">
-    <li role="presentation" class="active"><a href="#datuak" aria-controls="home" role="tab" data-toggle="tab">Datos</a></li>
-    <li role="presentation"><a href="#tramites" aria-controls="profile" role="tab" data-toggle="tab">Tramites</a></li>
-</ul>
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active"><a href="#datuak" aria-controls="home" role="tab"
+                                                  data-toggle="tab">Datos</a></li>
+        <li role="presentation"><a href="#tramites" aria-controls="profile" role="tab" data-toggle="tab">Tramites</a>
+        </li>
+    </ul>
 
-<!-- Tab panes -->
-<div class="tab-content">
+    <!-- Tab panes -->
+    <div class="tab-content">
 
-    {#Datos Tab#}
-    <div role="tabpanel" class="tab-pane active" id="datuak">
-        <div class="row">&nbsp;</div>
-        <div class="row">
-            <div class="col-md-12">
+        {#Datos Tab#}
+        <div role="tabpanel" class="tab-pane active" id="datuak">
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-md-12">
 
-                {{ form_start(edit_form) }}
+                    {{ form_start(edit_form) }}
 
-                <div class="form-group">
-                    {{ form_label(edit_form.kanala) }}
-                    <div class="col-sm-10">
-                        {{ form_widget(edit_form.kanala) }}
+                    <div class="form-group">
+                        {{ form_label(edit_form.kanala) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(edit_form.kanala) }}
+                        </div>
+                        {{ form_errors(edit_form.kanala) }}
                     </div>
-                    {{ form_errors(edit_form.kanala) }}
-                </div>
 
-                <div class="form-group">
-                    {{ form_label(edit_form.remitente) }}
-                    <div class="col-sm-10">
-                        {{ form_widget(edit_form.remitente) }}
+                    <div class="form-group">
+                        {{ form_label(edit_form.remitente) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(edit_form.remitente) }}
+                        </div>
+                        {{ form_errors(edit_form.remitente) }}
                     </div>
-                    {{ form_errors(edit_form.remitente) }}
-                </div>
 
-                <div class="form-group">
-                    {{ form_label(edit_form.genero) }}
-                    <div class="col-sm-10">
-                        {{ form_widget(edit_form.genero) }}
+                    <div class="form-group">
+                        {{ form_label(edit_form.genero) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(edit_form.genero) }}
+                        </div>
+                        {{ form_errors(edit_form.genero) }}
                     </div>
-                    {{ form_errors(edit_form.genero) }}
-                </div>
 
-                <div class="form-group">
-                    {{ form_label(edit_form.adina) }}
-                    <div class="col-sm-10">
-                        {{ form_widget(edit_form.adina) }}
+                    <div class="form-group">
+                        {{ form_label(edit_form.adina) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(edit_form.adina) }}
+                        </div>
+                        {{ form_errors(edit_form.adina) }}
                     </div>
-                    {{ form_errors(edit_form.adina) }}
-                </div>
 
-                <div class="form-group">
-                    {{ form_label(edit_form.nazionalitatea) }}
-                    <div class="col-sm-10">
-                        {{ form_widget(edit_form.nazionalitatea) }}
+                    <div class="form-group">
+                        {{ form_label(edit_form.nazionalitatea) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(edit_form.nazionalitatea) }}
+                        </div>
+                        {{ form_errors(edit_form.nazionalitatea) }}
                     </div>
-                    {{ form_errors(edit_form.nazionalitatea) }}
-                </div>
 
-                <div class="form-group">
-                    {{ form_label(edit_form.hizkuntza) }}
-                    <div class="col-sm-10">
-                        {{ form_widget(edit_form.hizkuntza) }}
+                    <div class="form-group">
+                        {{ form_label(edit_form.hizkuntza) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(edit_form.hizkuntza) }}
+                        </div>
+                        {{ form_errors(edit_form.hizkuntza) }}
                     </div>
-                    {{ form_errors(edit_form.hizkuntza) }}
-                </div>
 
-                <div class="form-group">
-                    {{ form_label(edit_form.barrutia) }}
-                    <div class="col-sm-10">
-                        {{ form_widget(edit_form.barrutia) }}
+                    <div class="form-group">
+                        {{ form_label(edit_form.barrutia) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(edit_form.barrutia) }}
+                        </div>
+                        {{ form_errors(edit_form.barrutia) }}
                     </div>
-                    {{ form_errors(edit_form.barrutia) }}
-                </div>
 
-                <div class="form-group">
-                    {{ form_label(edit_form.administrazioa) }}
-                    <div class="col-sm-10">
-                        {{ form_widget(edit_form.administrazioa) }}
+                    <div class="form-group">
+                        {{ form_label(edit_form.administrazioa) }}
+                        <div class="col-sm-10">
+                            {{ form_widget(edit_form.administrazioa) }}
+                        </div>
+                        {{ form_errors(edit_form.administrazioa) }}
                     </div>
-                    {{ form_errors(edit_form.administrazioa) }}
+
+                    <div class="hidden">
+                        {{ form_row(edit_form.user) }}
+                        {{ form_row(edit_form.fetxa) }}
+                        {{ form_row(edit_form.nan) }}
+
+                    </div>
+
+                    {{ form_end(edit_form) }}
                 </div>
+            </div>
+        </div>
 
-                <div class="hidden">
-                    {{ form_row(edit_form.user) }}
-                    {{ form_row(edit_form.fetxa) }}
-                    {{ form_row(edit_form.nan) }}
-
+        {#Tramites Tab#}
+        <div role="tabpanel" class="tab-pane" id="tramites">
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button type="button" id="cmdZerbikat" class="btn btn-primary" data-toggle="modal" data-target="#modal-zerbikat">Zerbikat</button>
+                        <button type="button" id="cmdGerkud" class="btn btn-primary">Gerkud</button>
+                        <button type="button" id="cmdInformacion"
+                                class="btn btn-primary">{{ "Información" | trans }}</button>
+                    </div>
                 </div>
+                <div class="col-md-1"></div>
+            </div>
+            <div class="row">&nbsp;</div>
+            <div class="row">
+                <div class="col-md-1"></div>
+                <div class="col-md-10">
+                    <table class="table table-bordered table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>Nº</th>
+                            <th>Tramite</th>
+                            <th>Resultado</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for t in arreta.tramiteak %}
+                                <tr>
+                                    <td>{{ t.id }}</td>
+                                    <td>{{ t.name }}</td>
+                                    <td>{{ t.isresolved }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="col-md-1"></div>
+            </div>
+        </div>
 
-                {{ form_end(edit_form) }}
+        <div class="hidden">
+            {{ render(controller('AppBundle:Tramite:new', {'arretaid': arreta.id})) }}
+        </div>
+
+
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal-zerbikat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Zerbikat</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select id="cmbFamilia" multiple class="form-control" size="9">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select id="cmbAzpiFamilia" multiple class="form-control" size="9">
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="form-group">
+                                <select id="cmbFitxa" multiple class="form-control" size="9">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Itxi</button>
+                    <button id="btn-modal-gorde" type="button" class="btn btn-primary">Gorde</button>
+                </div>
             </div>
         </div>
     </div>
 
-    {#Tramites Tab#}
-    <div role="tabpanel" class="tab-pane" id="tramites">
-        <div class="row">&nbsp;</div>
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
-                <div class="btn-group" role="group" aria-label="...">
-                    <button type="button" id="cmdZerbikat" class="btn btn-primary">Zerbikat</button>
-                    <button type="button" id="cmdGerkud" class="btn btn-primary">Gerkud</button>
-                    <button type="button" id="cmdInformacion" class="btn btn-primary">{{ "Información" | trans }}</button>
-                </div>
-            </div>
-            <div class="col-md-1"></div>
-        </div>
-        <div class="row">&nbsp;</div>
-        <div class="row">
-            <div class="col-md-1"></div>
-            <div class="col-md-10">
-                <table class="table table-bordered table-hover table-striped">
-                    <thead>
-                    <tr>
-                        <th>Nº</th>
-                        <th>Tramite</th>
-                        <th>Resultado</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+    <input id="txtLocale" type="hidden" value="{{ app.request.locale }}">
 
-                    </tbody>
-                </table>
-            </div>
-            <div class="col-md-1"></div>
-        </div>
-    </div>
-
-    {{ render(controller('AppBundle:Tramite:new', {'arretaid': arreta.id})) }}
-
-</div>
 
 {% endblock %}

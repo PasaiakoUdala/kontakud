@@ -50,7 +50,11 @@ class TramiteController extends Controller
             throw $this->createNotFoundException();
         }
         $tramite = new Tramite();
-        $form = $this->createForm('AppBundle\Form\TramiteType', $tramite);
+        $tramite->setArreta( $arreta );
+        $form = $this->createForm('AppBundle\Form\TramiteType', $tramite, [
+            'action' => $this->generateUrl('admin_tramite_new', array('arretaid' => $arretaid)),
+            'method' => 'POST',
+        ]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -58,7 +62,7 @@ class TramiteController extends Controller
             $em->persist($tramite);
             $em->flush();
 
-            return $this->redirectToRoute('admin_tramite_show', array('id' => $tramite->getId()));
+            return $this->redirectToRoute('admin_arreta_edit', array('id' => $arreta->getId()));
         }
 
         return $this->render('tramite/new.html.twig', array(
