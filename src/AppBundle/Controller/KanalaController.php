@@ -48,28 +48,12 @@ class KanalaController extends Controller
             $em->persist($kanala);
             $em->flush();
 
-            return $this->redirectToRoute('admin_kanala_show', array('id' => $kanala->getId()));
+            return $this->redirectToRoute('admin_kanala_index');
         }
 
         return $this->render('kanala/new.html.twig', array(
             'kanala' => $kanala,
             'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a kanala entity.
-     *
-     * @Route("/{id}", name="admin_kanala_show")
-     * @Method("GET")
-     */
-    public function showAction(Kanala $kanala)
-    {
-        $deleteForm = $this->createDeleteForm($kanala);
-
-        return $this->render('kanala/show.html.twig', array(
-            'kanala' => $kanala,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -88,7 +72,7 @@ class KanalaController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_kanala_edit', array('id' => $kanala->getId()));
+            return $this->redirectToRoute('admin_kanala_index');
         }
 
         return $this->render('kanala/edit.html.twig', array(

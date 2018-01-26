@@ -1,34 +1,42 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Kanalas list</h1>
 
-    <table>
-        <thead>
+{% block headline %}
+    Kanalen kudeaketa
+{% endblock headline %}
+
+{% block subheadline %}
+    <div class="page-header">
+        <ul class="list-inline">
+            <li>
+                <a class="btn btn-primary" href="{{ path('admin_kanala_new') }}"><i class="fa fa-plus-square" aria-hidden="true"></i> Berria</a>
+            </li>
+        </ul>
+    </div>
+{% endblock subheadline %}
+
+
+{% block content %}
+
+<div class="col-sm-12">
+    <table class="table table-condensed table-hover table-striped">
             <tr>
                 <th>Id</th>
-                <th>Name</th>
-                <th>Created</th>
-                <th>Updated</th>
-                <th>Contentchangedby</th>
-                <th>Actions</th>
+                <th>Kanala (eus)</th>
+                <th>Kanala (cas)</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
         {% for kanala in kanalas %}
             <tr>
-                <td><a href="{{ path('admin_kanala_show', { 'id': kanala.id }) }}">{{ kanala.id }}</a></td>
+                <td><a href="{{ path('admin_kanala_edit', { 'id': kanala.id }) }}">{{ kanala.id }}</a></td>
                 <td>{{ kanala.name }}</td>
-                <td>{% if kanala.created %}{{ kanala.created|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if kanala.updated %}{{ kanala.updated|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ kanala.contentChangedBy }}</td>
+                <td>{{ kanala.namees }}</td>
                 <td>
-                    <ul>
+                    <ul class="list-inline">
                         <li>
-                            <a href="{{ path('admin_kanala_show', { 'id': kanala.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_kanala_edit', { 'id': kanala.id }) }}">edit</a>
+                            <a href="{{ path('admin_kanala_edit', { 'id': kanala.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Aldatu</a>
                         </li>
                     </ul>
                 </td>
@@ -36,10 +44,6 @@
         {% endfor %}
         </tbody>
     </table>
+</div>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_kanala_new') }}">Create a new kanala</a>
-        </li>
-    </ul>
 {% endblock %}
