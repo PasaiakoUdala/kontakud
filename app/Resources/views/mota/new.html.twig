@@ -1,16 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <h1>Motum creation</h1>
+{% block headline %}
+    Tramite moten kudeaketa
+{% endblock headline %}
 
-    {{ form_start(form) }}
+{% block subheadline %}
+    <div class="page-header">
+        <ul class="list-inline">
+            <li>
+                <a class="btn btn-primary" href="{{ path('admin_mota_index') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Itzuli</a>
+                <a id="btnSave" class="btn btn-primary" href="javascript:void(0);"><i class="fa fa-floppy-o" aria-hidden="true"></i> Gorde </a>
+            </li>
+        </ul>
+    </div>
+{% endblock subheadline %}
+
+{% block content %}
+
+    <div class="col-sm-12">
+        {{ form_start(form, {'attr': {'id': 'frmNew'}}) }}
         {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+        {{ form_end(form) }}
+    </div>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_mota_index') }}">Back to the list</a>
-        </li>
-    </ul>
+{% endblock %}
+
+{% block foot_script %}
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function () {
+            $('#btnSave').on('click', function () {
+                var akatsak = 0;
+                if ( $('#appbundle_mota_name').val().length === 0 ) { akatsak=1}
+                if ( $('#appbundle_mota_namees').val().length === 0 ) { akatsak=1}
+
+                if ( akatsak === 0 ) {
+                    $("#frmNew").submit();
+                } else {
+                    alert ("Beharrezko eremuak bete...")
+                }
+            })
+        });
+    </script>
 {% endblock %}

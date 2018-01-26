@@ -51,28 +51,12 @@ class MotaController extends Controller
             $em->persist($motum);
             $em->flush();
 
-            return $this->redirectToRoute('admin_mota_show', array('id' => $motum->getId()));
+            return $this->redirectToRoute( 'admin_mota_index' );
         }
 
         return $this->render('mota/new.html.twig', array(
             'motum' => $motum,
             'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a motum entity.
-     *
-     * @Route("/{id}", name="admin_mota_show")
-     * @Method("GET")
-     */
-    public function showAction(Mota $motum)
-    {
-        $deleteForm = $this->createDeleteForm($motum);
-
-        return $this->render('mota/show.html.twig', array(
-            'motum' => $motum,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -91,7 +75,7 @@ class MotaController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_mota_edit', array('id' => $motum->getId()));
+            return $this->redirectToRoute( 'admin_mota_index' );
         }
 
         return $this->render('mota/edit.html.twig', array(
