@@ -24,11 +24,12 @@ class Builder implements ContainerAwareInterface
     {
         $menu = $factory->createItem( 'root', [ 'navbar' => true ] );
 
-        $menu->addChild( ' Hasiera', [ 'icon' => 'home', 'route' => 'homepage' ] );
         $menu->addChild( 'Taula Laguntzaileak', [ 'icon' => 'th-list' ] );
-        $menu['Taula Laguntzaileak']->addChild('Motak', ['icon' => 'tag', 'route' => 'admin_result_index']);
-//        $menu['Taula Laguntzaileak']->addChild(' Txantiloia', ['icon' => 'bookmark', 'route' => 'admin_kanala_index']);
-//        $menu['Taula Laguntzaileak']->addChild('divider', ['divider' => true]);
+        $menu['Taula Laguntzaileak']->addChild('Kanalak', ['icon' => 'tag', 'route' => 'admin_kanala_index']);
+        $menu['Taula Laguntzaileak']->addChild('divider', ['divider' => true]);
+        $menu['Taula Laguntzaileak']->addChild('Tramiteen emaitza motak', ['icon' => 'tag', 'route' => 'admin_result_index']);
+        $menu['Taula Laguntzaileak']->addChild('Tramiteen motak', ['icon' => 'tag', 'route' => 'admin_mota_index']);
+
 
         return $menu;
     }

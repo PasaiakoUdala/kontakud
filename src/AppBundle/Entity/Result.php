@@ -29,6 +29,13 @@ class Result
      */
     private $name;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="namees", type="string", length=255)
+     */
+    private $namees;
+
 
     /**
      * @Gedmo\Timestampable(on="create")
@@ -221,5 +228,29 @@ class Result
     public function getTramiteak()
     {
         return $this->tramiteak;
+    }
+
+    /**
+     * Set namees.
+     *
+     * @param string $namees
+     *
+     * @return Result
+     */
+    public function setNamees($namees)
+    {
+        $this->namees = $namees;
+
+        return $this;
+    }
+
+    /**
+     * Get namees.
+     *
+     * @return string
+     */
+    public function getNamees()
+    {
+        return $this->namees;
     }
 }

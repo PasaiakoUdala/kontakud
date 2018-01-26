@@ -48,28 +48,12 @@ class ResultController extends Controller
             $em->persist($result);
             $em->flush();
 
-            return $this->redirectToRoute('admin_result_show', array('id' => $result->getId()));
+            return $this->redirectToRoute('admin_result_index');
         }
 
         return $this->render('result/new.html.twig', array(
             'result' => $result,
             'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a result entity.
-     *
-     * @Route("/{id}", name="admin_result_show")
-     * @Method("GET")
-     */
-    public function showAction(Result $result)
-    {
-        $deleteForm = $this->createDeleteForm($result);
-
-        return $this->render('result/show.html.twig', array(
-            'result' => $result,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -88,7 +72,7 @@ class ResultController extends Controller
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_result_edit', array('id' => $result->getId()));
+            return $this->redirectToRoute('admin_result_index');
         }
 
         return $this->render('result/edit.html.twig', array(

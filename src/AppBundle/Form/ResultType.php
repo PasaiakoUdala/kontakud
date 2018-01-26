@@ -15,6 +15,7 @@ class ResultType extends AbstractType
     {
         $builder
             ->add('name')
+            ->add('namees')
         ;
     }/**
      * {@inheritdoc}
