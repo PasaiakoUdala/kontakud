@@ -2,9 +2,10 @@
 
 {% block page_header %}
     <div class="row">
-        <div class="col-md-1"><a class="btn btn-success" href="{{ path('admin_arreta_new') }}">Arreta berria</a></div>
+        {#<div class="col-md-1"><a class="btn btn-success" href="{{ path('admin_arreta_new') }}">Arreta berria</a></div>#}
+        <div class="col-md-1"></div>
         <div class="col-md-10"></div>
-        <div class="col-md-1"><a id="btnArretaGorde" class="btn btn-primary" href="javascript:void(0);">Gorde</a></div>
+        <div class="col-md-1"><a id="btnArretaGorde" class="btn btn-primary" href="javascript:void(0);">Arreta Amaitu</a></div>
     </div>
     <div class="row">&nbsp;</div>
 {% endblock page_header %}
@@ -13,9 +14,11 @@
 
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
-        <li role="presentation" class="active"><a href="#datuak" aria-controls="home" role="tab"
-                                                  data-toggle="tab">Datos</a></li>
-        <li role="presentation"><a href="#tramites" aria-controls="profile" role="tab" data-toggle="tab">Tramites</a>
+        <li role="presentation" class="active">
+            <a href="#datuak" aria-controls="home" role="tab" data-toggle="tab">Datos</a>
+        </li>
+        <li role="presentation">
+            <a href="#tramites" aria-controls="profile" role="tab" data-toggle="tab">Tramites</a>
         </li>
     </ul>
 
@@ -98,7 +101,6 @@
                         {{ form_row(edit_form.user) }}
                         {{ form_row(edit_form.fetxa) }}
                         {{ form_row(edit_form.nan) }}
-
                     </div>
 
                     {{ form_end(edit_form) }}
@@ -131,6 +133,7 @@
                             <th>Nº</th>
                             <th>Tramite</th>
                             <th>Resultado</th>
+                            <th></th>
                         </tr>
                         </thead>
                         <tbody>
@@ -138,8 +141,36 @@
                                 <tr>
                                     <td>{{ t.id }}</td>
                                     <td>{{ t.name }}</td>
-                                    <td>{{ t.isresolved }}</td>
+                                    <td>
+                                        <ul class="list-inline">
+                                            <li><input type="radio"></li>
+                                            <li>aaa</li>
+                                            <li>aaa</li>
+                                        </ul>
+                                    </td>
+                                    <td><a data-tramiteid="{{ t.id }}" href="#">Edit</a></td>
                                 </tr>
+                                {#<div class="modal fade" id="modal-tramite-edit-{{ t.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">#}
+                                    <div class="modal-dialog  modal-lg" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                                            aria-hidden="true">&times;</span>
+                                                </button>
+                                                <h4 class="modal-title" id="myModalLabel">Zerbikat</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    {{ render(controller('AppBundle:Tramite:edit', {'id' : t.id})) }}
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Itxi</button>
+                                                <button id="btn-modal-gorde" type="button" class="btn btn-primary">Gorde</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {#</div>#}
                             {% endfor %}
                         </tbody>
                     </table>
@@ -195,6 +226,8 @@
             </div>
         </div>
     </div>
+
+
 
     <input id="txtLocale" type="hidden" value="{{ app.request.locale }}">
 

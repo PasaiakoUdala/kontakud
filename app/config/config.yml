@@ -112,6 +112,8 @@ fr3d_ldap:
          - { ldap_attr: displayname, user_method: setDisplayname }
          - { ldap_attr: memberof, user_method: setMembers }
       filter: (&(ObjectClass=posixAccount))
+   service:
+      user_hydrator: app.ldap.user_hydrator
 
 
 mopa_bootstrap:

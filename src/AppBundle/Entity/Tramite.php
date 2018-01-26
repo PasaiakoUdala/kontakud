@@ -85,10 +85,19 @@ class Tramite
     /**
      * @var \AppBundle\Entity\Mota
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Mota")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Mota", inversedBy="tramiteak")
      * @ORM\JoinColumn(name="mota_id", referencedColumnName="id",onDelete="SET NULL")
      */
     private $mota;
+
+    /**
+     * @var \AppBundle\Entity\Result
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Result", inversedBy="tramiteak")
+     * @ORM\JoinColumn(name="result_id", referencedColumnName="id",onDelete="SET NULL")
+     */
+    private $result;
+
 
     /**
      * Constructor.
@@ -333,5 +342,29 @@ class Tramite
     public function getZerbikatkodea()
     {
         return $this->zerbikatkodea;
+    }
+
+    /**
+     * Set result.
+     *
+     * @param \AppBundle\Entity\Result|null $result
+     *
+     * @return Tramite
+     */
+    public function setResult(\AppBundle\Entity\Result $result = null)
+    {
+        $this->result = $result;
+
+        return $this;
+    }
+
+    /**
+     * Get result.
+     *
+     * @return \AppBundle\Entity\Result|null
+     */
+    public function getResult()
+    {
+        return $this->result;
     }
 }

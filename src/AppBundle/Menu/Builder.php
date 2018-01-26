@@ -26,7 +26,9 @@ class Builder implements ContainerAwareInterface
 
         $menu->addChild( ' Hasiera', [ 'icon' => 'home', 'route' => 'homepage' ] );
         $menu->addChild( 'Taula Laguntzaileak', [ 'icon' => 'th-list' ] );
-
+        $menu['Taula Laguntzaileak']->addChild('Motak', ['icon' => 'tag', 'route' => 'admin_result_index']);
+//        $menu['Taula Laguntzaileak']->addChild(' Txantiloia', ['icon' => 'bookmark', 'route' => 'admin_kanala_index']);
+//        $menu['Taula Laguntzaileak']->addChild('divider', ['divider' => true]);
 
         return $menu;
     }

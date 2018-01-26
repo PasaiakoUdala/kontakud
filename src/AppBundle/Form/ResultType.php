@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TramiteType extends AbstractType
+class ResultType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -15,11 +15,6 @@ class TramiteType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('zerbikatkodea')
-            ->add('result')
-            ->add('notes')
-            ->add('arreta')
-            ->add('mota')
         ;
     }/**
      * {@inheritdoc}
@@ -27,7 +22,7 @@ class TramiteType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Tramite'
+            'data_class' => 'AppBundle\Entity\Result'
         ));
     }
 
@@ -36,7 +31,7 @@ class TramiteType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_tramite';
+        return 'appbundle_result';
     }
 
 
