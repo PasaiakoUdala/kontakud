@@ -26,8 +26,14 @@ class ResultController extends Controller
 
         $results = $em->getRepository('AppBundle:Result')->findAll();
 
+        $deleteForms = array();
+        foreach ($results as $r) {
+            $deleteForms[$r->getId()] = $this->createDeleteForm($r)->createView();
+        }
+
         return $this->render('result/index.html.twig', array(
             'results' => $results,
+            'deleteforms' => $deleteForms,
         ));
     }
 

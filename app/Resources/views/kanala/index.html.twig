@@ -38,6 +38,11 @@
                         <li>
                             <a href="{{ path('admin_kanala_edit', { 'id': kanala.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Aldatu</a>
                         </li>
+                        <li>
+                            {{ form_start(deleteforms[kanala.id],{'attr': {'id': 'deleteKanalaForm' ~ kanala.id}}) }}
+                                <a class="btnDelete" data-miid="{{ kanala.id }}" href="javascript:void(0)"><i class="fa fa-trash text-danger"></i></a>
+                            {{ form_end(deleteforms[kanala.id]) }}
+                        </li>
                     </ul>
                 </td>
             </tr>
@@ -45,5 +50,22 @@
         </tbody>
     </table>
 </div>
+
+{% endblock %}
+{% block foot_script %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $('.btnDelete').on('click', function () {
+                var r = confirm("{{ 'messages.ziurzaude'|trans }}");
+                if ( r === true ) {
+                    var miid = $(this).data("miid");
+                    var frm = "#deleteKanalaForm" + miid;
+                    console.log(frm);
+                    $(frm).submit();
+                }
+            })
+        })
+    </script>
 
 {% endblock %}

@@ -38,6 +38,11 @@
                             <li>
                                 <a href="{{ path('admin_result_edit', { 'id': result.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Aldatu</a>
                             </li>
+                            <li>
+                                {{ form_start(deleteforms[result.id],{'attr': {'id': 'deleteResultForm' ~ result.id}}) }}
+                                <a class="btnDelete" data-miid="{{ result.id }}" href="javascript:void(0)"><i class="fa fa-trash text-danger"></i></a>
+                                {{ form_end(deleteforms[result.id]) }}
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -45,5 +50,21 @@
             </tbody>
         </table>
     </div>
+
+{% endblock %}
+{% block foot_script %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $('.btnDelete').on('click', function () {
+                var r = confirm("{{ 'messages.ziurzaude'|trans }}");
+                if ( r === true ) {
+                    var miid = $(this).data("miid");
+                    var frm = "#deleteResultForm" + miid;
+                    $(frm).submit();
+                }
+            })
+        })
+    </script>
 
 {% endblock %}

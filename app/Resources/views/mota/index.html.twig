@@ -38,6 +38,11 @@
                             <li>
                                 <a href="{{ path('admin_mota_edit', { 'id': mota.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Aldatu</a>
                             </li>
+                            <li>
+                                {{ form_start(deleteforms[mota.id],{'attr': {'id': 'deleteMotaForm' ~ mota.id}}) }}
+                                <a class="btnDelete" data-miid="{{ mota.id }}" href="javascript:void(0)"><i class="fa fa-trash text-danger"></i></a>
+                                {{ form_end(deleteforms[mota.id]) }}
+                            </li>
                         </ul>
                     </td>
                 </tr>
@@ -45,5 +50,22 @@
             </tbody>
         </table>
     </div>
+
+{% endblock %}
+{% block foot_script %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $('.btnDelete').on('click', function () {
+                var r = confirm("{{ 'messages.ziurzaude'|trans }}");
+                if ( r === true ) {
+                    var miid = $(this).data("miid");
+                    var frm = "#deleteMotaForm" + miid;
+
+                    $(frm).submit();
+                }
+            })
+        })
+    </script>
 
 {% endblock %}

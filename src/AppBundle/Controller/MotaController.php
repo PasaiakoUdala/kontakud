@@ -26,8 +26,14 @@ class MotaController extends Controller
 
         $motas = $em->getRepository('AppBundle:Mota')->findAll();
 
+        $deleteForms = array();
+        foreach ($motas as $mota) {
+            $deleteForms[$mota->getId()] = $this->createDeleteForm($mota)->createView();
+        }
+
         return $this->render('mota/index.html.twig', array(
             'motas' => $motas,
+            'deleteforms' => $deleteForms,
         ));
     }
 

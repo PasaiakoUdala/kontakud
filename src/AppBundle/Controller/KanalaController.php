@@ -26,8 +26,14 @@ class KanalaController extends Controller
 
         $kanalas = $em->getRepository('AppBundle:Kanala')->findAll();
 
+        $deleteForms = array();
+        foreach ($kanalas as $kanala) {
+            $deleteForms[$kanala->getId()] = $this->createDeleteForm($kanala)->createView();
+        }
+
         return $this->render('kanala/index.html.twig', array(
             'kanalas' => $kanalas,
+            'deleteforms' => $deleteForms,
         ));
     }
 
