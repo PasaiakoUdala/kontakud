@@ -5,7 +5,8 @@
         {#<div class="col-md-1"><a class="btn btn-success" href="{{ path('admin_arreta_new') }}">Arreta berria</a></div>#}
         <div class="col-md-1"></div>
         <div class="col-md-10"></div>
-        <div class="col-md-1"><a id="btnArretaGorde" class="btn btn-primary" href="javascript:void(0);">Arreta Amaitu</a></div>
+        <div class="col-md-1"><a id="btnArretaGorde" class="btn btn-primary" href="javascript:void(0);">Arreta
+                                                                                                        Amaitu</a></div>
     </div>
     <div class="row">&nbsp;</div>
 {% endblock page_header %}
@@ -115,8 +116,12 @@
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
                     <div class="btn-group" role="group" aria-label="...">
-                        <button type="button" id="cmdZerbikat" class="btn btn-primary" data-toggle="modal" data-target="#modal-zerbikat">Zerbikat</button>
-                        <button type="button" id="cmdGerkud" class="btn btn-primary">Gerkud</button>
+                        <button type="button" id="cmdZerbikat" class="btn btn-primary" data-toggle="modal"
+                                data-target="#modal-zerbikat">Zerbikat
+                        </button>
+                        <button type="button" id="cmdGerkud" class="btn btn-primary" data-toggle="modal"
+                                data-target="#modal-gerkud">Gerkud
+                        </button>
                         <button type="button" id="cmdInformacion"
                                 class="btn btn-primary">{{ "Información" | trans }}</button>
                     </div>
@@ -132,46 +137,52 @@
                         <tr>
                             <th>Nº</th>
                             <th>Tramite</th>
+                            <th>Notas</th>
                             <th>Resultado</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
-                            {% for t in arreta.tramiteak %}
-                                <tr>
-                                    <td>{{ t.id }}</td>
-                                    <td>{{ t.name }}</td>
-                                    <td>
-                                        <ul class="list-inline">
-                                            <li><input type="radio"></li>
-                                            <li>aaa</li>
-                                            <li>aaa</li>
-                                        </ul>
-                                    </td>
-                                    <td><a data-tramiteid="{{ t.id }}" href="#">Edit</a></td>
-                                </tr>
-                                {#<div class="modal fade" id="modal-tramite-edit-{{ t.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">#}
-                                    <div class="modal-dialog  modal-lg" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
-                                                            aria-hidden="true">&times;</span>
-                                                </button>
-                                                <h4 class="modal-title" id="myModalLabel">Zerbikat</h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="row">
-                                                    {{ render(controller('AppBundle:Tramite:edit', {'id' : t.id})) }}
-                                                </div>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Itxi</button>
-                                                <button id="btn-modal-gorde" type="button" class="btn btn-primary">Gorde</button>
+                        {% for t in arreta.tramiteak %}
+                            <tr>
+                                <td>{{ t.id }}</td>
+                                <td>{{ t.name }}</td>
+                                <td></td>
+                                <td>
+                                    <ul class="list-inline">
+                                        <li><input type="radio"></li>
+                                        <li>aaa</li>
+                                        <li>aaa</li>
+                                    </ul>
+                                </td>
+                                <td><a data-tramiteid="{{ t.id }}" href="#">Edit</a></td>
+                            </tr>
+                            <div class="modal fade" id="modal-tramite-edit-{{ t.id }}" tabindex="-1" role="dialog"
+                                 aria-labelledby="myModalLabel">
+                                <div class="modal-dialog  modal-lg" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close"><span
+                                                        aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h4 class="modal-title" id="myModalLabel">Zerbikat</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="row">
+                                                {{ render(controller('AppBundle:Tramite:edit', {'id' : t.id})) }}
                                             </div>
                                         </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Itxi
+                                            </button>
+                                            <button id="btn-modal-gorde" type="button" class="btn btn-primary">Gorde
+                                            </button>
+                                        </div>
                                     </div>
-                                {#</div>#}
-                            {% endfor %}
+                                </div>
+                            </div>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -227,9 +238,183 @@
         </div>
     </div>
 
+    <!-- Modal -->
+    <div class="modal fade" id="modal-gerkud" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Gerkud</h4>
+                </div>
+                <div class="modal-body">
+                    <form id="frmGerkud">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="txtGerkudFetxa" class="control-label">Fetxa:</label>
+                                    <input type="text" class="form-control" name="data[date]" id="txtGerkudFetxa">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="txtGerkudFullName" class="control-label">Izen Abizenak:</label>
+                                    <input type="text" class="form-control" name="data[user][fullname]" id="txtGerkudFullName">
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="txtGerkudBarrutia" class="control-label">Barrutia:</label>
+                                    <input type="text" class="form-control" name="data[address][locality]"
+                                           id="txtGerkudBarrutia">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="txtGerkudHelbidea" class="control-label">Helbidea:</label>
+                                    <input type="text" class="form-control" name="data[address][address]"
+                                           id="txtGerkudHelbidea">
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <label for="txtGerkudEmail" class="control-label">Email:</label>
+                                    <input type="text" class="form-control" name="data[user][mail]" id="txtGerkudEmail">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label for="txtGerkudTelf" class="control-label">telf:</label>
+                                    <input type="text" class="form-control" name="data[user][phone]" id="txtGerkudTelf">
+                                </div>
+                            </div>
+
+
+                            <label for="txtGerkudNotify" class="control-label">Solicita que se le notifique:</label>
+                            <input type="checkbox" name="data[user][notify]" id="txtGerkudNotify">
+                        </div>
+                        <div class="form-group">
+                            <label for="txtGerkudOharrak">Oharrak</label>
+                            <textarea id="txtGerkudOharrak" class="form-control" rows="3" name="data[comments]"
+                                      placeholder=""></textarea>
+                        </div>
+                        <input type="hidden" name="data[version]" value="2">
+                        <input type="hidden" name="data[key]" value="37d12d33075dc1ecb558042391bc3676">
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Itxi</button>
+                    <button id="btnGerkudSave" type="button" class="btn btn-primary">Gorde</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <input id="txtLocale" type="hidden" value="{{ app.request.locale }}">
 
+    <a id="cmdFroga" href="#">froga</a>
+{% endblock %}
 
+{% block foot_script %}
+    {{ parent() }}
+
+    <script>
+
+        (function ( $ ) {
+            $.fn.serializeObject = function () {
+
+                var self = this,
+                    json = {},
+                    push_counters = {},
+                    patterns = {
+                        "validate": /^[a-zA-Z][a-zA-Z0-9_]*(?:\[(?:\d*|[a-zA-Z0-9_]+)\])*$/,
+                        "key": /[a-zA-Z0-9_]+|(?=\[\])/g,
+                        "push": /^$/,
+                        "fixed": /^\d+$/,
+                        "named": /^[a-zA-Z0-9_]+$/
+                    };
+
+
+                this.build = function ( base, key, value ) {
+                    base[key] = value;
+                    return base;
+                };
+
+                this.push_counter = function ( key ) {
+                    if ( push_counters[key] === undefined ) {
+                        push_counters[key] = 0;
+                    }
+                    return push_counters[key]++;
+                };
+
+                $.each($(this).serializeArray(), function () {
+
+                    // skip invalid keys
+                    if ( !patterns.validate.test(this.name) ) {
+                        return;
+                    }
+
+                    var k,
+                        keys = this.name.match(patterns.key),
+                        merge = this.value,
+                        reverse_key = this.name;
+
+                    while ( (k = keys.pop()) !== undefined ) {
+
+                        // adjust reverse_key
+                        reverse_key = reverse_key.replace(new RegExp("\\[" + k + "\\]$"), "");
+
+                        // push
+                        if ( k.match(patterns.push) ) {
+                            merge = self.build([], self.push_counter(reverse_key), merge);
+                        }
+
+                        // fixed
+                        else if ( k.match(patterns.fixed) ) {
+                            merge = self.build([], k, merge);
+                        }
+
+                        // named
+                        else if ( k.match(patterns.named) ) {
+                            merge = self.build({}, k, merge);
+                        }
+                    }
+
+                    json = $.extend(true, json, merge);
+                });
+
+                return json;
+            };
+        })(jQuery);
+
+        $(document).ready(function () {
+
+            $('#txtGerkudFetxa').datepicker();
+
+            $("#btnGerkudSave").click(function () {
+                var myData = $("#frmGerkud").serializeObject();
+                console.log(myData);
+
+                var url = "http://kexak.pasaia.net/app.php/horkonpon/";
+                var miAjax = $.ajax({
+                                        type: "POST",
+                                        url: url,
+                                        data: myData
+                                    }).done(function ( data ) {
+                    console.log("OK");
+                    console.log(data);
+                    console.log("OK");
+                    location.reload();
+                }).fail(function ( XMLHttpRequest, textStatus, errorThrown ) {
+                    console.log("ERROR");
+                    console.log(XMLHttpRequest);
+                    console.log(textStatus);
+                    alert(textStatus);
+                    console.log(errorThrown);
+                    console.log("ERROR");
+                });
+            });
+
+        });
+
+    </script>
 {% endblock %}

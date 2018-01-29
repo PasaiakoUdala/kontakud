@@ -2,7 +2,9 @@
 
 namespace AppBundle\Form;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -16,7 +18,14 @@ class TramiteType extends AbstractType
         $builder
             ->add('name')
             ->add('zerbikatkodea')
-            ->add('result')
+            ->add('result',EntityType::class,array(
+                'class' => 'AppBundle:Result',
+                'expanded' => true,
+                'multiple' => false,
+                'label_attr' => array(
+                    'class' => 'radio-inline'
+                )
+            ))
             ->add('notes')
             ->add('arreta')
             ->add('mota')

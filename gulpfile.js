@@ -39,6 +39,8 @@ myFonts = [
 myJS = [
     config.yarnDir + "/bootstrap/dist/js/bootstrap.min.js",
     config.yarnDir + "/jquery/dist/jquery.min.js",
+    config.yarnDir + "/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
+    config.yarnDir + "/bootstrap-datepicker/dist/locales/bootstrap-datepicker.eu.min.js",
     config.jsDir   + "/app.js"
 ];
 
@@ -46,6 +48,7 @@ myCSS = [
     config.yarnDir + '/bootstrap/dist/css/bootstrap.min.css',
     config.yarnDir + '/bootstrap/dist/css/bootstrap-theme.min.css',
     config.yarnDir + '/font-awesome/css/font-awesome.min.css',
+    config.yarnDir + '/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css',
     config.cssPath + '/app.css'
 ];
 
