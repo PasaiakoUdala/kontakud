@@ -157,8 +157,7 @@
                                 </td>
                                 <td><a data-tramiteid="{{ t.id }}" href="#">Edit</a></td>
                             </tr>
-                            <div class="modal fade" id="modal-tramite-edit-{{ t.id }}" tabindex="-1" role="dialog"
-                                 aria-labelledby="myModalLabel">
+                            {#<div class="modal fade" id="modal-tramite-edit-{{ t.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">#}
                                 <div class="modal-dialog  modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -166,7 +165,7 @@
                                                     aria-label="Close"><span
                                                         aria-hidden="true">&times;</span>
                                             </button>
-                                            <h4 class="modal-title" id="myModalLabel">Zerbikat</h4>
+                                            <h4 class="modal-title" id="myModalLabel{{ t.id }}">Zerbikat</h4>
                                         </div>
                                         <div class="modal-body">
                                             <div class="row">
@@ -176,12 +175,12 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Itxi
                                             </button>
-                                            <button id="btn-modal-gorde" type="button" class="btn btn-primary">Gorde
+                                            <button type="button" class="btn btn-primary">Gorde
                                             </button>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            {#</div>#}
                         {% endfor %}
                         </tbody>
                     </table>
@@ -190,7 +189,7 @@
             </div>
         </div>
 
-        <div class="hidden">
+        <div class="">
             {{ render(controller('AppBundle:Tramite:new', {'arretaid': arreta.id})) }}
         </div>
 
@@ -253,12 +252,13 @@
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <label for="txtGerkudFetxa" class="control-label">Fetxa:</label>
+                                    <label for="txtGerkudFetxa" class="control-label">Data:</label>
                                     <input type="text" class="form-control" name="data[date]" id="txtGerkudFetxa">
                                 </div>
                                 <div class="col-sm-6">
                                     <label for="txtGerkudFullName" class="control-label">Izen Abizenak:</label>
-                                    <input type="text" class="form-control" name="data[user][fullname]" id="txtGerkudFullName">
+                                    <input type="text" class="form-control" name="data[user][fullname]"
+                                           id="txtGerkudFullName">
                                 </div>
 
                             </div>
@@ -319,101 +319,22 @@
 
     <script>
 
-        (function ( $ ) {
-            $.fn.serializeObject = function () {
-
-                var self = this,
-                    json = {},
-                    push_counters = {},
-                    patterns = {
-                        "validate": /^[a-zA-Z][a-zA-Z0-9_]*(?:\[(?:\d*|[a-zA-Z0-9_]+)\])*$/,
-                        "key": /[a-zA-Z0-9_]+|(?=\[\])/g,
-                        "push": /^$/,
-                        "fixed": /^\d+$/,
-                        "named": /^[a-zA-Z0-9_]+$/
-                    };
-
-
-                this.build = function ( base, key, value ) {
-                    base[key] = value;
-                    return base;
-                };
-
-                this.push_counter = function ( key ) {
-                    if ( push_counters[key] === undefined ) {
-                        push_counters[key] = 0;
-                    }
-                    return push_counters[key]++;
-                };
-
-                $.each($(this).serializeArray(), function () {
-
-                    // skip invalid keys
-                    if ( !patterns.validate.test(this.name) ) {
-                        return;
-                    }
-
-                    var k,
-                        keys = this.name.match(patterns.key),
-                        merge = this.value,
-                        reverse_key = this.name;
-
-                    while ( (k = keys.pop()) !== undefined ) {
-
-                        // adjust reverse_key
-                        reverse_key = reverse_key.replace(new RegExp("\\[" + k + "\\]$"), "");
-
-                        // push
-                        if ( k.match(patterns.push) ) {
-                            merge = self.build([], self.push_counter(reverse_key), merge);
-                        }
-
-                        // fixed
-                        else if ( k.match(patterns.fixed) ) {
-                            merge = self.build([], k, merge);
-                        }
-
-                        // named
-                        else if ( k.match(patterns.named) ) {
-                            merge = self.build({}, k, merge);
-                        }
-                    }
-
-                    json = $.extend(true, json, merge);
-                });
-
-                return json;
-            };
-        })(jQuery);
-
         $(document).ready(function () {
-
-            $('#txtGerkudFetxa').datepicker();
-
-            $("#btnGerkudSave").click(function () {
-                var myData = $("#frmGerkud").serializeObject();
-                console.log(myData);
-
-                var url = "http://kexak.pasaia.net/app.php/horkonpon/";
-                var miAjax = $.ajax({
-                                        type: "POST",
-                                        url: url,
-                                        data: myData
-                                    }).done(function ( data ) {
-                    console.log("OK");
-                    console.log(data);
-                    console.log("OK");
-                    location.reload();
-                }).fail(function ( XMLHttpRequest, textStatus, errorThrown ) {
-                    console.log("ERROR");
-                    console.log(XMLHttpRequest);
-                    console.log(textStatus);
-                    alert(textStatus);
-                    console.log(errorThrown);
-                    console.log("ERROR");
+            var url = "http://zerbikat.sare.gipuzkoa.net/api/familiaks/064.json";
+            $.getJSON(url, function( data ) {
+                $.each( data, function( key, val ) {
+                    if (!("parent" in val)) {
+                        if ( $('#txtLocale').val() === "eu" ) {
+                            $('#cmbFamilia').append("<option value='" + val.id + "'>" + val.familiaeu + "</option>");
+                        } else {
+                            $('#cmbFamilia').append("<option value='" + val.id + "'>" + val.familiaes + "</option>");
+                        }
+                    }
                 });
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                console.log("error " + textStatus);
+                console.log("incoming Text " + jqXHR.responseText);
             });
-
         });
 
     </script>

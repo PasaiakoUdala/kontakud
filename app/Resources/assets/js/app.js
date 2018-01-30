@@ -4,7 +4,7 @@ $(function () {
         $('#appbundle_tramite_zerbikatkodea').val($("#cmbFitxa").val());
         $("#appbundle_tramite_name").val($("#appbundle_tramite_mota option:selected").text() + " - " + $("#cmbFitxa").val());
         $("#modal-zerbikat").modal("hide");
-        $('#frmTramiteNew').submit();
+        // $('#frmTramiteNew').submit();
     });
 
     $("#txtNan").on("blur", function () {
@@ -51,22 +51,6 @@ $(function () {
     /*****************************************************************************************************************/
     /*** Zerbikat Select-ak ******************************************************************************************/
     /*****************************************************************************************************************/
-    var url = "http://zerbikat.sare.gipuzkoa.net/api/familiaks/064.json";
-    $.getJSON(url, function( data ) {
-        $.each( data, function( key, val ) {
-            if (!("parent" in val)) {
-                if ( $('#txtLocale').val() === "eu" ) {
-                    $('#cmbFamilia').append("<option value='" + val.id + "'>" + val.familiaeu + "</option>");
-                } else {
-                    $('#cmbFamilia').append("<option value='" + val.id + "'>" + val.familiaes + "</option>");
-                }
-            }
-        });
-    }).fail(function(jqXHR, textStatus, errorThrown) {
-        console.log("error " + textStatus);
-        console.log("incoming Text " + jqXHR.responseText);
-
-    });
 
 
     $(document).on("change", "#cmbFamilia", function () {
@@ -130,4 +114,101 @@ $(function () {
 
     });
 
+
+    $.fn.datepicker.defaults.format = "mm/dd/yyyy";
+    $("#txtGerkudFetxa").datepicker({
+        language: "eu"
+    });
+
+    $("#btnGerkudSave").click(function () {
+        var myData = $("#frmGerkud").serializeObject();
+
+        var url = "http://kexak.pasaia.net/app.php/horkonpon/";
+        var miAjax = $.ajax({
+            type: "POST",
+            url: url,
+            data: myData
+        }).done(function ( data ) {
+            console.log(data);
+            var myData = jQuery.parseJSON(data);
+            console.log(myData.code);
+            console.log();
+        }).fail(function ( XMLHttpRequest, textStatus, errorThrown ) {
+            console.log("ERROR");
+            console.log(XMLHttpRequest);
+            console.log(textStatus);
+            alert(textStatus);
+            console.log(errorThrown);
+            console.log("ERROR");
+        });
+    });
+
+
 });
+
+(function ( $ ) {
+    $.fn.serializeObject = function () {
+
+        var self = this,
+            json = {},
+            push_counters = {},
+            patterns = {
+                "validate": /^[a-zA-Z][a-zA-Z0-9_]*(?:\[(?:\d*|[a-zA-Z0-9_]+)\])*$/,
+                "key": /[a-zA-Z0-9_]+|(?=\[\])/g,
+                "push": /^$/,
+                "fixed": /^\d+$/,
+                "named": /^[a-zA-Z0-9_]+$/
+            };
+
+
+        this.build = function ( base, key, value ) {
+            base[key] = value;
+            return base;
+        };
+
+        this.push_counter = function ( key ) {
+            if ( push_counters[key] === undefined ) {
+                push_counters[key] = 0;
+            }
+            return push_counters[key]++;
+        };
+
+        $.each($(this).serializeArray(), function () {
+
+            // skip invalid keys
+            if ( !patterns.validate.test(this.name) ) {
+                return;
+            }
+
+            var k,
+                keys = this.name.match(patterns.key),
+                merge = this.value,
+                reverse_key = this.name;
+
+            while ( (k = keys.pop()) !== undefined ) {
+
+                // adjust reverse_key
+                reverse_key = reverse_key.replace(new RegExp("\\[" + k + "\\]$"), "");
+
+                // push
+                if ( k.match(patterns.push) ) {
+                    merge = self.build([], self.push_counter(reverse_key), merge);
+                }
+
+                // fixed
+                else if ( k.match(patterns.fixed) ) {
+                    merge = self.build([], k, merge);
+                }
+
+                // named
+                else if ( k.match(patterns.named) ) {
+                    merge = self.build({}, k, merge);
+                }
+            }
+
+            json = $.extend(true, json, merge);
+        });
+
+        return json;
+    };
+})(jQuery);
