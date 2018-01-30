@@ -17,7 +17,7 @@ class TramiteType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('zerbikatkodea')
+            ->add('kodea')
             ->add('result',EntityType::class,array(
                 'class' => 'AppBundle:Result',
                 'expanded' => true,

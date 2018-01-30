@@ -26,8 +26,14 @@ class ArretaController extends Controller
 
         $arretas = $em->getRepository('AppBundle:Arreta')->findAll();
 
+        $deleteForms = array();
+        foreach ($arretas as $a) {
+            $deleteForms[$a->getId()] = $this->createDeleteForm($a)->createView();
+        }
+
         return $this->render('arreta/index.html.twig', array(
             'arretas' => $arretas,
+            'deleteforms' => $deleteForms,
         ));
     }
 

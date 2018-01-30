@@ -1,12 +1,5 @@
 $(function () {
 
-    $("#btn-modal-gorde").on("click", function () {
-        $('#appbundle_tramite_zerbikatkodea').val($("#cmbFitxa").val());
-        $("#appbundle_tramite_name").val($("#appbundle_tramite_mota option:selected").text() + " - " + $("#cmbFitxa").val());
-        $("#modal-zerbikat").modal("hide");
-        // $('#frmTramiteNew').submit();
-    });
-
     $("#txtNan").on("blur", function () {
 
         //44152950 Ruth
@@ -51,8 +44,6 @@ $(function () {
     /*****************************************************************************************************************/
     /*** Zerbikat Select-ak ******************************************************************************************/
     /*****************************************************************************************************************/
-
-
     $(document).on("change", "#cmbFamilia", function () {
 
         $("#cmbFitxa").empty();
@@ -113,11 +104,21 @@ $(function () {
         });
 
     });
-
+    /*****************************************************************************************************************/
+    /*** FIN Zerbikat Select-ak ******************************************************************************************/
+    /*****************************************************************************************************************/
 
     $.fn.datepicker.defaults.format = "mm/dd/yyyy";
     $("#txtGerkudFetxa").datepicker({
         language: "eu"
+    });
+
+
+    $("#btn-modal-gorde").on("click", function () {
+        $('#appbundle_tramite_kodea').val($("#cmbFitxa").val());
+        $("#appbundle_tramite_name").val($("#appbundle_tramite_mota option:selected").text() + " - " + $("#cmbFitxa").val());
+        $("#modal-zerbikat").modal("hide");
+        $('#frmTramiteNew').submit();
     });
 
     $("#btnGerkudSave").click(function () {
@@ -133,6 +134,11 @@ $(function () {
             var myData = jQuery.parseJSON(data);
             console.log(myData.code);
             console.log();
+            $('#appbundle_tramite_kodea').val(data.code);
+            $("#appbundle_tramite_name").val($("#appbundle_tramite_mota option:selected").text() + " - " + myData.code);
+            $("#modal-zerbikat").modal("hide");
+            $('#frmTramiteNew').submit();
+
         }).fail(function ( XMLHttpRequest, textStatus, errorThrown ) {
             console.log("ERROR");
             console.log(XMLHttpRequest);

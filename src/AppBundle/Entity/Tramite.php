@@ -32,9 +32,9 @@ class Tramite
     /**
      * @var string
      *
-     * @ORM\Column(name="zerbikatkodea", type="string", length=255,nullable=true)
+     * @ORM\Column(name="kodea", type="string", length=255,nullable=true)
      */
-    private $zerbikatkodea;
+    private $kodea;
 
     /**
      * @var bool
@@ -320,29 +320,6 @@ class Tramite
         return $this->name;
     }
 
-    /**
-     * Set zerbikatkodea.
-     *
-     * @param string $zerbikatkodea
-     *
-     * @return Tramite
-     */
-    public function setZerbikatkodea($zerbikatkodea)
-    {
-        $this->zerbikatkodea = $zerbikatkodea;
-
-        return $this;
-    }
-
-    /**
-     * Get zerbikatkodea.
-     *
-     * @return string
-     */
-    public function getZerbikatkodea()
-    {
-        return $this->zerbikatkodea;
-    }
 
     /**
      * Set result.
@@ -366,5 +343,29 @@ class Tramite
     public function getResult()
     {
         return $this->result;
+    }
+
+    /**
+     * Set kodea.
+     *
+     * @param string|null $kodea
+     *
+     * @return Tramite
+     */
+    public function setKodea($kodea = null)
+    {
+        $this->kodea = $kodea;
+
+        return $this;
+    }
+
+    /**
+     * Get kodea.
+     *
+     * @return string|null
+     */
+    public function getKodea()
+    {
+        return $this->kodea;
     }
 }

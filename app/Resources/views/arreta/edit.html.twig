@@ -157,7 +157,7 @@
                                 </td>
                                 <td><a data-tramiteid="{{ t.id }}" href="#">Edit</a></td>
                             </tr>
-                            {#<div class="modal fade" id="modal-tramite-edit-{{ t.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">#}
+                            <div class="modal fade" id="modal-tramite-edit-{{ t.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                                 <div class="modal-dialog  modal-lg" role="document">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -180,7 +180,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            {#</div>#}
+                            </div>
                         {% endfor %}
                         </tbody>
                     </table>
@@ -189,13 +189,11 @@
             </div>
         </div>
 
-        <div class="">
+        <div class="hidden">
             {{ render(controller('AppBundle:Tramite:new', {'arretaid': arreta.id})) }}
         </div>
 
-
     </div>
-
 
     <!-- Modal -->
     <div class="modal fade" id="modal-zerbikat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
@@ -307,11 +305,8 @@
         </div>
     </div>
 
-
-
     <input id="txtLocale" type="hidden" value="{{ app.request.locale }}">
 
-    <a id="cmdFroga" href="#">froga</a>
 {% endblock %}
 
 {% block foot_script %}
