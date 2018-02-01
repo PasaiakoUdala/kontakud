@@ -25,9 +25,9 @@
         {% for arreta in arretas %}
             <tr>
                 <td><a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.id }}</a></td>
-                <td>{% if arreta.fetxa %}{{ arreta.fetxa|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ arreta.nan }}</td>
-                <td>{{ arreta.oharra }}</td>
+                <td>{% if arreta.fetxa %}<a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.fetxa|date('Y-m-d') }}</a>{% endif %}</td>
+                <td><a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.nan }}</a></td>
+                <td><a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.oharra }}</a></td>
                 <td>
                     <ul class="list-inline">
                         <li>

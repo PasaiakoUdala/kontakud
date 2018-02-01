@@ -108,11 +108,18 @@ $(function () {
     /*** FIN Zerbikat Select-ak ******************************************************************************************/
     /*****************************************************************************************************************/
 
+
+    /*****************************************************************************************************************/
+    /**** Tramite tab ************************************************************************************************/
+    /*****************************************************************************************************************/
+    var fetxa = new Date();
     $.fn.datepicker.defaults.format = "mm/dd/yyyy";
     $("#txtGerkudFetxa").datepicker({
-        language: "eu"
+        language: "eu",
+        todayHighlight: true,
+        setDate: fetxa,
+        "autoclose": true
     });
-
 
     $("#btn-modal-gorde").on("click", function () {
         $('#appbundle_tramite_kodea').val($("#cmbFitxa").val());
@@ -122,7 +129,10 @@ $(function () {
     });
 
     $("#btnGerkudSave").click(function () {
-        var myData = $("#frmGerkud").serializeObject();
+
+        if ( $('#txtGerkudFetxa') )
+
+            var myData = $("#frmGerkud").serializeObject();
 
         var url = "http://kexak.pasaia.net/app.php/horkonpon/";
         var miAjax = $.ajax({
@@ -148,6 +158,15 @@ $(function () {
             console.log("ERROR");
         });
     });
+
+    $("input[name='radioResult']").on('change', function() {
+        var valBerria = this.value;
+        $("input[name='appbundle_tramite[result]'][value='"+valBerria+"']").prop('checked',true);
+    });
+    /*****************************************************************************************************************/
+    /**** FIN Tramite tab ********************************************************************************************/
+    /*****************************************************************************************************************/
+
 
 
 });

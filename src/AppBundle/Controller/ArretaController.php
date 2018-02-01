@@ -115,6 +115,9 @@ class ArretaController extends Controller
         $editForm = $this->createForm('AppBundle\Form\ArretaType', $arretum);
         $editForm->handleRequest($request);
 
+        $em = $this->getDoctrine()->getManager();
+        $results = $em->getRepository( 'AppBundle:Result' )->findAll();
+
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -123,6 +126,7 @@ class ArretaController extends Controller
 
         return $this->render('arreta/edit.html.twig', array(
             'arreta' => $arretum,
+            'results'=> $results,
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
