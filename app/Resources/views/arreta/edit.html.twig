@@ -2,11 +2,10 @@
 
 {% block page_header %}
     <div class="row">
-        {#<div class="col-md-1"><a class="btn btn-success" href="{{ path('admin_arreta_new') }}">Arreta berria</a></div>#}
+
         <div class="col-md-1"></div>
-        <div class="col-md-1"><a id="btnArretaGorde" class="btn btn-primary" href="javascript:void(0);">Arreta
-                <div class="col-md-10"></div>
-                                                                                                        Amaitu</a></div>
+        <div class="col-md-1">
+            <a id="btnArretaGorde" class="btn btn-primary" href="javascript:void(0);">Arreta                                                                                                   Amaitu</a></div>
     </div>
     <div class="row">&nbsp;</div>
 {% endblock page_header %}
@@ -137,7 +136,7 @@
                         <tr>
                             <th>Nº</th>
                             <th>Tramite</th>
-                            <th>Notas</th>
+                            <th>{{ "Código" | trans }}</th>
                             <th>Resultado</th>
                             <th></th>
                         </tr>
@@ -147,46 +146,57 @@
                             <tr>
                                 <td>{{ t.id }}</td>
                                 <td>{{ t.name }}</td>
-                                <td></td>
+                                <td>{{ t.kodea }}</td>
                                 <td>
                                     <ul class="list-inline">
                                         {% for r in results %}
                                             <li>
-                                                <label for="editResuslt-{{ arreta.id ~ r.id }}" class="required radio-inline">
-                                                    <input type="radio" name="radioResult" data-tramiteid="{{ t.id }}"
-                                                           id="editResuslt-{{ arreta.id ~ r.id }}" class="radioResult"
-                                                           value="{{ r.id }}" required="required">{{ r.name }}
+                                                <label for="editResuslt-{{ t.id ~ "-" ~ r.id }}"
+                                                       class="required radio-inline">
+                                                    <input type="radio" name="radioResult{{ t.id }}" data-tramiteid="{{ t.id }}"
+                                                           id="editResuslt-{{ t.id ~ "-" ~ r.id }}" class="radioResult"
+                                                           value="{{ r.id }}" required="required"
+                                                            {% if t.result is defined and t.result.id == r.id %} checked="checked" {% endif %}
+                                                    >{{ r.name }}
                                                 </label>
                                             </li>
                                         {% endfor %}
                                     </ul>
                                 </td>
-                                <td><a data-tramiteid="{{ t.id }}" href="#">Edit</a></td>
-                            </tr>
-                            {#<div class="modal fade" id="modal-tramite-edit-{{ t.id }}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">#}
-                                <div class="modal-dialog  modal-lg" role="document">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal"
-                                                    aria-label="Close"><span
-                                                        aria-hidden="true">&times;</span>
-                                            </button>
-                                            <h4 class="modal-title" id="myModalLabel{{ t.id }}">Zerbikat</h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                {{ render(controller('AppBundle:Tramite:edit', {'id' : t.id})) }}
+                                <td>
+                                    <a data-tramiteid="{{ t.id }}" href="javascript:void(0)" data-toggle="modal"
+                                       data-target="#modal-tramite-edit-{{ t.id }}"><i class="fa fa-pencil"
+                                                                                       aria-hidden="true"></i></a>
+
+                                    <div class="modal fade" id="modal-tramite-edit-{{ t.id }}" tabindex="-1"
+                                         role="dialog" aria-labelledby="myModalLabel">
+                                        <div class="modal-dialog  modal-lg" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"
+                                                            aria-label="Close"><span
+                                                                aria-hidden="true">&times;</span>
+                                                    </button>
+                                                    <h4 class="modal-title" id="myModalLabel{{ t.id }}">Zerbikat</h4>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        {{ render(controller('AppBundle:Tramite:edit', {'id' : t.id})) }}
+                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                        Itxi
+                                                    </button>
+                                                    <button data-tramiteid="{{ t.id }}" type="button"
+                                                            class="btn btn-primary btnAjaxTramite">Gorde
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Itxi
-                                            </button>
-                                            <button type="button" class="btn btn-primary">Gorde
-                                            </button>
-                                        </div>
                                     </div>
-                                </div>
-                            {#</div>#}
+                                </td>
+                            </tr>
                         {% endfor %}
                         </tbody>
                     </table>
@@ -327,21 +337,24 @@
     <script>
 
         $(document).ready(function () {
+
             var url = "http://zerbikat.sare.gipuzkoa.net/api/familiaks/064.json";
-            $.getJSON(url, function( data ) {
-                $.each( data, function( key, val ) {
-                    if (!("parent" in val)) {
-                        if ( $('#txtLocale').val() === "eu" ) {
-                            $('#cmbFamilia').append("<option value='" + val.id + "'>" + val.familiaeu + "</option>");
+            $.getJSON(url, function ( data ) {
+                $.each(data, function ( key, val ) {
+                    if ( !("parent" in val) ) {
+                        if ( $("#txtLocale").val() === "eu" ) {
+                            $("#cmbFamilia").append("<option value='" + val.id + "'>" + val.familiaeu + "</option>");
                         } else {
-                            $('#cmbFamilia').append("<option value='" + val.id + "'>" + val.familiaes + "</option>");
+                            $("#cmbFamilia").append("<option value='" + val.id + "'>" + val.familiaes + "</option>");
                         }
                     }
                 });
-            }).fail(function(jqXHR, textStatus, errorThrown) {
+            }).fail(function ( jqXHR, textStatus, errorThrown ) {
                 console.log("error " + textStatus);
                 console.log("incoming Text " + jqXHR.responseText);
             });
+
+
         });
 
     </script>

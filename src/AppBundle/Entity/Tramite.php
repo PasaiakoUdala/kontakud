@@ -39,9 +39,9 @@ class Tramite
     /**
      * @var bool
      *
-     * @ORM\Column(name="isResolved", type="boolean", nullable=true)
+     * @ORM\Column(name="isClosed", type="boolean", nullable=true)
      */
-    private $isResolved;
+    private $isclosed;
 
     /**
      * @var string
@@ -367,5 +367,29 @@ class Tramite
     public function getKodea()
     {
         return $this->kodea;
+    }
+
+    /**
+     * Set isclosed.
+     *
+     * @param bool|null $isclosed
+     *
+     * @return Tramite
+     */
+    public function setIsclosed($isclosed = null)
+    {
+        $this->isclosed = $isclosed;
+
+        return $this;
+    }
+
+    /**
+     * Get isclosed.
+     *
+     * @return bool|null
+     */
+    public function getIsclosed()
+    {
+        return $this->isclosed;
     }
 }

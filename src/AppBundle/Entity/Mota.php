@@ -64,7 +64,7 @@ class Mota
     /**
      * @var tramiteak[]
      *
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Tramite", mappedBy="arreta",cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Tramite", mappedBy="mota",cascade={"persist"})
      * @ORM\OrderBy({"name" = "ASC"})
      */
     private $tramiteak;

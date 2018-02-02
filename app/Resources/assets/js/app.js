@@ -40,7 +40,6 @@ $(function () {
         }).prop('selected', true)
     });
 
-
     /*****************************************************************************************************************/
     /*** Zerbikat Select-ak ******************************************************************************************/
     /*****************************************************************************************************************/
@@ -105,9 +104,8 @@ $(function () {
 
     });
     /*****************************************************************************************************************/
-    /*** FIN Zerbikat Select-ak ******************************************************************************************/
+    /*** FIN Zerbikat Select-ak **************************************************************************************/
     /*****************************************************************************************************************/
-
 
     /*****************************************************************************************************************/
     /**** Tramite tab ************************************************************************************************/
@@ -159,15 +157,57 @@ $(function () {
         });
     });
 
-    $("input[name='radioResult']").on('change', function() {
+
+    $(".btnAjaxTramite").on("click", function ( e ) {
+        e.preventDefault();
+        var tramiteId = $(this).data("tramiteid");
+        frmAjaxPost(tramiteId);
+    });
+
+    function frmAjaxPost( tramiteId  ) {
+        var url = Routing.generate("admin_tramite_edit", { id: tramiteId });
+        var frm = "#frmTramiteEdit" + tramiteId;
+        $.ajax({
+            type: $(frm).attr("method"),
+            url: $(frm).attr("action"),
+            data: $(frm).serialize()
+        })
+         .done(function ( data ) {
+             if ( typeof data.message !== "undefined" ) {
+                 $("#alertSpot").html("<div class=\"alert alert-success\">\n" +
+                     "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span\n" +
+                     "                                        aria-hidden=\"true\">&times;</span></button>" +
+                     "<p>Ongi grabatu da.</p>" +
+                     "</div>");
+                 $('#alertSpot').delay(3000).fadeOut('slow');
+             }
+         })
+         .fail(function ( jqXHR, textStatus, errorThrown ) {
+             if ( typeof jqXHR.responseJSON !== "undefined" ) {
+                 if ( jqXHR.responseJSON.hasOwnProperty("form") ) {
+                     $("#form_body").html(jqXHR.responseJSON.form);
+                 }
+
+                 $(".form_error").html(jqXHR.responseJSON.message);
+
+             } else {
+                 alert(errorThrown);
+             }
+
+         });
+    }
+
+    $(".radioResult").on('change', function() {
         var valBerria = this.value;
         $("input[name='appbundle_tramite[result]'][value='"+valBerria+"']").prop('checked',true);
+
+        var tramiteId = $(this).data("tramiteid");
+        frmAjaxPost(tramiteId)
+
     });
     /*****************************************************************************************************************/
-    /**** FIN Tramite tab ********************************************************************************************/
+    /*** FIN Tramite tab *********************************************************************************************/
     /*****************************************************************************************************************/
-
-
 
 });
 

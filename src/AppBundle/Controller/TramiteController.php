@@ -3,9 +3,12 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Tramite;
+use http\Env\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Tramite controller.
@@ -90,16 +93,27 @@ class TramiteController extends Controller
     /**
      * Displays a form to edit an existing tramite entity.
      *
-     * @Route("/{id}/edit", name="admin_tramite_edit")
+     * @Route("/{id}/edit", options={"expose"=true}, name="admin_tramite_edit")
      * @Method({"GET", "POST"})
+     * @param Request $request
+     * @param Tramite $tramite
+     *
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, Tramite $tramite)
     {
         $deleteForm = $this->createDeleteForm($tramite);
-        $editForm = $this->createForm('AppBundle\Form\TramiteType', $tramite);
+        $editForm = $this->createForm('AppBundle\Form\TramiteType', $tramite, [
+            'action' => $this->generateUrl('admin_tramite_edit', array( 'id' => $tramite->getId())),
+            'method' => 'POST'
+        ]);
         $editForm->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if($request->isXmlHttpRequest()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return new JsonResponse(array('message' => 'Success!'), 200);
+        } else if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
             return $this->redirectToRoute('admin_tramite_edit', array('id' => $tramite->getId()));

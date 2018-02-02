@@ -31,6 +31,9 @@
 
         {% block head_script %}
             {#<script src="{{ asset('js/modernizr.js') }}"></script>#}
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
         {% endblock head_script %}
 
     </head>
@@ -87,12 +90,12 @@
     {% endblock page_header %}
 
     {% block content_row %}
-        <div id="alertSpot">
+        <div>
             <div class="col-md-3"></div>
-            <div class="col-md-6">
+            <div class="col-md-6" id="alertSpot">
                 {% for type, flashes in app.session.flashbag.all %}
                     {% for flash in flashes %}
-                        <div class="alert alert-{{ type }} fade in alert-dismissible" role="alert">
+                        <div id="divAlertSpot" class="alert alert-{{ type }} fade in alert-dismissible" role="alert">
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                         aria-hidden="true">&times;</span></button>
                             {{ flash }}
