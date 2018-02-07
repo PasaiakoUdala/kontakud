@@ -3,12 +3,13 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Tramite;
-use http\Env\Response;
+use JMS\Serializer\Serializer;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Tramite controller.
@@ -43,7 +44,7 @@ class TramiteController extends Controller
      *
      * @param         $arretaid
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return Response|\Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function newAction(Request $request, $arretaid)
     {
@@ -60,7 +61,16 @@ class TramiteController extends Controller
         ]);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($tramite);
+            $em->flush();
+
+            $serializer = $this->container->get('jms_serializer');
+            $reports = $serializer->serialize($tramite, 'json');
+            return new Response($reports); // should be $reports as $doctrineobject is not serialized
+
+        } else if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->persist($tramite);
             $em->flush();
@@ -112,7 +122,7 @@ class TramiteController extends Controller
         if($request->isXmlHttpRequest()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return new JsonResponse(array('message' => 'Success!'), 200);
+            return new JsonResponse(array('message' => 'Success!', 'tramite' =>json_encode($tramite)), 200);
         } else if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
@@ -151,7 +161,7 @@ class TramiteController extends Controller
      *
      * @param Tramite $tramite The tramite entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface
      */
     private function createDeleteForm(Tramite $tramite)
     {

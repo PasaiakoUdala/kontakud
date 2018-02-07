@@ -1,5 +1,10 @@
 $(function () {
 
+    var url = document.location.toString();
+    if (url.match('#')) {
+        $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
+    }
+
     $("#txtNan").on("blur", function () {
 
         //44152950 Ruth
@@ -15,7 +20,7 @@ $(function () {
             $("#txtBizilekuZenbakia").text(data[0]["NUMERO FIJO"]);
         });
 
-        myPromise.fail(function (jqXHR, textStatus, errorThrown) {
+        myPromise.fail(function ( jqXHR, textStatus, errorThrown ) {
             console.log(jqXHR.responseText);
             console.log("Akats bat egon da datuak eskuratzerakoan.");
         });
@@ -28,13 +33,13 @@ $(function () {
             message: "Ziur zaude abian dagoen tramitea ezabatu nahi duzula?",
             buttons: {
                 cancel: {
-                    label: '<i class="fa fa-times"></i> Ezeztatu'
+                    label: "<i class=\"fa fa-times\"></i> Ezeztatu"
                 },
                 confirm: {
-                    label: '<i class="fa fa-check"></i> Onartu'
+                    label: "<i class=\"fa fa-check\"></i> Onartu"
                 }
             },
-            callback: function (result) {
+            callback: function ( result ) {
                 if ( result === true ) {
                     $("#frmEzabatuArreta").submit();
                 }
@@ -48,28 +53,28 @@ $(function () {
     });
 
     $("#cmdZerbikat").on("click", function () {
-        $('#appbundle_tramite_mota').find('option').filter(function () {
+        $("#appbundle_tramite_mota").find("option").filter(function () {
             return $(this).html() === "Zerbikat";
-        }).prop('selected', true)
+        }).prop("selected", true);
     });
 
     $("#cmdGerkud").on("click", function () {
-        $('#appbundle_tramite_mota').find('option').filter(function () {
+        $("#appbundle_tramite_mota").find("option").filter(function () {
             return $(this).html() === "Gerkud";
-        }).prop('selected', true)
+        }).prop("selected", true);
     });
 
     $("#cmdInformacion").on("click", function () {
-        $('#appbundle_tramite_mota').find('option').filter(function () {
+        $("#appbundle_tramite_mota").find("option").filter(function () {
             return $(this).html() === "Informazioa";
-        }).prop('selected', true)
+        }).prop("selected", true);
     });
 
     /*****************************************************************************************************************/
     /*** Tab Change **************************************************************************************************/
     /*****************************************************************************************************************/
     $("a[data-toggle=\"tab\"]").on("shown.bs.tab", function ( e ) {
-        if ( e.relatedTarget.hash === "#datuak") {
+        if ( e.relatedTarget.hash === "#datuak" ) {
 
             var frm = "#frmArretaEdit";
             $.ajax({
@@ -84,7 +89,7 @@ $(function () {
                          "                                        aria-hidden=\"true\">&times;</span></button>" +
                          "<p>Datuak ongi grabatu dira.</p>" +
                          "</div>");
-                     $('#alertSpot').show('slow').delay(3000).fadeOut('slow');
+                     $("#alertSpot").show("slow").delay(3000).fadeOut("slow");
                  }
              })
              .fail(function ( jqXHR, textStatus, errorThrown ) {
@@ -124,33 +129,33 @@ $(function () {
         $("#cmbAzpiFamilia").empty();
 
 
-        var url = "http://zerbikat.sare.gipuzkoa.net/api/azpifamiliaks/"+ this.value + ".json";
+        var url = "http://zerbikat.sare.gipuzkoa.net/api/azpifamiliaks/" + this.value + ".json";
         // var url = "http://zerbikat.test/app_dev.php/api/azpifamiliaks/"+ this.value + ".json";
-        $.getJSON(url, function( data ) {
-            $.each( data, function( key, val ) {
-                if ( $('#txtLocale').val() === "eu") {
-                    $('#cmbAzpiFamilia').append( "<option value='" + val.id + "'>" + val.familiaeu + "</option>" );
+        $.getJSON(url, function ( data ) {
+            $.each(data, function ( key, val ) {
+                if ( $("#txtLocale").val() === "eu" ) {
+                    $("#cmbAzpiFamilia").append("<option value='" + val.id + "'>" + val.familiaeu + "</option>");
                 } else {
-                    $('#cmbAzpiFamilia').append( "<option value='" + val.id + "'>" + val.familiaes + "</option>" );
+                    $("#cmbAzpiFamilia").append("<option value='" + val.id + "'>" + val.familiaes + "</option>");
                 }
             });
-        }).fail(function(jqXHR, textStatus, errorThrown) {
+        }).fail(function ( jqXHR, textStatus, errorThrown ) {
             console.log("error " + textStatus);
             console.log("incoming Text " + jqXHR.responseText);
         });
 
 
-        var url = "http://zerbikat.sare.gipuzkoa.net/api/fitxaks/"+ this.value + ".json";
+        var url = "http://zerbikat.sare.gipuzkoa.net/api/fitxaks/" + this.value + ".json";
         // var url = "http://zerbikat.test/app_dev.php/api/fitxaks/"+ this.value + ".json";
-        $.getJSON(url, function( data ) {
-            $.each( data, function( key, val ) {
-                if ( $('#txtLocale').val() === "eu") {
-                    $('#cmbFitxa').append( "<option value='" + val.espedientekodea + "'>" + val.espedientekodea + ' - ' + val.deskribapenaeu +"</option>" );
+        $.getJSON(url, function ( data ) {
+            $.each(data, function ( key, val ) {
+                if ( $("#txtLocale").val() === "eu" ) {
+                    $("#cmbFitxa").append("<option value='" + val.espedientekodea + "'>" + val.espedientekodea + " - " + val.deskribapenaeu + "</option>");
                 } else {
-                    $('#cmbFitxa').append( "<option value='" + val.espedientekodea + "'>" + val.espedientekodea + ' - ' + val.deskribapenaes + "</option>" );
+                    $("#cmbFitxa").append("<option value='" + val.espedientekodea + "'>" + val.espedientekodea + " - " + val.deskribapenaes + "</option>");
                 }
             });
-        }).fail(function(jqXHR, textStatus, errorThrown) {
+        }).fail(function ( jqXHR, textStatus, errorThrown ) {
             console.log("error " + textStatus);
             console.log("incoming Text " + jqXHR.responseText);
         });
@@ -162,17 +167,17 @@ $(function () {
 
         $("#cmbFitxa").empty();
 
-        var url = "http://zerbikat.sare.gipuzkoa.net/api/fitxaks/"+ this.value + ".json";
+        var url = "http://zerbikat.sare.gipuzkoa.net/api/fitxaks/" + this.value + ".json";
         // var url = "http://zerbikat.test/app_dev.php/api/fitxaks/"+ this.value + ".json";
-        $.getJSON(url, function( data ) {
-            $.each( data, function( key, val ) {
-                if ( $('#txtLocale').val() === "eu") {
-                    $('#cmbFitxa').append( "<option value='" + val.espedientekodea + "'>" + val.espedientekodea + ' - ' + val.deskribapenaeu +"</option>" );
+        $.getJSON(url, function ( data ) {
+            $.each(data, function ( key, val ) {
+                if ( $("#txtLocale").val() === "eu" ) {
+                    $("#cmbFitxa").append("<option value='" + val.espedientekodea + "'>" + val.espedientekodea + " - " + val.deskribapenaeu + "</option>");
                 } else {
-                    $('#cmbFitxa').append( "<option value='" + val.espedientekodea + "'>" + val.espedientekodea + ' - ' + val.deskribapenaes + "</option>" );
+                    $("#cmbFitxa").append("<option value='" + val.espedientekodea + "'>" + val.espedientekodea + " - " + val.deskribapenaes + "</option>");
                 }
             });
-        }).fail(function(jqXHR, textStatus, errorThrown) {
+        }).fail(function ( jqXHR, textStatus, errorThrown ) {
             console.log("error " + textStatus);
             console.log("incoming Text " + jqXHR.responseText);
         });
@@ -180,10 +185,48 @@ $(function () {
     });
 
     $("#btn-modal-gorde").on("click", function () {
-        $('#appbundle_tramite_kodea').val($("#cmbFitxa").val());
+        $("#appbundle_tramite_kodea").val($("#cmbFitxa").val());
         $("#appbundle_tramite_name").val($("#appbundle_tramite_mota option:selected").text());
         $("#modal-zerbikat").modal("hide");
-        $('#frmTramiteNew').submit();
+        // $('#frmTramiteNew').submit();
+
+        var frm = "#frmTramiteNew";
+        $.ajax({
+            type: $(frm).attr("method"),
+            url: $(frm).attr("action"),
+            data: $(frm).serialize()
+        })
+         .done(function ( data ) {
+         
+             $("#alertSpot").html("<div class=\"alert alert-success nirealert\">\n" +
+                 "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span\n" +
+                 "                                        aria-hidden=\"true\">&times;</span></button>" +
+                 "<p>Datuak ongi grabatu dira.</p>" +
+                 "</div>");
+             $("#alertSpot").delay(3000).fadeOut("slow");
+
+             console.log("grabatu da");
+
+             window.location.href += "#tramites";
+             location.reload();
+
+         })
+         .fail(function ( jqXHR, textStatus, errorThrown ) {
+             if ( typeof jqXHR.responseJSON !== "undefined" ) {
+                 if ( jqXHR.responseJSON.hasOwnProperty("form") ) {
+                     $("#form_body").html(jqXHR.responseJSON.form);
+                 }
+
+                 $(".form_error").html(jqXHR.responseJSON.message);
+
+             } else {
+                 alert(errorThrown);
+             }
+             console.log(jqXHR);
+             console.log(textStatus);
+             console.log(errorThrown);
+         });
+
     });
     /*****************************************************************************************************************/
     /*** FIN Zerbikat Select-ak **************************************************************************************/
@@ -203,7 +246,7 @@ $(function () {
 
     $("#btnGerkudSave").click(function () {
 
-        if ( $('#txtGerkudFetxa') )
+        if ( $("#txtGerkudFetxa") )
 
             var myData = $("#frmGerkud").serializeObject();
 
@@ -215,10 +258,10 @@ $(function () {
         }).done(function ( data ) {
             console.log(data);
             var myData = jQuery.parseJSON(data);
-            $('#appbundle_tramite_kodea').val(data.code);
+            $("#appbundle_tramite_kodea").val(data.code);
             $("#appbundle_tramite_name").val($("#appbundle_tramite_mota option:selected").text() + " - " + myData.code);
             $("#modal-zerbikat").modal("hide");
-            $('#frmTramiteNew').submit();
+            $("#frmTramiteNew").submit();
 
         }).fail(function ( XMLHttpRequest, textStatus, errorThrown ) {
             console.log("ERROR");
@@ -236,8 +279,7 @@ $(function () {
         frmAjaxPost(tramiteId);
     });
 
-    function frmAjaxPost( tramiteId  ) {
-        var url = Routing.generate("admin_tramite_edit", { id: tramiteId });
+    function frmAjaxPost( tramiteId ) {
         var frm = "#frmTramiteEdit" + tramiteId;
         $.ajax({
             type: $(frm).attr("method"),
@@ -251,7 +293,7 @@ $(function () {
                      "                                        aria-hidden=\"true\">&times;</span></button>" +
                      "<p>Datuak ongi grabatu dira.</p>" +
                      "</div>");
-                 $('#alertSpot').delay(3000).fadeOut('slow');
+                 $("#alertSpot").delay(3000).fadeOut("slow");
              }
          })
          .fail(function ( jqXHR, textStatus, errorThrown ) {
@@ -269,12 +311,12 @@ $(function () {
          });
     }
 
-    $(".radioResult").on('change', function() {
+    $(".radioResult").on("change", function () {
         var valBerria = this.value;
-        $("input[name='appbundle_tramite[result]'][value='"+valBerria+"']").prop('checked',true);
+        $("input[name='appbundle_tramite[result]'][value='" + valBerria + "']").prop("checked", true);
 
         var tramiteId = $(this).data("tramiteid");
-        frmAjaxPost(tramiteId)
+        frmAjaxPost(tramiteId);
 
     });
     /*****************************************************************************************************************/

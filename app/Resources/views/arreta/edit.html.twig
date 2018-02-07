@@ -166,7 +166,7 @@
             <div class="row">
                 <div class="col-md-1"></div>
                 <div class="col-md-10">
-                    <table class="table table-bordered table-hover table-striped">
+                    <table class="table table-bordered table-hover table-striped" id="tramiteTable">
                         <thead>
                         <tr>
                             <th>Nº</th>
@@ -247,7 +247,7 @@
             </div>
         </div>
 
-        <div class="hidden">
+        <div class="">
             {{ render(controller('AppBundle:Tramite:new', {'arretaid': arreta.id})) }}
         </div>
 
