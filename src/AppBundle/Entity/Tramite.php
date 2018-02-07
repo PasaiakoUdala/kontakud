@@ -39,6 +39,13 @@ class Tramite
     /**
      * @var string
      *
+     * @ORM\Column(name="zerbikatid", type="string", length=10, nullable=true)
+     */
+    private $zerbikatid;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="notes", type="text", nullable=true)
      */
     private $notes;
@@ -384,5 +391,30 @@ class Tramite
     public function getIsclosed()
     {
         return $this->isclosed;
+    }
+
+
+    /**
+     * Set zerbikatid.
+     *
+     * @param string|null $zerbikatid
+     *
+     * @return Tramite
+     */
+    public function setZerbikatid($zerbikatid = null)
+    {
+        $this->zerbikatid = $zerbikatid;
+
+        return $this;
+    }
+
+    /**
+     * Get zerbikatid.
+     *
+     * @return string|null
+     */
+    public function getZerbikatid()
+    {
+        return $this->zerbikatid;
     }
 }

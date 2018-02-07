@@ -179,9 +179,27 @@
                         <tbody>
                         {% for t in arreta.tramiteak %}
                             <tr>
-                                <td>{{ t.id }}</td>
-                                <td>{{ t.name }}</td>
-                                <td>{{ t.kodea }}</td>
+                                <td>
+                                    {% if t.zerbikatid is defined %}
+                                        <a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}" target="_blank">{{ t.id }}</a>
+                                    {% else %}
+                                        {{ t.id }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if t.zerbikatid is defined %}
+                                        <a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}" target="_blank">{{ t.name }}</a>
+                                    {% else %}
+                                        {{ t.name }}
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    {% if t.zerbikatid is defined %}
+                                        <a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}" target="_blank">{{ t.kodea }}</a>
+                                    {% else %}
+                                        {{ t.kodea }}
+                                    {% endif %}
+                                </td>
                                 <td>
                                     <ul class="list-inline">
                                         {% for r in results %}
@@ -206,6 +224,9 @@
                                     </ul>
                                 </td>
                                 <td>
+                                    {% if t.zerbikatid is defined %}
+                                        <a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    {% endif %}
                                     <a data-tramiteid="{{ t.id }}" href="javascript:void(0)" data-toggle="modal"
                                        data-target="#modal-tramite-edit-{{ t.id }}"><i class="fa fa-pencil"
                                                                                        aria-hidden="true"></i></a>
@@ -247,7 +268,7 @@
             </div>
         </div>
 
-        <div class="">
+        <div class="hidden">
             {{ render(controller('AppBundle:Tramite:new', {'arretaid': arreta.id})) }}
         </div>
 
@@ -379,6 +400,11 @@
     <script>
 
         $(document).ready(function () {
+
+            var url = document.location.toString();
+            if (url.match('#')) {
+                $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
+            }
 
             var url = "http://zerbikat.sare.gipuzkoa.net/api/familiaks/064.json";
             $.getJSON(url, function ( data ) {

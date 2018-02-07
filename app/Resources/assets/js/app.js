@@ -1,10 +1,5 @@
 $(function () {
 
-    var url = document.location.toString();
-    if (url.match('#')) {
-        $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
-    }
-
     $("#txtNan").on("blur", function () {
 
         //44152950 Ruth
@@ -172,9 +167,9 @@ $(function () {
         $.getJSON(url, function ( data ) {
             $.each(data, function ( key, val ) {
                 if ( $("#txtLocale").val() === "eu" ) {
-                    $("#cmbFitxa").append("<option value='" + val.espedientekodea + "'>" + val.espedientekodea + " - " + val.deskribapenaeu + "</option>");
+                    $("#cmbFitxa").append("<option data-zerbikatid='" + val.id +"' value='" + val.espedientekodea + "'>" + val.espedientekodea + " - " + val.deskribapenaeu + "</option>");
                 } else {
-                    $("#cmbFitxa").append("<option value='" + val.espedientekodea + "'>" + val.espedientekodea + " - " + val.deskribapenaes + "</option>");
+                    $("#cmbFitxa").append("<option data-zerbikatid='" + val.id +"' value='" + val.espedientekodea + "'>" + val.espedientekodea + " - " + val.deskribapenaes + "</option>");
                 }
             });
         }).fail(function ( jqXHR, textStatus, errorThrown ) {
@@ -185,27 +180,31 @@ $(function () {
     });
 
     $("#btn-modal-gorde").on("click", function () {
+        var zerbikatid = $("#cmbFitxa").find(":selected").data("zerbikatid");
+        console.log(zerbikatid);
         $("#appbundle_tramite_kodea").val($("#cmbFitxa").val());
         $("#appbundle_tramite_name").val($("#appbundle_tramite_mota option:selected").text());
+        $("#appbundle_tramite_zerbikatid").val(zerbikatid);
         $("#modal-zerbikat").modal("hide");
-        // $('#frmTramiteNew').submit();
 
+        // console.log(zerbikatid);
         var frm = "#frmTramiteNew";
+        // var d = $(frm).serialize();
+        // console.log(d);
+        // console.log(zerbikatid);
         $.ajax({
             type: $(frm).attr("method"),
             url: $(frm).attr("action"),
             data: $(frm).serialize()
         })
          .done(function ( data ) {
-         
+
              $("#alertSpot").html("<div class=\"alert alert-success nirealert\">\n" +
                  "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span\n" +
                  "                                        aria-hidden=\"true\">&times;</span></button>" +
                  "<p>Datuak ongi grabatu dira.</p>" +
                  "</div>");
              $("#alertSpot").delay(3000).fadeOut("slow");
-
-             console.log("grabatu da");
 
              window.location.href += "#tramites";
              location.reload();
