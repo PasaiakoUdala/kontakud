@@ -5,7 +5,9 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Arreta;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Arretum controller.
@@ -58,26 +60,6 @@ class ArretaController extends Controller
 
 
         return $this->redirectToRoute( 'admin_arreta_edit', array( 'id' => $arreta->getId()) );
-
-
-
-
-
-//        $form = $this->createForm('AppBundle\Form\ArretaType', $arretum);
-//        $form->handleRequest($request);
-//
-//        if ($form->isSubmitted() && $form->isValid()) {
-//            $em = $this->getDoctrine()->getManager();
-//            $em->persist($arretum);
-//            $em->flush();
-//
-//            return $this->redirectToRoute('admin_arreta_show', array('id' => $arretum->getId()));
-//        }
-//
-//        return $this->render('arreta/new.html.twig', array(
-//            'arretum' => $arretum,
-//            'form' => $form->createView(),
-//        ));
     }
 
     /**
@@ -107,21 +89,28 @@ class ArretaController extends Controller
      * @param Request $request
      * @param Arreta  $arretum
      *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, Arreta $arretum)
     {
         $deleteForm = $this->createDeleteForm($arretum);
-        $editForm = $this->createForm('AppBundle\Form\ArretaType', $arretum);
+        $editForm = $this->createForm('AppBundle\Form\ArretaType', $arretum, [
+            'action' => $this->generateUrl('admin_arreta_edit', array( 'id' => $arretum->getId())),
+            'method' => 'POST'
+        ]);
         $editForm->handleRequest($request);
 
         $em = $this->getDoctrine()->getManager();
         $results = $em->getRepository( 'AppBundle:Result' )->findAll();
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if($request->isXmlHttpRequest()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_arreta_edit', array('id' => $arretum->getId()));
+            return new JsonResponse(array('message' => 'Success!'), 200);
+        } else if ($editForm->isSubmitted() && $editForm->isValid()) {
+            $this->getDoctrine()->getManager()->flush();
+
+            return $this->redirectToRoute('admin_arreta_index');
         }
 
         return $this->render('arreta/edit.html.twig', array(

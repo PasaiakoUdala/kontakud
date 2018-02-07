@@ -37,13 +37,6 @@ class Tramite
     private $kodea;
 
     /**
-     * @var bool
-     *
-     * @ORM\Column(name="isClosed", type="boolean", nullable=true)
-     */
-    private $isclosed;
-
-    /**
      * @var string
      *
      * @ORM\Column(name="notes", type="text", nullable=true)

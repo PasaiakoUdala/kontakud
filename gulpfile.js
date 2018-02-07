@@ -41,7 +41,12 @@ myJS = [
     config.yarnDir + "/jquery/dist/jquery.min.js",
     config.yarnDir + "/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
     config.yarnDir + "/bootstrap-datepicker/dist/locales/bootstrap-datepicker.eu.min.js",
+
     config.jsDir   + "/app.js"
+];
+
+myJSNoBabel = [
+    config.jsDir + "/bootbox/bootbox.min.js"
 ];
 
 myCSS = [
@@ -68,12 +73,14 @@ gulp.task('icons', function () {
 
 // JS
 gulp.task('js:dev', function () {
+    gulp.src(myJSNoBabel).pipe(gulp.dest('web/js/'));
     return gulp.src(myJS)
         .pipe(babel({presets: ['es2015']}))
         .pipe(gulp.dest('web/js/'));
 });
 
 gulp.task('js:prod', function () {
+    gulp.src(myJSNoBabel).pipe(gulp.dest('web/js/'));
     return gulp.src(myJS)
                .pipe(babel({presets: ['es2015']}))
                .pipe(minify())

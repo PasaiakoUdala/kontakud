@@ -94,6 +94,13 @@ class Arreta
     private $oharra;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="isClosed", type="boolean", nullable=true)
+     */
+    private $isclosed;
+
+    /**
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
@@ -108,8 +115,8 @@ class Arreta
     /**
      * @var string
      *
-     * @ORM\Column(nullable=true)
-     * @Gedmo\Blameable(on="change", field={"title", "body"})
+     * @ORM\Column(name="content_changed_by", type="string", nullable=true)
+     * @Gedmo\Blameable(on="change", field={"name", "namees"})
      */
     private $contentChangedBy;
 
@@ -567,5 +574,29 @@ class Arreta
     public function getKanala()
     {
         return $this->kanala;
+    }
+
+    /**
+     * Set isclosed.
+     *
+     * @param bool|null $isclosed
+     *
+     * @return Arreta
+     */
+    public function setIsclosed($isclosed = null)
+    {
+        $this->isclosed = $isclosed;
+
+        return $this;
+    }
+
+    /**
+     * Get isclosed.
+     *
+     * @return bool|null
+     */
+    public function getIsclosed()
+    {
+        return $this->isclosed;
     }
 }

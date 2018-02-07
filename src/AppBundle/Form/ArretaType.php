@@ -119,6 +119,7 @@ class ArretaType extends AbstractType
                 )
             ))
             ->add('oharra')
+            ->add('isclosed')
             ->add('user');
     }/**
      * {@inheritdoc}

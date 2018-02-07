@@ -22,6 +22,31 @@ $(function () {
 
     });
 
+    $("#btnArretaEzabatu").on("click", function () {
+        bootbox.confirm({
+            title: "Ziur zaude?",
+            message: "Ziur zaude abian dagoen tramitea ezabatu nahi duzula?",
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Ezeztatu'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Onartu'
+                }
+            },
+            callback: function (result) {
+                if ( result === true ) {
+                    $("#frmEzabatuArreta").submit();
+                }
+            }
+        });
+    });
+
+    $("#btnArretaGorde").on("click", function () {
+        $("#appbundle_arreta_isclosed").prop("checked", true);
+        $("#frmArretaEdit").submit();
+    });
+
     $("#cmdZerbikat").on("click", function () {
         $('#appbundle_tramite_mota').find('option').filter(function () {
             return $(this).html() === "Zerbikat";
@@ -39,6 +64,53 @@ $(function () {
             return $(this).html() === "Informazioa";
         }).prop('selected', true)
     });
+
+    /*****************************************************************************************************************/
+    /*** Tab Change **************************************************************************************************/
+    /*****************************************************************************************************************/
+    $("a[data-toggle=\"tab\"]").on("shown.bs.tab", function ( e ) {
+        if ( e.relatedTarget.hash === "#datuak") {
+
+            var frm = "#frmArretaEdit";
+            $.ajax({
+                type: $(frm).attr("method"),
+                url: $(frm).attr("action"),
+                data: $(frm).serialize()
+            })
+             .done(function ( data ) {
+                 if ( typeof data.message !== "undefined" ) {
+                     $("#alertSpot").html("<div class=\"alert alert-success\">\n" +
+                         "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span\n" +
+                         "                                        aria-hidden=\"true\">&times;</span></button>" +
+                         "<p>Ongi grabatu da.</p>" +
+                         "</div>");
+                     $('#alertSpot').delay(3000).fadeOut('slow');
+                 }
+             })
+             .fail(function ( jqXHR, textStatus, errorThrown ) {
+                 if ( typeof jqXHR.responseJSON !== "undefined" ) {
+                     if ( jqXHR.responseJSON.hasOwnProperty("form") ) {
+                         $("#form_body").html(jqXHR.responseJSON.form);
+                     }
+
+                     $(".form_error").html(jqXHR.responseJSON.message);
+
+                 } else {
+                     alert(errorThrown);
+                 }
+
+             });
+
+        }
+        // e.target; // newly activated tab
+        // console.log(e);
+        // console.log(e.target);
+        // e.relatedTarget; // previous active tab
+        // console.log(e.relatedTarget);
+    });
+    /*****************************************************************************************************************/
+    /*** End Tab Change **********************************************************************************************/
+    /*****************************************************************************************************************/
 
     /*****************************************************************************************************************/
     /*** Zerbikat Select-ak ******************************************************************************************/
@@ -103,6 +175,13 @@ $(function () {
         });
 
     });
+
+    $("#btn-modal-gorde").on("click", function () {
+        $('#appbundle_tramite_kodea').val($("#cmbFitxa").val());
+        $("#appbundle_tramite_name").val($("#appbundle_tramite_mota option:selected").text());
+        $("#modal-zerbikat").modal("hide");
+        $('#frmTramiteNew').submit();
+    });
     /*****************************************************************************************************************/
     /*** FIN Zerbikat Select-ak **************************************************************************************/
     /*****************************************************************************************************************/
@@ -119,13 +198,6 @@ $(function () {
         "autoclose": true
     });
 
-    $("#btn-modal-gorde").on("click", function () {
-        $('#appbundle_tramite_kodea').val($("#cmbFitxa").val());
-        $("#appbundle_tramite_name").val($("#appbundle_tramite_mota option:selected").text() + " - " + $("#cmbFitxa").val());
-        $("#modal-zerbikat").modal("hide");
-        $('#frmTramiteNew').submit();
-    });
-
     $("#btnGerkudSave").click(function () {
 
         if ( $('#txtGerkudFetxa') )
@@ -140,8 +212,6 @@ $(function () {
         }).done(function ( data ) {
             console.log(data);
             var myData = jQuery.parseJSON(data);
-            console.log(myData.code);
-            console.log();
             $('#appbundle_tramite_kodea').val(data.code);
             $("#appbundle_tramite_name").val($("#appbundle_tramite_mota option:selected").text() + " - " + myData.code);
             $("#modal-zerbikat").modal("hide");
@@ -156,7 +226,6 @@ $(function () {
             console.log("ERROR");
         });
     });
-
 
     $(".btnAjaxTramite").on("click", function ( e ) {
         e.preventDefault();
