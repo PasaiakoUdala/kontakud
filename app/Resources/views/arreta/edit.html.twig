@@ -10,18 +10,18 @@
                 <a id="btnArretaEzabatu" class="btn btn-primary btn-danger" href="javascript:void(0);">Arreta Ezabatu</a>
             </div>
         </div>
-        <div class="col-md-4">
-            <div class="col-md-6" id="alertSpot">
-                {% for type, flashes in app.session.flashbag.all %}
-                    {% for flash in flashes %}
-                        <div id="divAlertSpot" class="alert alert-{{ type }} fade in alert-dismissible" role="alert">
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
-                                        aria-hidden="true">&times;</span></button>
-                            {{ flash }}
-                        </div>
-                    {% endfor %}
+        <div class="col-md-4"  id="alertSpot">
+
+            {% for type, flashes in app.session.flashbag.all %}
+                {% for flash in flashes %}
+                    <div id="divAlertSpot" class="alert alert-{{ type }} fade in alert-dismissible nirealert" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+                                    aria-hidden="true">&times;</span></button>
+                        {{ flash }}
+                    </div>
                 {% endfor %}
-            </div>
+            {% endfor %}
+
         </div>
         <div class="col-md-4"></div>
     </div>

@@ -79,12 +79,12 @@ $(function () {
             })
              .done(function ( data ) {
                  if ( typeof data.message !== "undefined" ) {
-                     $("#alertSpot").html("<div class=\"alert alert-success\">\n" +
+                     $("#alertSpot").html("<div class=\"alert alert-success nirealert\">\n" +
                          "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span\n" +
                          "                                        aria-hidden=\"true\">&times;</span></button>" +
-                         "<p>Ongi grabatu da.</p>" +
+                         "<p>Datuak ongi grabatu dira.</p>" +
                          "</div>");
-                     $('#alertSpot').delay(3000).fadeOut('slow');
+                     $('#alertSpot').show('slow').delay(3000).fadeOut('slow');
                  }
              })
              .fail(function ( jqXHR, textStatus, errorThrown ) {
@@ -98,6 +98,9 @@ $(function () {
                  } else {
                      alert(errorThrown);
                  }
+                 console.log(jqXHR);
+                 console.log(textStatus);
+                 console.log(errorThrown);
 
              });
 
@@ -243,10 +246,10 @@ $(function () {
         })
          .done(function ( data ) {
              if ( typeof data.message !== "undefined" ) {
-                 $("#alertSpot").html("<div class=\"alert alert-success\">\n" +
+                 $("#alertSpot").html("<div class=\"alert alert-success nirealert\">\n" +
                      "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span\n" +
                      "                                        aria-hidden=\"true\">&times;</span></button>" +
-                     "<p>Ongi grabatu da.</p>" +
+                     "<p>Datuak ongi grabatu dira.</p>" +
                      "</div>");
                  $('#alertSpot').delay(3000).fadeOut('slow');
              }

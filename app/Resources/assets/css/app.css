@@ -1,3 +1,8 @@
 body {
     padding-top: 55px;
 }
+
+.nirealert {
+    margin-bottom: 0px !important;
+    padding: 6px 6px 6px 10px !important;
+}
