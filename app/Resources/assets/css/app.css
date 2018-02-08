@@ -6,3 +6,8 @@ body {
     margin-bottom: 0px !important;
     padding: 6px 6px 6px 10px !important;
 }
+
+.fa-disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}

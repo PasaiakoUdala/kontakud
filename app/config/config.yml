@@ -39,6 +39,8 @@ twig:
     strict_variables: '%kernel.debug%'
     form_theme:
         - 'bootstrap_3_horizontal_layout.html.twig'
+    globals:
+        horkonpon: '%horkonpon%'
 
 # Doctrine Configuration
 doctrine:

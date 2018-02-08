@@ -78,14 +78,12 @@ $(function () {
                 data: $(frm).serialize()
             })
              .done(function ( data ) {
-                 if ( typeof data.message !== "undefined" ) {
-                     $("#alertSpot").html("<div class=\"alert alert-success nirealert\">\n" +
-                         "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span\n" +
-                         "                                        aria-hidden=\"true\">&times;</span></button>" +
-                         "<p>Datuak ongi grabatu dira.</p>" +
-                         "</div>");
-                     $("#alertSpot").show("slow").delay(3000).fadeOut("slow");
-                 }
+                 // $("#alertSpot").html("<div class=\"alert alert-success nirealert\">\n" +
+                 //     "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span\n" +
+                 //     "                                        aria-hidden=\"true\">&times;</span></button>" +
+                 //     "<p>Datuak ongi grabatu dira.</p>" +
+                 //     "</div>");
+                 // $("#alertSpot").show("slow").delay(3000).fadeOut("slow");
              })
              .fail(function ( jqXHR, textStatus, errorThrown ) {
                  if ( typeof jqXHR.responseJSON !== "undefined" ) {
@@ -245,20 +243,16 @@ $(function () {
 
     $("#btnGerkudSave").click(function () {
 
-        if ( $("#txtGerkudFetxa") )
-
-            var myData = $("#frmGerkud").serializeObject();
-
+        var myData = $("#frmGerkud").serializeObject();
         var url = "http://kexak.pasaia.net/app.php/horkonpon/";
         var miAjax = $.ajax({
             type: "POST",
             url: url,
             data: myData
         }).done(function ( data ) {
-            console.log(data);
             var myData = jQuery.parseJSON(data);
-            $("#appbundle_tramite_kodea").val(data.code);
-            $("#appbundle_tramite_name").val($("#appbundle_tramite_mota option:selected").text() + " - " + myData.code);
+            $("#appbundle_tramite_kodea").val(myData.code);
+            $("#appbundle_tramite_name").val($("#appbundle_tramite_mota option:selected").text());
             $("#modal-zerbikat").modal("hide");
             $("#frmTramiteNew").submit();
 
@@ -286,14 +280,12 @@ $(function () {
             data: $(frm).serialize()
         })
          .done(function ( data ) {
-             if ( typeof data.message !== "undefined" ) {
-                 $("#alertSpot").html("<div class=\"alert alert-success nirealert\">\n" +
-                     "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span\n" +
-                     "                                        aria-hidden=\"true\">&times;</span></button>" +
-                     "<p>Datuak ongi grabatu dira.</p>" +
-                     "</div>");
-                 $("#alertSpot").delay(3000).fadeOut("slow");
-             }
+             // $("#alertSpot").html("<div class=\"alert alert-success nirealert\">\n" +
+             //     "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span\n" +
+             //     "                                        aria-hidden=\"true\">&times;</span></button>" +
+             //     "<p>Datuak ongi grabatu dira.</p>" +
+             //     "</div>");
+             // $("#alertSpot").delay(3000).fadeOut("slow");
          })
          .fail(function ( jqXHR, textStatus, errorThrown ) {
              if ( typeof jqXHR.responseJSON !== "undefined" ) {
@@ -317,6 +309,18 @@ $(function () {
         var tramiteId = $(this).data("tramiteid");
         frmAjaxPost(tramiteId);
 
+    });
+
+    $("#btnInfoSave").on("click", function () {
+        $("#appbundle_tramite_kodea").val("Info");
+        $("#appbundle_tramite_name").val("Informazio eskaera");
+        $("#appbundle_tramite_notes").val($("#infobox").val());
+        $("#modal-info").modal("hide");
+        $("#frmTramiteNew").submit();
+    });
+
+    $(".btnTramiteEzabatu").on("click", function () {
+        var $tramiteId = $(this).data("tramiteid");
     });
     /*****************************************************************************************************************/
     /*** FIN Tramite tab *********************************************************************************************/

@@ -14,31 +14,61 @@
     <table class="table table-striped">
         <thead>
             <tr>
+                {#<th></th>#}
                 <th>Id</th>
                 <th>Fetxa</th>
                 <th>Nan</th>
-                <th>Oharra</th>
+                <th>Tramiteak</th>
+                <th>Egoera</th>
                 <th></th>
             </tr>
         </thead>
         <tbody>
         {% for arreta in arretas %}
+            {#<td>{{ dump(arreta) }}</td>#}
             <tr>
-                <td><a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.id }}</a></td>
-                <td>{% if arreta.fetxa %}<a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.fetxa|date('Y-m-d') }}</a>{% endif %}</td>
-                <td><a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.nan }}</a></td>
-                <td><a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.oharra }}</a></td>
                 <td>
-                    <ul class="list-inline">
-                        <li>
-                            <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}"><i class="fa fa-edit"></i></a>
-                        </li>
-                        <li>
-                            {{ form_start(deleteforms[arreta.id],{'attr': {'id': 'deleteArretaForm' ~ arreta.id}}) }}
-                            <a class="btnDelete" data-miid="{{ arreta.id }}" href="javascript:void(0)"><i class="fa fa-trash text-danger"></i></a>
-                            {{ form_end(deleteforms[arreta.id]) }}
-                        </li>
-                    </ul>
+                    {% if arreta.isclosed == true %}
+                        {{ arreta.id }}
+                    {% else %}
+                        <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.id }}</a>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if arreta.fetxa %}
+                        {% if arreta.isclosed == true %}
+                            {{ arreta.fetxa|date('Y-m-d h:m:s') }}
+                        {% else %}
+                            <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.fetxa|date('Y-m-d h:m:s') }}</a>
+                        {% endif %}
+                    {% endif %}
+                </td>
+                <td>
+                    {{ arreta.nan }}
+                </td>
+                <td>
+                    {{ arreta.tramiteak | length }}
+                </td>
+                <td>
+                    {% if arreta.isclosed == true %}
+                        <label class="label label-danger">Itxita</label>
+                    {% else %}
+                        <label class="label label-success">Irekita</label>
+                    {% endif %}
+                </td>
+                <td>
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <ul class="list-inline">
+                            <li>
+                                <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}"><i class="fa fa-edit"></i></a>
+                            </li>
+                            <li>
+                                {{ form_start(deleteforms[arreta.id],{'attr': {'id': 'deleteArretaForm' ~ arreta.id}}) }}
+                                <a class="btnDelete" data-miid="{{ arreta.id }}" href="javascript:void(0)"><i class="fa fa-trash text-danger"></i></a>
+                                {{ form_end(deleteforms[arreta.id]) }}
+                            </li>
+                        </ul>
+                    {% endif %}
                 </td>
             </tr>
         {% endfor %}

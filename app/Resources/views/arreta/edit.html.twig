@@ -7,14 +7,16 @@
             <div class="btn-group" role="group" aria-label="Default button group">
                 <a id="btnArretaBerria" class="btn btn-primary" href="javascript:void(0);">Arreta Berria</a>
                 <a id="btnArretaGorde" class="btn btn-primary btn-success" href="javascript:void(0);">Arreta Amaitu</a>
-                <a id="btnArretaEzabatu" class="btn btn-primary btn-danger" href="javascript:void(0);">Arreta Ezabatu</a>
+                <a id="btnArretaEzabatu" class="btn btn-primary btn-danger" href="javascript:void(0);">Arreta
+                                                                                                       Ezabatu</a>
             </div>
         </div>
-        <div class="col-md-4"  id="alertSpot">
+        <div class="col-md-4" id="alertSpot">
 
             {% for type, flashes in app.session.flashbag.all %}
                 {% for flash in flashes %}
-                    <div id="divAlertSpot" class="alert alert-{{ type }} fade in alert-dismissible nirealert" role="alert">
+                    <div id="divAlertSpot" class="alert alert-{{ type }} fade in alert-dismissible nirealert"
+                         role="alert">
                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
                                     aria-hidden="true">&times;</span></button>
                         {{ flash }}
@@ -156,8 +158,8 @@
                         <button type="button" id="cmdGerkud" class="btn btn-primary" data-toggle="modal"
                                 data-target="#modal-gerkud">Gerkud
                         </button>
-                        <button type="button" id="cmdInformacion"
-                                class="btn btn-primary">{{ "Información" | trans }}</button>
+                        <button type="button" id="cmdInformacion" class="btn btn-primary" data-toggle="modal"
+                                data-target="#modal-info">{{ "Información" | trans }}</button>
                     </div>
                 </div>
                 <div class="col-md-1"></div>
@@ -180,22 +182,25 @@
                         {% for t in arreta.tramiteak %}
                             <tr>
                                 <td>
-                                    {% if t.zerbikatid is defined %}
-                                        <a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}" target="_blank">{{ t.id }}</a>
+                                    {% if t.zerbikatid is defined and t.zerbikatid is not null %}
+                                        <a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}"
+                                           target="_blank">{{ t.id }}</a>
                                     {% else %}
                                         {{ t.id }}
                                     {% endif %}
                                 </td>
                                 <td>
-                                    {% if t.zerbikatid is defined %}
-                                        <a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}" target="_blank">{{ t.name }}</a>
+                                    {% if t.zerbikatid is defined and t.zerbikatid is not null %}
+                                        <a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}"
+                                           target="_blank">{{ t.name }}</a>
                                     {% else %}
                                         {{ t.name }}
                                     {% endif %}
                                 </td>
                                 <td>
-                                    {% if t.zerbikatid is defined %}
-                                        <a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}" target="_blank">{{ t.kodea }}</a>
+                                    {% if t.zerbikatid is defined and t.zerbikatid is not null %}
+                                        <a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}"
+                                           target="_blank">{{ t.kodea }}</a>
                                     {% else %}
                                         {{ t.kodea }}
                                     {% endif %}
@@ -209,7 +214,8 @@
                                                     <input type="radio" name="radioResult{{ t.id }}"
                                                            data-tramiteid="{{ t.id }}"
                                                            id="editResuslt-{{ t.id ~ "-" ~ r.id }}" class="radioResult"
-                                                           value="{{ r.id }}" required="required"
+                                                           value="{{ r.id }}"
+                                                           required="required"
                                                             {% if t.result is defined %}
                                                                 {% if t.result is not null %}
                                                                     {% if t.result.id == r.id %}
@@ -224,12 +230,21 @@
                                     </ul>
                                 </td>
                                 <td>
-                                    {% if t.zerbikatid is defined %}
-                                        <a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}" target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
-                                    {% endif %}
                                     <a data-tramiteid="{{ t.id }}" href="javascript:void(0)" data-toggle="modal"
-                                       data-target="#modal-tramite-edit-{{ t.id }}"><i class="fa fa-pencil"
-                                                                                       aria-hidden="true"></i></a>
+                                       data-target="#modal-tramite-edit-{{ t.id }}">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                    {% if t.zerbikatid is defined and t.zerbikatid is not null %}
+                                        <a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}"
+                                           target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
+                                    {% else %}
+                                        <a href="javascript:void(0);"
+                                           target="_blank"><i class="fa fa-eye fa-disabled" aria-hidden="true"></i></a>
+                                    {% endif %}
+
+                                    <a data-tramiteid="{{ t.id }}" class="btnTramiteEzabatu" href="javascript:void(0);">
+                                        <i class="fa fa-trash text-danger" aria-hidden="true"></i>
+                                    </a>
 
                                     <div class="modal fade" id="modal-tramite-edit-{{ t.id }}" tabindex="-1"
                                          role="dialog" aria-labelledby="myModalLabel">
@@ -258,6 +273,7 @@
                                             </div>
                                         </div>
                                     </div>
+
                                 </td>
                             </tr>
                         {% endfor %}
@@ -379,12 +395,34 @@
                                       placeholder=""></textarea>
                         </div>
                         <input type="hidden" name="data[version]" value="2">
-                        <input type="hidden" name="data[key]" value="37d12d33075dc1ecb558042391bc3676">
+                        <input type="hidden" name="data[key]" value="{{ horkonpon }}">
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Itxi</button>
                     <button id="btnGerkudSave" type="button" class="btn btn-primary">Gorde</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="modal-info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog  modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Información</h4>
+                </div>
+                <div class="modal-body">
+                    <label for="infobox">Informazio eskaeraren deskribapena</label>
+                    <textarea id="infobox" class="form-control" rows="5"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Itxi</button>
+                    <button id="btnInfoSave" type="button" class="btn btn-primary">Gorde</button>
                 </div>
             </div>
         </div>
@@ -402,12 +440,12 @@
         $(document).ready(function () {
 
             var url = document.location.toString();
-            if (url.match('#')) {
-                $('.nav-tabs a[href="#' + url.split('#')[1] + '"]').tab('show');
+            if ( url.match("#") ) {
+                $(".nav-tabs a[href=\"#" + url.split("#")[1] + "\"]").tab("show");
             }
 
-            var url = "http://zerbikat.sare.gipuzkoa.net/api/familiaks/064.json";
-            $.getJSON(url, function ( data ) {
+            var url2 = "http://zerbikat.sare.gipuzkoa.net/api/familiaks/064.json";
+            $.getJSON(url2, function ( data ) {
                 $.each(data, function ( key, val ) {
                     if ( !("parent" in val) ) {
                         if ( $("#txtLocale").val() === "eu" ) {

@@ -75,7 +75,13 @@ class TramiteController extends Controller
             $em->persist($tramite);
             $em->flush();
 
-            return $this->redirectToRoute('admin_arreta_edit', array('id' => $arreta->getId()));
+//            return $this->redirectToRoute('admin_arreta_edit', array('id' => $arreta->getId()), ['_fragment' => 'tramites']);
+//            return $this->redirectToRoute(
+//                $this->get('router')->generate('admin_arreta_edit', [
+//                    '_fragment' => 'page'
+//                ])
+//            );
+            return $this->redirect($this->generateUrl('admin_arreta_edit', array('id' => $arreta->getId())) . '#tramites');
         }
 
         return $this->render('tramite/new.html.twig', array(
