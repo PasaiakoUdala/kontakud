@@ -9,71 +9,118 @@
 {% endblock headline %}
 
 {% block content_content %}
-    <h1>Azken arretak</h1>
 
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                {#<th></th>#}
-                <th>Id</th>
-                <th>Fetxa</th>
-                <th>Nan</th>
-                <th>Tramiteak</th>
-                <th>Egoera</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for arreta in arretas %}
-            {#<td>{{ dump(arreta) }}</td>#}
-            <tr>
-                <td>
-                    {% if arreta.isclosed == true %}
-                        {{ arreta.id }}
-                    {% else %}
-                        <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.id }}</a>
-                    {% endif %}
-                </td>
-                <td>
-                    {% if arreta.fetxa %}
-                        {% if arreta.isclosed == true %}
-                            {{ arreta.fetxa|date('Y-m-d h:m:s') }}
-                        {% else %}
-                            <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.fetxa|date('Y-m-d h:m:s') }}</a>
-                        {% endif %}
-                    {% endif %}
-                </td>
-                <td>
-                    {{ arreta.nan }}
-                </td>
-                <td>
-                    {{ arreta.tramiteak | length }}
-                </td>
-                <td>
-                    {% if arreta.isclosed == true %}
-                        <label class="label label-danger">Itxita</label>
-                    {% else %}
-                        <label class="label label-success">Irekita</label>
-                    {% endif %}
-                </td>
-                <td>
-                    {% if is_granted('ROLE_ADMIN') %}
-                        <ul class="list-inline">
-                            <li>
-                                <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}"><i class="fa fa-edit"></i></a>
-                            </li>
-                            <li>
-                                {{ form_start(deleteforms[arreta.id],{'attr': {'id': 'deleteArretaForm' ~ arreta.id}}) }}
-                                <a class="btnDelete" data-miid="{{ arreta.id }}" href="javascript:void(0)"><i class="fa fa-trash text-danger"></i></a>
-                                {{ form_end(deleteforms[arreta.id]) }}
-                            </li>
-                        </ul>
-                    {% endif %}
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="row">
+        <div class="col-md-12">
+            <button class="btn btn-default" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                <i class="fa fa-filter" aria-hidden="true"></i>
+            </button>
+            <div class="collapse" id="collapseExample">
+                <div class="well">
+                    <div class="row">
+                        <form action="{{ path('admin_arreta_find') }}" class="form-inline" method="post">
+                            <div class="col-md-12">
+                                <div class="col-md-3" id="divDateRange">
+                                    <label>Datak</label>
+                                    <div class="input-daterange input-group" id="filterDatepicker">
+                                        <input type="text" class="input-sm form-control" name="data_hasi" />
+                                        <span class="input-group-addon">-</span>
+                                        <input type="text" class="input-sm form-control" name="data_amaitu" />
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <label for="cmbEgoera">Egoera</label><br>
+                                    <select name="egoera" id="cmbEgoera" class="form-control">
+                                        <option value="0">Irekita</option>
+                                        <option value="1">Itxita</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6"></div>
+                                <div class="col-md-1">
+                                    <label for=""></label>
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fa fa-search fa-lg"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row">&nbsp;</div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped" id="datatable">
+                <thead>
+                <tr>
+                    {#<th></th>#}
+                    <th>Id</th>
+                    <th>Fetxa</th>
+                    <th>Nan</th>
+                    <th>Tramiteak</th>
+                    <th>Egoera</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for arreta in arretas %}
+                    {#<td>{{ dump(arreta) }}</td>#}
+                    <tr>
+                        <td>
+                            {% if arreta.isclosed == true %}
+                                {{ arreta.id }}
+                            {% else %}
+                                <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.id }}</a>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if arreta.fetxa %}
+                                {% if arreta.isclosed == true %}
+                                    {{ arreta.fetxa|date('Y-m-d h:m:s') }}
+                                {% else %}
+                                    <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.fetxa|date('Y-m-d h:m:s') }}</a>
+                                {% endif %}
+                            {% endif %}
+                        </td>
+                        <td>
+                            {{ arreta.nan }}
+                        </td>
+                        <td>
+                            {{ arreta.tramiteak | length }}
+                        </td>
+                        <td>
+                            {% if arreta.isclosed == true %}
+                                <label class="label label-danger">Itxita</label>
+                            {% else %}
+                                <label class="label label-success">Irekita</label>
+                            {% endif %}
+                        </td>
+                        <td>
+                            {% if is_granted('ROLE_ADMIN') %}
+                                <ul class="list-inline">
+                                    <li>
+                                        <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}"><i class="fa fa-edit"></i></a>
+                                    </li>
+                                    <li>
+                                        {{ form_start(deleteforms[arreta.id],{'attr': {'id': 'deleteArretaForm' ~ arreta.id}}) }}
+                                        <a class="btnDelete" data-miid="{{ arreta.id }}" href="javascript:void(0)"><i class="fa fa-trash text-danger"></i></a>
+                                        {{ form_end(deleteforms[arreta.id]) }}
+                                    </li>
+                                </ul>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 {% endblock %}
 {% block foot_script %}
     {{ parent() }}

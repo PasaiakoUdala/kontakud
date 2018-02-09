@@ -40,6 +40,37 @@ class ArretaController extends Controller
     }
 
     /**
+     * Arreta bilatzeila filtrokin
+     *
+     * @Route("/bilatu", name="admin_arreta_find")
+     * @Method({"GET", "POST"})
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function findAction(Request $request)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $hasi = $request->request->get('data_hasi');
+        $fin = $request->request->get('data_amaitu');
+        $egoera = $request->request->get('egoera');
+
+
+        $arretas = $em->getRepository( 'AppBundle:Arreta' )->bilatzailea( $hasi, $fin, $egoera );
+
+        $deleteForms = array();
+        foreach ($arretas as $a) {
+            $deleteForms[$a->getId()] = $this->createDeleteForm($a)->createView();
+        }
+
+        return $this->render('arreta/index.html.twig', array(
+            'arretas' => $arretas,
+            'deleteforms' => $deleteForms,
+        ));
+    }
+
+    /**
      * Creates a new arretum entity.
      *
      * @Route("/new", name="admin_arreta_new")

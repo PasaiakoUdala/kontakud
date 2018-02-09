@@ -46,6 +46,7 @@ myJS = [
 ];
 
 myJSNoBabel = [
+    config.jsDir   + "/datatables/datatables.min.js",
     config.jsDir + "/bootbox/bootbox.min.js"
 ];
 
@@ -54,6 +55,7 @@ myCSS = [
     config.yarnDir + '/bootstrap/dist/css/bootstrap-theme.min.css',
     config.yarnDir + '/font-awesome/css/font-awesome.min.css',
     config.yarnDir + '/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css',
+    config.cssPath + '/datatables/datatables.min.css',
     config.cssPath + '/app.css'
 ];
 

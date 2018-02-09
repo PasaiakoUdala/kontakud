@@ -10,4 +10,52 @@ namespace AppBundle\Repository;
  */
 class ArretaRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function bilatzailea ( $hasi=null, $fin=null, $closed=null )
+    {
+        $em = $this->getEntityManager();
+
+
+        $sql = /** @lang text */
+            "
+            SELECT a
+                FROM AppBundle:Arreta a
+                WHERE                 
+        ";
+
+        $where="";
+        if (strlen($hasi) > 0 ) {
+            $where = $where . "a.fetxa > :hasi ";
+        }
+        if (strlen($fin) > 0 ) {
+            if ( strlen($where) > 0 ) {
+                $where = $where . " AND a.fetxa < :fin ";
+            } else {
+                $where = $where . "a.fetxa < :fin ";
+            }
+        }
+        if (strlen($closed) > 0 ) {
+            if ( strlen($where) > 0 ) {
+                $where = $where . "AND a.isclosed = :closed";
+            } else {
+                $where = $where . "a.isclosed = :closed";
+            }
+        }
+
+
+        $consulta = $em->createQuery( $sql.$where );
+
+        if (strlen($hasi) > 0 ) {
+            $consulta->setParameter( 'hasi', $hasi );
+        }
+        if (strlen($fin) > 0 ) {
+            $consulta->setParameter( 'fin', $fin );
+        }
+        if (strlen($closed) > 0 ) {
+            $consulta->setParameter( 'closed', $closed );
+        }
+
+
+        return $consulta->getResult();
+
+    }
 }
