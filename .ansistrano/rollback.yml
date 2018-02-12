@@ -1,0 +1,8 @@
+---
+- name: Rollback HAZtertu
+  hosts: all
+  remote_user: root
+  vars:
+    ansistrano_deploy_to: "/var/www/haztertu"
+  roles:
+    - carlosbuenosvinos.ansistrano-rollback
