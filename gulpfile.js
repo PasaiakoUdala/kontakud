@@ -38,7 +38,6 @@ myFonts = [
 
 myJS = [
     config.yarnDir + "/bootstrap/dist/js/bootstrap.min.js",
-    config.yarnDir + "/jquery/dist/jquery.min.js",
     config.yarnDir + "/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
     config.yarnDir + "/bootstrap-datepicker/dist/locales/bootstrap-datepicker.eu.min.js",
 
@@ -46,8 +45,10 @@ myJS = [
 ];
 
 myJSNoBabel = [
+    config.yarnDir + "/jquery/dist/jquery.min.js",
     config.jsDir   + "/datatables/datatables.min.js",
-    config.jsDir + "/bootbox/bootbox.min.js"
+    config.jsDir + "/bootbox/bootbox.min.js",
+    config.yarnDir + "/bootstrap/dist/js/bootstrap.min.js"
 ];
 
 myCSS = [

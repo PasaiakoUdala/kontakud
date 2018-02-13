@@ -55,7 +55,7 @@
     <hr>
     <div class="row">
         <div class="col-md-12">
-            <table class="table table-striped" id="datatable">
+            <table class="table table-striped" id="niredatatable">
                 <thead>
                 <tr>
                     {#<th></th>#}
@@ -131,7 +131,6 @@
                 if ( r === true ) {
                     var miid = $(this).data("miid");
                     var frm = "#deleteArretaForm" + miid;
-                    console.log(frm);
                     $(frm).submit();
                 }
             })

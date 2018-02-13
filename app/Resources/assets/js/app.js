@@ -336,7 +336,7 @@ $(function () {
         autoclose: true,
         todayHighlight: true
     });
-    $('#datatable').dataTable({
+    $('#niredatatable').dataTable({
         "pageLength": 50,
         "language": {
             "sProcessing":     "Prozesatzen...",

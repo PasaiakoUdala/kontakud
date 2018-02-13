@@ -52,7 +52,7 @@
     {% embed '@MopaBootstrap/Navbar/navbar.html.twig' with {'fixedTop': true, 'inverse': true , 'fluid': true } %}
 {% block brand %}
     {% if is_granted('ROLE_ADMIN') %}
-    <a class="navbar-brand" href="{{ path('homepage') }}">KontaKud</a>
+    <a class="navbar-brand" href="{{ path('homepage') }}">HAZtertu v1</a>
     {% else %}
     <a class="navbar-brand" href="{{ path('homepage') }}">
         {% if is_granted('ROLE_USER') %}
@@ -143,7 +143,7 @@
     {# Overwrite this block to add your own js here #}
     <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
     <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
-    {% if app.debug %}
+    {#{% if app.debug %}#}
         <script src="{{ asset('js/jquery.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
         <script src="{{ asset('js/datatables.min.js') }}"></script>
@@ -151,10 +151,14 @@
         <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap-datepicker.eu.min.js') }}"></script>
         <script src="{{ asset('js/app.js') }}"></script>
-    {% else %}
-        <script src="{{ asset('js/bootbox.min.js') }}"></script>
-        <script src="{{ asset('js/app.min.js') }}"></script>
-    {% endif %}
+    {#{% else %}#}
+        {#<script src="{{ asset('js/jquery.min.js') }}"></script>#}
+        {#<script src="{{ asset('js/bootstrap.min.js') }}"></script>#}
+        {#<script src="{{ asset('js/bootbox.min.js') }}"></script>#}
+        {#<script src="{{ asset('js/datatables.min.js') }}"></script>#}
+        {#<script src="{{ asset('js/app.min.js') }}"></script>#}
+
+    {#{% endif %}#}
 {% endblock foot_script %}
 {% endblock body %}
 
