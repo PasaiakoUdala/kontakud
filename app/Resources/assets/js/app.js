@@ -321,6 +321,34 @@ $(function () {
 
     $(".btnTramiteEzabatu").on("click", function () {
         var $tramiteId = $(this).data("tramiteid");
+        var url = Routing.generate('admin_tramite_delete', { id: $tramiteId });
+        var mitr = $(this).closest("tr");
+        bootbox.confirm({
+            title: "Ezbatu",
+            message: "Ziur zaude ezabatu nahi duzula?",
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Ezeztatu'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Onartu'
+                }
+            },
+            callback: function (result) {
+                if (result === true) {
+                    $.ajax({
+                        url: url,
+                        type: 'delete',
+                        success: function(result) {
+                            $(mitr).remove();
+                        },
+                        error: function(e){
+                            console.log(e.responseText);
+                        }
+                    });
+                }
+            }
+        });
     });
     /*****************************************************************************************************************/
     /*** FIN Tramite tab *********************************************************************************************/

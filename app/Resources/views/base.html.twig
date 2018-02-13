@@ -32,8 +32,8 @@
 
         {% block head_script %}
             {#<script src="{{ asset('js/modernizr.js') }}"></script>#}
-            {#<script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>#}
-            {#<script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>#}
+            <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
+            <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
 
         {% endblock head_script %}
 
@@ -141,7 +141,6 @@
 
 {% block foot_script %}
     {# Overwrite this block to add your own js here #}
-
     {#{% if app.debug %}#}
         <script src="{{ asset('js/jquery.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>

@@ -145,15 +145,27 @@ class TramiteController extends Controller
     /**
      * Deletes a tramite entity.
      *
-     * @Route("/{id}", name="admin_tramite_delete")
+     * @Route("/{id}", name="admin_tramite_delete",  options = { "expose" = true })
      * @Method("DELETE")
+     * @param Request $request
+     * @param Tramite $tramite
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
      */
     public function deleteAction(Request $request, Tramite $tramite)
     {
         $form = $this->createDeleteForm($tramite);
         $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
+        if ($request->isXmlHttpRequest()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->remove($tramite);
+            $em->flush();
+
+
+            return new JsonResponse(array('message' => 'Success!'), 200);
+
+        } else if ($form->isSubmitted() && $form->isValid()) {
             $em = $this->getDoctrine()->getManager();
             $em->remove($tramite);
             $em->flush();
