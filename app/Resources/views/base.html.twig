@@ -52,7 +52,7 @@
     {% embed '@MopaBootstrap/Navbar/navbar.html.twig' with {'fixedTop': true, 'inverse': true , 'fluid': true } %}
 {% block brand %}
     {% if is_granted('ROLE_ADMIN') %}
-    <a class="navbar-brand" href="{{ path('homepage') }}">HAZtertu v2</a>
+    <a class="navbar-brand" href="{{ path('homepage') }}">HAZtertu</a>
     {% else %}
     <a class="navbar-brand" href="{{ path('homepage') }}">
         {% if is_granted('ROLE_USER') %}
@@ -141,8 +141,7 @@
 
 {% block foot_script %}
     {# Overwrite this block to add your own js here #}
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+
     {#{% if app.debug %}#}
         <script src="{{ asset('js/jquery.min.js') }}"></script>
         <script src="{{ asset('js/bootstrap.min.js') }}"></script>
