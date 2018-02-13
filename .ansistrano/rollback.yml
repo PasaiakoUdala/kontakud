@@ -6,3 +6,10 @@
     ansistrano_deploy_to: "/var/www/haztertu"
   roles:
     - carlosbuenosvinos.ansistrano-rollback
+  vars:
+    # Base path to deploy to.
+    ansistrano_deploy_to: "{{ deploy_path }}"
+    # Releases folder name
+    ansistrano_version_dir: "releases"
+    # Softlink name. You should rarely changed it.
+    ansistrano_current_dir: "current"
