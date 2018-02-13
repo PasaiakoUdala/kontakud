@@ -9,6 +9,6 @@
 
 - name: Run gulp
 #  command: /root/.nvm/versions/node/v6.10.1/bin/gulp prod
-  command: /usr/bin/gulp prod
+  command: /usr/bin/gulp dev
   args:
     chdir: "{{ ansistrano_release_path.stdout }}"
