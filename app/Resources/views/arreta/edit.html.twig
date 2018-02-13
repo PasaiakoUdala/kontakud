@@ -5,9 +5,9 @@
     <div class="row">
         <div class="col-md-4">
             <div class="btn-group" role="group" aria-label="Default button group">
-                <a id="btnArretaBerria" class="btn btn-primary" href="javascript:void(0);">Arreta Berria</a>
-                <a id="btnArretaGorde" class="btn btn-primary btn-success" href="javascript:void(0);">Arreta Amaitu</a>
-                <a id="btnArretaEzabatu" class="btn btn-primary btn-danger" href="javascript:void(0);">Arreta
+                <a id="btnArretaBerria" class="btn btn-primary" href="#">Arreta Berria</a>
+                <a id="btnArretaGorde" class="btn btn-primary btn-success" href="#">Arreta Amaitu</a>
+                <a id="btnArretaEzabatu" class="btn btn-primary btn-danger" href="#">Arreta
                                                                                                        Ezabatu</a>
             </div>
         </div>
@@ -230,7 +230,7 @@
                                     </ul>
                                 </td>
                                 <td>
-                                    <a data-tramiteid="{{ t.id }}" href="javascript:void(0)" data-toggle="modal"
+                                    <a data-tramiteid="{{ t.id }}" href="#" data-toggle="modal"
                                        data-target="#modal-tramite-edit-{{ t.id }}">
                                         <i class="fa fa-pencil" aria-hidden="true"></i>
                                     </a>
@@ -238,11 +238,11 @@
                                         <a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}"
                                            target="_blank"><i class="fa fa-eye" aria-hidden="true"></i></a>
                                     {% else %}
-                                        <a href="javascript:void(0);"
+                                        <a href="#"
                                            target="_blank"><i class="fa fa-eye fa-disabled" aria-hidden="true"></i></a>
                                     {% endif %}
 
-                                    <a data-tramiteid="{{ t.id }}" class="btnTramiteEzabatu" href="javascript:void(0);">
+                                    <a data-tramiteid="{{ t.id }}" class="btnTramiteEzabatu" href="#">
                                         <i class="fa fa-trash text-danger" aria-hidden="true"></i>
                                     </a>
 

@@ -40,7 +40,7 @@
                             </li>
                             <li>
                                 {{ form_start(deleteforms[result.id],{'attr': {'id': 'deleteResultForm' ~ result.id}}) }}
-                                <a class="btnDelete" data-miid="{{ result.id }}" href="javascript:void(0)"><i class="fa fa-trash text-danger"></i></a>
+                                <a class="btnDelete" data-miid="{{ result.id }}" href="#"><i class="fa fa-trash text-danger"></i></a>
                                 {{ form_end(deleteforms[result.id]) }}
                             </li>
                         </ul>
