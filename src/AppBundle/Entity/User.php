@@ -66,11 +66,6 @@ class User extends BaseUser implements LdapUserInterface
     protected $notes;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    protected $barrutia;
-
-    /**
      * @ORM\Column(type="json_array", nullable=true)
      */
     private $members = [];
@@ -86,6 +81,14 @@ class User extends BaseUser implements LdapUserInterface
      * @ORM\OrderBy({"fetxa" = "ASC"})
      */
     private $arretak;
+
+    /**
+     * @var \AppBundle\Entity\Barrutia
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Barrutia", inversedBy="users")
+     * @ORM\JoinColumn(name="barrutia_id", referencedColumnName="id",onDelete="CASCADE")
+     */
+    private $barrutia;
 
     /**
      * Constructor.

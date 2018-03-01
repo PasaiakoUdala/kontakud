@@ -48,11 +48,12 @@ class Builder implements ContainerAwareInterface
             $menu->addChild(
                 'User',
                 array(
-                    'label'    => $user->getDisplayname(),
+                    'label'    => $user->getDisplayname() . " ( ".$user->getBarrutia()." )",
                     'dropdown' => true,
                     'icon'     => 'user',
                 )
             );
+            $menu['User']->addChild('Aldatu barrutia', ['icon' => 'globe', 'route' => 'barrutia']);
 
 
         } else {
