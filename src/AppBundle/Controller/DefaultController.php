@@ -16,10 +16,30 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
-//        return $this->render('default/index.html.twig', [
-//            'base_dir' => realpath($this->getParameter('kernel.project_dir')).DIRECTORY_SEPARATOR,
-//        ]);
         return $this->redirectToRoute( 'admin_arreta_index' );
     }
+
+    /**
+     * @Route("/barrutia", name="barrutia")
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function barrutiaAction(Request $request)
+    {
+        $defaultData = array('message' => 'Type your message here');
+        $form = $this->createFormBuilder($defaultData)
+                     ->add('Barrutia', TextType::class)
+                     ->getForm();
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            // data is an array with "name", "email", and "message" keys
+            $data = $form->getData();
+        }
+
+    }
+
+
 }

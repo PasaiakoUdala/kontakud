@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block headline %}
+    Barrutien kudeaketa
+{% endblock headline %}
+
+{% block subheadline %}
+    <div class="page-header">
+        <ul class="list-inline">
+            <li>
+                <a class="btn btn-primary" href="{{ path('admin_barrutia_index') }}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Itzuli</a>
+                <a id="btnSave" class="btn btn-primary" href="#"><i class="fa fa-floppy-o" aria-hidden="true"></i> Gorde </a>
+            </li>
+        </ul>
+    </div>
+{% endblock subheadline %}
+
+{% block content %}
+
+    <div class="col-sm-12">
+        {{ form_start(form, {'attr': {'id': 'frmNew'}}) }}
+        {{ form_widget(form) }}
+        {{ form_end(form) }}
+    </div>
+
+{% endblock %}
+
+{% block foot_script %}
+    {{ parent() }}
+
+    <script>
+        $(document).ready(function () {
+            $('#btnSave').on('click', function () {
+
+                var akatsak = 0;
+                if ( $('#appbundle_barrutia_name').val().length === 0 ) { akatsak=1}
+
+                if ( akatsak === 0 ) {
+                    $("#frmNew").submit();
+                } else {
+                    alert ("Beharrezko eremuak bete...")
+                }
+
+            })
+        });
+    </script>
+{% endblock %}

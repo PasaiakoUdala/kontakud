@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+
+{% block headline %}
+    Barrutien kudeaketa
+{% endblock headline %}
+
+{% block subheadline %}
+    <div class="page-header">
+        <ul class="list-inline">
+            <li>
+                <a class="btn btn-primary" href="{{ path('admin_barrutia_new') }}"><i class="fa fa-plus-square" aria-hidden="true"></i> Berria</a>
+            </li>
+        </ul>
+    </div>
+{% endblock subheadline %}
+
+
+
+{% block content %}
+
+    <div class="col-sm-12">
+        <table class="table table-condensed table-hover table-striped">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Barrutia</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for barrutia in barrutiak%}
+                <tr>
+                    <td><a href="{{ path('admin_kanala_edit', { 'id': barrutia.id }) }}">{{ barrutia.id }}</a></td>
+                    <td>{{ barrutia.name }}</td>
+                    <td>
+                        <ul class="list-inline">
+                            <li>
+                                <a href="{{ path('admin_barrutia_edit', { 'id': barrutia.id }) }}"><i class="fa fa-pencil" aria-hidden="true"></i> Aldatu</a>
+                            </li>
+                            <li>
+                                {{ form_start(deleteforms[barrutia.id],{'attr': {'id': 'deleteBarrutiaForm' ~ barrutia.id}}) }}
+                                <a class="btnDelete" data-miid="{{ barrutia.id }}" href="#"><i class="fa fa-trash text-danger"></i></a>
+                                {{ form_end(deleteforms[barrutia.id]) }}
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+{% endblock %}
+{% block foot_script %}
+    {{ parent() }}
+    <script>
+        $(document).ready(function () {
+            $('.btnDelete').on('click', function () {
+                var r = confirm("{{ 'messages.ziurzaude'|trans }}");
+                if ( r === true ) {
+                    var miid = $(this).data("miid");
+                    var frm = "#deleteBarrutiaForm" + miid;
+                    console.log(frm);
+                    $(frm).submit();
+                }
+            })
+        })
+    </script>
+
+{% endblock %}

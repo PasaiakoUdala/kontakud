@@ -66,6 +66,11 @@ class User extends BaseUser implements LdapUserInterface
     protected $notes;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    protected $barrutia;
+
+    /**
      * @ORM\Column(type="json_array", nullable=true)
      */
     private $members = [];
@@ -298,5 +303,29 @@ class User extends BaseUser implements LdapUserInterface
     public function getArretak()
     {
         return $this->arretak;
+    }
+
+    /**
+     * Set barrutia.
+     *
+     * @param string|null $barrutia
+     *
+     * @return User
+     */
+    public function setBarrutia($barrutia = null)
+    {
+        $this->barrutia = $barrutia;
+
+        return $this;
+    }
+
+    /**
+     * Get barrutia.
+     *
+     * @return string|null
+     */
+    public function getBarrutia()
+    {
+        return $this->barrutia;
     }
 }
