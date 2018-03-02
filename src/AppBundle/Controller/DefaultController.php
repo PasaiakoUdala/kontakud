@@ -35,7 +35,7 @@ class DefaultController extends Controller
         $form = $this->createFormBuilder( $data )
                      ->add( 'barrutia', EntityType::class, array(
                          'label' => 'Non zaude?',
-                         'placeholder' => 'Aukeratu barrutia...',
+                         'placeholder' => 'Aukeratu...',
                          'required' => true,
                          'class' => 'AppBundle:Barrutia',
                      ) )
@@ -60,9 +60,6 @@ class DefaultController extends Controller
                 $em->flush();
                 return $this->redirectToRoute( 'homepage' );
             }
-
-
-
         }
 
         return $this->render( 'default/choose_barrutia.html.twig', array(

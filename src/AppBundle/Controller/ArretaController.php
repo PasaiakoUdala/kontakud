@@ -86,6 +86,7 @@ class ArretaController extends Controller
         $arreta = new Arreta();
         $arreta->setUser( $user );
         $arreta->setFetxa( new \DateTime() );
+        $arreta->setSacbarrutia( $user->getBarrutia() );
         $em->persist( $arreta );
         $em->flush();
 

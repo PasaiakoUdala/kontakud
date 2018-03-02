@@ -151,6 +151,14 @@ class Arreta
     private $kanala;
 
     /**
+     * @var \AppBundle\Entity\Barrutia
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Barrutia", inversedBy="arretak")
+     * @ORM\JoinColumn(name="sacbarrutia_id", referencedColumnName="id",onDelete="SET NULL")
+     */
+    private $sacbarrutia;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -598,5 +606,29 @@ class Arreta
     public function getIsclosed()
     {
         return $this->isclosed;
+    }
+
+    /**
+     * Set sacbarrutia.
+     *
+     * @param \AppBundle\Entity\Barrutia|null $sacbarrutia
+     *
+     * @return Arreta
+     */
+    public function setSacbarrutia(\AppBundle\Entity\Barrutia $sacbarrutia = null)
+    {
+        $this->sacbarrutia = $sacbarrutia;
+
+        return $this;
+    }
+
+    /**
+     * Get sacbarrutia.
+     *
+     * @return \AppBundle\Entity\Barrutia|null
+     */
+    public function getSacbarrutia()
+    {
+        return $this->sacbarrutia;
     }
 }

@@ -53,7 +53,7 @@ class Builder implements ContainerAwareInterface
                     'icon'     => 'user',
                 )
             );
-            $menu['User']->addChild('Aldatu barrutia', ['icon' => 'globe', 'route' => 'barrutia']);
+            $menu['User']->addChild('Aldatu kokalekua', ['icon' => 'globe', 'route' => 'barrutia']);
 
 
         } else {
