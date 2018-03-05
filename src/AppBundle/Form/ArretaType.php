@@ -27,6 +27,7 @@ class ArretaType extends AbstractType
                 )
             ))
             ->add('remitente', ChoiceType::class, array(
+                'label' => 'Igorlea',
                 'choices' => array(
                     'Persona individual' => 'Individual',
                     'Administración / Empresa' => 'Administración/Empresa'

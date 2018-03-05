@@ -10,6 +10,23 @@ namespace AppBundle\Repository;
  */
 class ArretaRepository extends \Doctrine\ORM\EntityRepository
 {
+
+    public function findMyAll($id) {
+        $em = $this->getEntityManager();
+        $sql = /** @lang text */
+            "SELECT a
+                FROM AppBundle:Arreta a
+                INNER JOIN a.user u
+                WHERE u.id = :id
+        ";
+
+        $consulta = $em->createQuery( $sql );
+        $consulta->setParameter( 'id', $id );
+
+        return $consulta->getResult();
+
+    }
+
     public function bilatzailea ( $hasi=null, $fin=null, $closed=null )
     {
         $em = $this->getEntityManager();

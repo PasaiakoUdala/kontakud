@@ -26,6 +26,8 @@ class AppKernel extends Kernel
             new Mopa\Bundle\BootstrapBundle\MopaBootstrapBundle(),
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 
+            new Ob\HighchartsBundle\ObHighchartsBundle(),
+
             new AppBundle\AppBundle(),
         ];
 

@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Arreta;
+use AppBundle\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -26,7 +27,16 @@ class ArretaController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
 
-        $arretas = $em->getRepository('AppBundle:Arreta')->findAll();
+        /** @var User $user */
+        $user = $this->getUser();
+
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            $arretas = $em->getRepository('AppBundle:Arreta')->findAll();
+        } else {
+            $arretas = $em->getRepository('AppBundle:Arreta')->findMyAll($user->getId());
+        }
+
+
 
         $deleteForms = array();
         foreach ($arretas as $a) {
