@@ -1,21 +1,21 @@
 Información: Información
 messages.ziurzaude: '¿estas seguro?'
-Taula Laguntzaileak: 'Tablas auxiliares'
+'Taula Laguntzaileak': 'Tablas auxiliares'
 Kanalak: Canales
-Tramiteen emaitza motak: 'Tipos de resultados de tramites'
-Tramiteen motak: 'Tipos de tramite'
+'Tramiteen emaitza motak': 'Tipos de resultados de tramites'
+'Tramiteen motak': 'Tipos de tramite'
 Kanala: Canal
 Remitente: Remitente
-Persona individual: 'Persona Individual'
-Administración / Empresa: 'Administración / Empresa'
+'Persona individual': 'Persona Individual'
+'Administración / Empresa': 'Administración / Empresa'
 Genero: Genero
 Femenino: Femenino
 Masculino: Masculino
 Adina: Edad
-Hasta 30: 'Hasta 30'
-31-65: '31-65'
-Mayor 65: 'Mayor 65'
-Nazionalitatea: 'Nacionalidad'
+'Hasta 30': 'Hasta 30'
+31-65: 31-65
+'Mayor 65': 'Mayor 65'
+Nazionalitatea: Nacionalidad
 Hizkuntza: Idioma
 Euskera: Euskera
 Castellano: Castellano
@@ -23,8 +23,8 @@ Otra: Otra
 Barrutia: Distrito
 Donibane: Donibane
 Trintxerpe: Trintxerpe
-Antxo: 	Antxo
-San Juan: 'San Juan'
+Antxo: Antxo
+'San Juan': 'San Juan'
 Administrazioa: Administración
 Municipal: Municipal
 Provincial: Provincial
@@ -42,4 +42,21 @@ Result: Resultado
 Notes: Notas
 Arreta: Atención
 Mota: Tipo
-Código: 'messages'
+Código: Código
+frm.arreta.new.kanala: Canal
+frm.arreta.new.remitente: Remitente
+frm.arreta.new.genero: Género
+frm.arreta.new.adina: 'Rango edad'
+frm.arreta.new.nazionalitatea: Nacionalidad
+frm.arreta.new.hizkuntza: Idioma
+frm.arreta.new.barrutia: Distrito
+frm.arreta.new.administrazioa: Administración
+frm.barrutia.non.zaude: '¿Donde estas?'
+frm.barrutia.onartu: 'Aceptar y entrar'
+Datak: Fechas
+Egoera: Estado
+Irekita: Abierto
+Itxita: Cerrado
+Data: Fecha
+Tramiteak: Trámites
+'Arreta berria': 'Nueva atención'

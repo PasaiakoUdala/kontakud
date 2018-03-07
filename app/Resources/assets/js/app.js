@@ -1,5 +1,26 @@
 $(function () {
 
+
+    (function ($) {
+        $.fn.serializeFormJSON = function () {
+
+            var o = {};
+            var a = this.serializeArray();
+            $.each(a, function () {
+                if (o[this.name]) {
+                    if (!o[this.name].push) {
+                        o[this.name] = [o[this.name]];
+                    }
+                    o[this.name].push(this.value || '');
+                } else {
+                    o[this.name] = this.value || '';
+                }
+            });
+            return o;
+        };
+    })(jQuery);
+
+
     $("#txtNan").on("blur", function () {
 
         //44152950 Ruth
@@ -244,17 +265,33 @@ $(function () {
     $("#btnGerkudSave").click(function () {
 
         var myData = $("#frmGerkud").serializeObject();
-        var url = "http://kexak.pasaia.net/app.php/horkonpon/";
+
+
+        var nireData = $("#frmGerkud").serializeFormJSON();
+
+
+        var ss = {};
+
+        ss.data = JSON.stringify(myData);
+        ss.bertsioa = 2;
+
+
+
+        var url = "http://gerkud/app.php/horkonpon/";
         var miAjax = $.ajax({
             type: "POST",
             url: url,
-            data: myData
+            data: ss
         }).done(function ( data ) {
             var myData = jQuery.parseJSON(data);
-            $("#appbundle_tramite_kodea").val(myData.code);
-            $("#appbundle_tramite_name").val($("#appbundle_tramite_mota option:selected").text());
-            $("#modal-zerbikat").modal("hide");
-            $("#frmTramiteNew").submit();
+            if ( myData.status === -1 ) {
+                alert(myData.message);
+            } else {
+                $("#appbundle_tramite_kodea").val(myData.code);
+                $("#appbundle_tramite_name").val($("#appbundle_tramite_mota option:selected").text());
+                $("#modal-zerbikat").modal("hide");
+                $("#frmTramiteNew").submit();
+            }
 
         }).fail(function ( XMLHttpRequest, textStatus, errorThrown ) {
             console.log("ERROR");

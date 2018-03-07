@@ -24,7 +24,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * @Route("/barrutia", name="barrutia")
+     *
      * @param Request $request
      *
      * @return \Symfony\Component\HttpFoundation\Response
@@ -34,12 +34,16 @@ class DefaultController extends Controller
         $data = array();
         $form = $this->createFormBuilder( $data )
                      ->add( 'barrutia', EntityType::class, array(
-                         'label' => 'Non zaude?',
+                         'label'     => 'frm.barrutia.non.zaude',
+                         'choice_translation_domain' => 'messages',
                          'placeholder' => 'Aukeratu...',
                          'required' => true,
                          'class' => 'AppBundle:Barrutia',
                      ) )
-                     ->add('Onartu eta sartu', SubmitType::class)
+                     ->add('Onartu eta sartu', SubmitType::class, array(
+                         'label'     => 'frm.barrutia.onartu',
+
+                     ) )
                      ->getForm();
 
         $form->handleRequest( $request );

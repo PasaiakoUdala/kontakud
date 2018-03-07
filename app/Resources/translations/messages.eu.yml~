@@ -1,2 +1,61 @@
-Información: __Información
+Información: Informazioa
 messages.ziurzaude: 'Ziur zaude?'
+'Taula Laguntzaileak': 'Taula Laguntzaileak'
+Kanalak: Kanalak
+'Tramiteen emaitza motak': 'Tramiteen emaitza motak'
+'Tramiteen motak': 'Tramiteen motak'
+Kanala: Kanala
+Remitente: Remitentea
+'Persona individual': Bakarkakoa
+'Administración / Empresa': 'Administrazioa / Enpresa'
+Genero: Generoa
+Femenino: Emakumezkoa
+Masculino: Gizonezkoa
+Adina: Adina
+'Hasta 30': 30erarte
+31-65: 31-65
+'Mayor 65': '65etik aurrera'
+Nazionalitatea: Nazionalitatea
+Hizkuntza: Hizkuntza
+Euskera: Euskera
+Castellano: Gaztelania
+Otra: 'Beste bat'
+Barrutia: Barrutia
+Donibane: Donibane
+Trintxerpe: Trintxerpe
+Antxo: Antxo
+'San Juan': 'San Juan'
+Administrazioa: Administrazioa
+Municipal: Udalerria
+Provincial: Probintzial
+Autonomica: Autonomikoa
+Estatal: Estatala
+Justicia: Justizia
+Osakidetza: Osakidetza
+User: Erabiltzailea
+Fetxa: Data
+Nan: Nan
+Oharra: Oharra
+Name: Izena
+Kodea: Kodea
+Result: Emaitza
+Notes: Oharrak
+Arreta: Arreta
+Mota: Mota
+Código: Kodea
+frm.arreta.new.kanala: Canal
+frm.arreta.new.remitente: Remitente
+frm.arreta.new.genero: Género
+frm.arreta.new.adina: 'Rango edad'
+frm.arreta.new.nazionalitatea: Nacionalidad
+frm.arreta.new.hizkuntza: Idioma
+frm.arreta.new.barrutia: Distrito
+frm.arreta.new.administrazioa: Administración
+frm.barrutia.non.zaude: 'Non zaude?'
+frm.barrutia.onartu: 'Onartu eta sartu'
+Datak: Datak
+Egoera: Egoera
+Irekita: Irekita
+Itxita: Itxita
+Data: Data
+Tramiteak: Tramiteak

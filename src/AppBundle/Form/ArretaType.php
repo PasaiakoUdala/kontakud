@@ -24,7 +24,9 @@ class ArretaType extends AbstractType
                 'multiple' => false,
                 'label_attr' => array(
                     'class' => 'radio-inline'
-                )
+                ),
+                'label'     => 'frm.arreta.new.kanala',
+                'choice_translation_domain' => 'messages'
             ))
             ->add('remitente', ChoiceType::class, array(
                 'label' => 'Igorlea',
@@ -37,7 +39,9 @@ class ArretaType extends AbstractType
                 'expanded'=>true,
                 'label_attr' => array(
                     'class' => 'radio-inline'
-                )
+                ),
+                'label'     => 'frm.arreta.new.remitente',
+                'choice_translation_domain' => 'messages'
             ))
             ->add('genero', ChoiceType::class, array(
                 'choices' => array(
@@ -49,7 +53,10 @@ class ArretaType extends AbstractType
                 'expanded'=>true,
                 'label_attr' => array(
                     'class' => 'radio-inline'
-                )
+                ),
+                'label'     => 'frm.arreta.new.genero',
+                'choice_translation_domain' => 'messages'
+
             ))
             ->add('adina', ChoiceType::class, array(
                 'choices' => array(
@@ -62,19 +69,23 @@ class ArretaType extends AbstractType
                 'expanded'=>true,
                 'label_attr' => array(
                     'class' => 'radio-inline'
-                )
+                ),
+                'label'     => 'frm.arreta.new.adina',
+                'choice_translation_domain' => 'messages'
             ))
             ->add('nazionalitatea', ChoiceType::class, array(
                 'choices' => array(
-                    'Persona individual' => 'Española',
-                    'Administración / Empresa' => 'Otro'
+                    'Española' => 'Española',
+                    'Otro' => 'Otro'
                 ),
                 'choices_as_values' => true,
                 'multiple'=>false,
                 'expanded'=>true,
                 'label_attr' => array(
                     'class' => 'radio-inline'
-                )
+                ),
+                'label'     => 'frm.arreta.new.nazionalitatea',
+                'choice_translation_domain' => 'messages'
             ))
             ->add('hizkuntza', ChoiceType::class, array(
                 'choices' => array(
@@ -87,7 +98,9 @@ class ArretaType extends AbstractType
                 'expanded'=>true,
                 'label_attr' => array(
                     'class' => 'radio-inline'
-                )
+                ),
+                'label'     => 'frm.arreta.new.hizkuntza',
+                'choice_translation_domain' => 'messages'
             ))
             ->add('barrutia', ChoiceType::class, array(
                 'choices' => array(
@@ -101,7 +114,9 @@ class ArretaType extends AbstractType
                 'expanded'=>true,
                 'label_attr' => array(
                     'class' => 'radio-inline'
-                )
+                ),
+                'label'     => 'frm.arreta.new.barrutia',
+                'choice_translation_domain' => 'messages'
             ))
             ->add('administrazioa', ChoiceType::class, array(
                 'choices' => array(
@@ -117,7 +132,9 @@ class ArretaType extends AbstractType
                 'expanded'=>true,
                 'label_attr' => array(
                     'class' => 'radio-inline'
-                )
+                ),
+                'label'     => 'frm.arreta.new.administrazioa',
+                'choice_translation_domain' => 'messages'
             ))
             ->add('oharra')
             ->add('isclosed')

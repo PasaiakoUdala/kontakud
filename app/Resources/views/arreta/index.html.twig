@@ -2,7 +2,7 @@
 
 {% block headline %}
     <div class="row">
-        <div class="col-md-1"><a class="btn btn-success" href="{{ path('admin_arreta_new') }}">Arreta berria</a></div>
+        <div class="col-md-1"><a class="btn btn-success" href="{{ path('admin_arreta_new') }}">{{ "Arreta berria" | trans }}</a></div>
         <div class="col-md-10"></div>
         <div class="col-md-1"></div>
     </div>
@@ -21,7 +21,7 @@
                         <form action="{{ path('admin_arreta_find') }}" class="form-inline" method="post">
                             <div class="col-md-12">
                                 <div class="col-md-3" id="divDateRange">
-                                    <label>Datak</label>
+                                    <label>{{ "Datak" | trans }}</label>
                                     <div class="input-daterange input-group" id="filterDatepicker">
                                         <input type="text" class="input-sm form-control" name="data_hasi" />
                                         <span class="input-group-addon">-</span>
@@ -29,10 +29,10 @@
                                     </div>
                                 </div>
                                 <div class="col-md-2">
-                                    <label for="cmbEgoera">Egoera</label><br>
+                                    <label for="cmbEgoera">{{ "Egoera" | trans }}</label><br>
                                     <select name="egoera" id="cmbEgoera" class="form-control">
-                                        <option value="0">Irekita</option>
-                                        <option value="1">Itxita</option>
+                                        <option value="0">{{ "Irekita" | trans}}</option>
+                                        <option value="1">{{ "Itxita" | trans }}</option>
                                     </select>
                                 </div>
                                 <div class="col-md-6"></div>
@@ -60,10 +60,10 @@
                 <tr>
                     {#<th></th>#}
                     <th>Id</th>
-                    <th>Data</th>
-                    <th>Nan</th>
-                    <th>Tramiteak</th>
-                    <th>Egoera</th>
+                    <th>{{ "Data" | trans }}</th>
+                    <th>{{ "Nan" | trans }}</th>
+                    <th>{{ "Tramiteak" | trans }}</th>
+                    <th>{{ "Egoera" | trans }}</th>
                     <th></th>
                 </tr>
                 </thead>

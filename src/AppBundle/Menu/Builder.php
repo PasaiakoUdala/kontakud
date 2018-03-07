@@ -12,6 +12,8 @@ namespace AppBundle\Menu;
 use AppBundle\Entity\User;
 use Doctrine\ORM\EntityManager;
 use Knp\Menu\FactoryInterface;
+use Knp\Menu\ItemInterface;
+use Knp\Menu\MenuItem;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerAwareTrait;
 
@@ -22,6 +24,7 @@ class Builder implements ContainerAwareInterface
 
     public function mainMenu( FactoryInterface $factory, array $options )
     {
+        /** @var ItemInterface $menu */
         $menu = $factory->createItem( 'root', [ 'navbar' => true ] );
 
         $menu->addChild( 'Taula Laguntzaileak', [ 'icon' => 'th-list' ] );
@@ -41,20 +44,16 @@ class Builder implements ContainerAwareInterface
         /** @var $user User */
         $user = $this->container->get( 'security.token_storage' )->getToken()->getUser();
 
+        /** @var ItemInterface $menu */
         $menu = $factory->createItem( 'root', [ 'navbar' => true, 'icon' => 'user' ] );
 
         if ( $checker->isGranted( 'ROLE_USER' ) ) {
 
-            $menu->addChild(
-                'User',
-                array(
-                    'label'    => $user->getDisplayname() . " ( ".$user->getBarrutia()." )",
-                    'dropdown' => true,
-                    'icon'     => 'user',
-                )
-            );
+            $menu->addChild('User',array('label' => $user->getDisplayname()." ( ".$user->getBarrutia()." )",'dropdown' => true,'icon' => 'user',));
             $menu['User']->addChild('Aldatu kokalekua', ['icon' => 'globe', 'route' => 'barrutia']);
-
+            $menu['User']->addChild('divider', ['divider' => true]);
+            $menu['User']->addChild('divider', ['divider' => true]);
+            $menu['User']->addChild('Amaitu saioa', ['icon' => 'log-out', 'route' => 'fos_user_security_logout']);
 
         } else {
             $menu->addChild( 'login', [ 'route' => 'fos_user_security_login' ] );
