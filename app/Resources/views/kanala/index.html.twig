@@ -19,7 +19,7 @@
 {% block content %}
 
 <div class="col-sm-12">
-    <table class="table table-condensed table-hover table-striped">
+    <table class="table table-condensed table-hover table-striped" id="niredatatable">
         <thead>
             <tr>
                 <th>Id</th>
@@ -57,7 +57,7 @@
     {{ parent() }}
     <script>
         $(document).ready(function () {
-            $('.btnDelete').on('click', function () {
+            $(".btnDelete").on("click", function () {
                 var r = confirm("{{ 'messages.ziurzaude'|trans }}");
                 if ( r === true ) {
                     var miid = $(this).data("miid");
@@ -65,7 +65,70 @@
                     console.log(frm);
                     $(frm).submit();
                 }
-            })
+            });
+
+            {% if app.request.locale != "eu" %}
+
+            $('#niredatatable').dataTable({
+                "pageLength": 50,
+                "language": {
+                    "sProcessing": "Procesando...",
+                    "sLengthMenu": "Mostrar _MENU_ registros",
+                    "sZeroRecords": "No se encontraron resultados",
+                    "sEmptyTable": "Ningún dato disponible en esta tabla",
+                    "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                    "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                    "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                    "sInfoPostFix": "",
+                    "sSearch": "Buscar:",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "Cargando...",
+                    "oPaginate": {
+                        "sFirst": "Primero",
+                        "sLast": "Último",
+                        "sNext": "Siguiente",
+                        "sPrevious": "Anterior"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                        "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                    }
+                }
+            });
+
+            {% else %}
+
+            $('#niredatatable').dataTable({
+                "pageLength": 50,
+                "language": {
+                    "sProcessing":     "Prozesatzen...",
+                    "sLengthMenu":     "Erakutsi _MENU_ erregistro",
+                    "sZeroRecords":    "Ez da emaitzarik aurkitu",
+                    "sEmptyTable":     "Taula hontan ez dago inongo datu erabilgarririk",
+                    "sInfo":           "_START_ -etik _END_ -erako erregistroak erakusten, guztira _TOTAL_ erregistro",
+                    "sInfoEmpty":      "0tik 0rako erregistroak erakusten, guztira 0 erregistro",
+                    "sInfoFiltered":   "(guztira _MAX_ erregistro iragazten)",
+                    "sInfoPostFix":    "",
+                    "sSearch":         "Aurkitu:",
+                    "sUrl":            "",
+                    "sInfoThousands":  ",",
+                    "sLoadingRecords": "Abiarazten...",
+                    "oPaginate": {
+                        "sFirst":    "Lehena",
+                        "sLast":     "Azkena",
+                        "sNext":     "Hurrengoa",
+                        "sPrevious": "Aurrekoa"
+                    },
+                    "oAria": {
+                        "sSortAscending":  ": Zutabea goranzko eran ordenatzeko aktibatu ",
+                        "sSortDescending": ": Zutabea beheranzko eran ordenatzeko aktibatu"
+                    }
+                }
+            });
+
+            {% endif %}
+
         })
     </script>
 
