@@ -164,6 +164,7 @@ class Arreta
     public function __construct()
     {
         $this->tramiteak = new ArrayCollection();
+        $this->created = new \DateTime();
     }
 
     public function __toString()

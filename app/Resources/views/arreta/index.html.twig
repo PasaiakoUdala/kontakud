@@ -79,11 +79,11 @@
                             {% endif %}
                         </td>
                         <td>
-                            {% if arreta.fetxa %}
+                            {% if arreta.created %}
                                 {% if arreta.isclosed == true %}
-                                    {{ arreta.fetxa|date('Y-m-d h:m:s') }}
+                                    {{ arreta.created|date('Y-m-d H:i:s') }}
                                 {% else %}
-                                    <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.fetxa|date('Y-m-d h:m:s') }}</a>
+                                    <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.created|date('Y-m-d H:i:s') }}</a>
                                 {% endif %}
                             {% endif %}
                         </td>
