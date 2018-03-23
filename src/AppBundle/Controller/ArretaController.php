@@ -29,6 +29,7 @@ class ArretaController extends Controller
 
         /** @var User $user */
         $user = $this->getUser();
+        $arretakGaurDenak=[];
 
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
             $arretas = $em->getRepository('AppBundle:Arreta')->findBy(
@@ -43,6 +44,7 @@ class ArretaController extends Controller
             $arretas = $em->getRepository('AppBundle:Arreta')->findMyAll($user->getId());
             $users = $em->getRepository( 'AppBundle:User' )->findLangileak($user->getId());
             $arretakGaur = $em->getRepository( 'AppBundle:Arreta' )->findGaurkoArretaKopurua($user->getId());
+            $arretakGaurDenak = $em->getRepository( 'AppBundle:Arreta' )->findGaurkoArretaKopurua();
         }
 
         $users = $em->getRepository( 'AppBundle:User' )->findLangileak();
@@ -57,7 +59,8 @@ class ArretaController extends Controller
             'arretas' => $arretas,
             'deleteforms' => $deleteForms,
             'users' => $user,
-            'arretakGaur' => $arretakGaur[0]
+            'arretakGaur' => $arretakGaur[0],
+            'arretakGaurDenak' => $arretakGaurDenak[0]
         ));
     }
 
