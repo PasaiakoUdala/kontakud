@@ -29,7 +29,6 @@ class ArretaType extends AbstractType
                 'choice_translation_domain' => 'messages'
             ))
             ->add('remitente', ChoiceType::class, array(
-                'label' => 'Igorlea',
                 'choices' => array(
                     'Persona individual' => 'Individual',
                     'Administración / Empresa' => 'Administración/Empresa'

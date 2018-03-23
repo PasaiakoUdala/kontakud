@@ -31,6 +31,13 @@ class Arreta
     private $fetxa;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="amaitu", type="datetime", nullable=true)
+     */
+    private $amaitu;
+
+    /**
      * @var string
      *
      * @ORM\Column(name="nan", type="string", length=255, nullable=true)
@@ -631,5 +638,29 @@ class Arreta
     public function getSacbarrutia()
     {
         return $this->sacbarrutia;
+    }
+
+    /**
+     * Set amaitu.
+     *
+     * @param \DateTime $amaitu
+     *
+     * @return Arreta
+     */
+    public function setAmaitu($amaitu)
+    {
+        $this->amaitu = $amaitu;
+
+        return $this;
+    }
+
+    /**
+     * Get amaitu.
+     *
+     * @return \DateTime
+     */
+    public function getAmaitu()
+    {
+        return $this->amaitu;
     }
 }

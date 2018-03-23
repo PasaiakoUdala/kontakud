@@ -146,11 +146,23 @@ class ArretaController extends Controller
         $results = $em->getRepository( 'AppBundle:Result' )->findAll();
 
         if($request->isXmlHttpRequest()) {
-            $this->getDoctrine()->getManager()->flush();
+            //$this->getDoctrine()->getManager()->flush();
+            $amaia = $arretum->getAmaitu();
+            if ( !isset($amaia) && ($arretum->getIsclosed()==true) ) {
+                $arretum->setAmaitu( new \DateTime() );
+            }
+            $em->persist( $arretum );
+            $em->flush();
 
             return new JsonResponse(array('message' => 'Success!'), 200);
         } else if ($editForm->isSubmitted() && $editForm->isValid()) {
-            $this->getDoctrine()->getManager()->flush();
+
+            $amaia = $arretum->getAmaitu();
+            if ( !isset($amaia) && ($arretum->getIsclosed()==true) ) {
+                $arretum->setAmaitu( new \DateTime() );
+            }
+            $em->persist( $arretum );
+            $em->flush();
 
             return $this->redirectToRoute('admin_arreta_index');
         }
