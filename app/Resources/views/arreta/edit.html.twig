@@ -301,19 +301,19 @@
                 </div>
                 <div class="modal-body">
                     <div class="row">
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <select id="cmbFamilia" multiple class="form-control" size="9">
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-3">
                             <div class="form-group">
                                 <select id="cmbAzpiFamilia" multiple class="form-control" size="9">
                                 </select>
                             </div>
                         </div>
-                        <div class="col-sm-4">
+                        <div class="col-sm-6">
                             <div class="form-group">
                                 <select id="cmbFitxa" multiple class="form-control" size="9">
                                 </select>
@@ -358,12 +358,8 @@
                                         <option value="-1">Aukeratu...</option>
                                     </select>
                                 </div>
-                                {#<div class="col-sm-12">#}
-                                {#<label for="txtGerkudHelbidea" class="control-label">Helbidea:</label>#}
-                                {#<input type="text" class="form-control" name="address[address]"#}
-                                {#id="txtGerkudHelbidea">#}
-                                {#</div>#}
                             </div>
+
                             <div class="row">
                                 <div class="col-sm-6">
                                     <label for="txtGerkudEmail" class="control-label">Email:</label>
@@ -434,14 +430,14 @@
                 $(".nav-tabs a[href=\"#" + url.split("#")[1] + "\"]").tab("show");
             }
 
-            var url2 = "http://zerbikat.sare.gipuzkoa.net/api/familiaks/064.json";
-            $.getJSON(url2, function ( data ) {
+            var url3 = "http://zerbikat.sare.gipuzkoa.net/api/sailak/064.json";
+            $.getJSON(url3, function ( data ) {
                 $.each(data, function ( key, val ) {
                     if ( !("parent" in val) ) {
                         if ( $("#txtLocale").val() === "eu" ) {
-                            $("#cmbFamilia").append("<option value='" + val.id + "'>" + val.familiaeu + "</option>");
+                            $("#cmbFamilia").append("<option value='" + val.id + "'>" + val.sailaeu + "</option>");
                         } else {
-                            $("#cmbFamilia").append("<option value='" + val.id + "'>" + val.familiaes + "</option>");
+                            $("#cmbFamilia").append("<option value='" + val.id + "'>" + val.sailaes + "</option>");
                         }
                     }
                 });

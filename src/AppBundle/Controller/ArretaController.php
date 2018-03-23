@@ -39,8 +39,6 @@ class ArretaController extends Controller
             $arretas = $em->getRepository('AppBundle:Arreta')->findMyAll($user->getId());
         }
 
-
-
         $deleteForms = array();
         foreach ($arretas as $a) {
             $deleteForms[$a->getId()] = $this->createDeleteForm($a)->createView();
