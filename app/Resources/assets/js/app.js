@@ -63,7 +63,11 @@ $(function () {
         });
     });
 
-    $("#btnArretaGorde").on("click", function () {
+    $("#btnArretaSave").on("click", function () {
+        $("#frmArretaEdit").submit();
+    });
+
+    $("#btnArretaClose").on("click", function () {
         $("#appbundle_arreta_isclosed").prop("checked", true);
         $("#frmArretaEdit").submit();
     });
