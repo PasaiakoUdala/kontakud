@@ -62,6 +62,7 @@
                     <th>Id</th>
                     <th>{{ "Data" | trans }}</th>
                     <th>{{ "Nan" | trans }}</th>
+                    <th>{{ "Kanala" | trans }}</th>
                     <th>{{ "Tramiteak" | trans }}</th>
                     <th>{{ "Egoera" | trans }}</th>
                     <th></th>
@@ -91,7 +92,10 @@
                             {{ arreta.nan }}
                         </td>
                         <td>
-                            {{ arreta.tramiteak | length }}
+                            {{ arreta.kanala }}
+                        </td>
+                        <td>
+                            <span class="label label-primary">{{ arreta.tramiteak | length }}</span>
                         </td>
                         <td>
                             {% if arreta.isclosed == true %}
