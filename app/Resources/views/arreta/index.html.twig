@@ -104,11 +104,11 @@
                             {#{% if is_granted('ROLE_ADMIN') %}#}
                                 <ul class="list-inline">
                                     <li>
-                                        <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}"><i class="fa fa-edit"></i></a>
+                                        <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}"><i class="fa fa-edit"></i> {{ "Aldatu" | trans }}</a>
                                     </li>
                                     <li>
                                         {{ form_start(deleteforms[arreta.id],{'attr': {'id': 'deleteArretaForm' ~ arreta.id}}) }}
-                                        <a class="btnDelete" data-miid="{{ arreta.id }}" href="#"><i class="fa fa-trash text-danger"></i></a>
+                                        <a class="btnDelete" data-miid="{{ arreta.id }}" href="#"><i class="fa fa-trash text-danger"></i> {{ "Ezabatu" | trans }}</a>
                                         {{ form_end(deleteforms[arreta.id]) }}
                                     </li>
                                 </ul>
