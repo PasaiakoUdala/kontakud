@@ -205,7 +205,7 @@ class ArretaController extends Controller
      *
      * @param Arreta $arretum The arretum entity
      *
-     * @return \Symfony\Component\Form\Form The form
+     * @return \Symfony\Component\Form\Form|\Symfony\Component\Form\FormInterface
      */
     private function createDeleteForm(Arreta $arretum)
     {

@@ -60,7 +60,8 @@
                 <tr>
                     {#<th></th>#}
                     <th>Id</th>
-                    <th>User</th>
+                    <th>{{ "Langilea" | trans }}</th>
+                    <th>{{ "Kokalekua" | trans }}</th>
                     <th>{{ "Data" | trans }}</th>
                     <th>{{ "Nan" | trans }}</th>
                     <th>{{ "Kanala" | trans }}</th>
@@ -78,6 +79,9 @@
                         </td>
                         <td>
                             {{ arreta.user.username }}
+                        </td>
+                        <td>
+                            {{ arreta.user.barrutia }}
                         </td>
                         <td>
                             {% if arreta.created %}
@@ -142,7 +146,8 @@
             {% if app.request.locale != "eu" %}
 
                 $('#niredatatable').dataTable({
-                    "pageLength": 50,
+                    "pageLength": 30,
+                    "order": [[ 0, "desc" ]],
                     "language": {
                         "sProcessing": "Procesando...",
                         "sLengthMenu": "Mostrar _MENU_ registros",
@@ -172,7 +177,8 @@
             {% else %}
 
                 $('#niredatatable').dataTable({
-                    "pageLength": 50,
+                    "pageLength": 30,
+                    "order": [[ 0, "desc" ]],
                     "language": {
                         "sProcessing":     "Prozesatzen...",
                         "sLengthMenu":     "Erakutsi _MENU_ erregistro",

@@ -27,12 +27,12 @@ class Builder implements ContainerAwareInterface
         /** @var ItemInterface $menu */
         $menu = $factory->createItem( 'root', [ 'navbar' => true ] );
 
-        $menu->addChild( 'Taula Laguntzaileak', [ 'icon' => 'th-list' ] );
-        $menu['Taula Laguntzaileak']->addChild('Kanalak', ['icon' => 'road', 'route' => 'admin_kanala_index']);
-        $menu['Taula Laguntzaileak']->addChild('Bulegoak', ['icon' => 'globe', 'route' => 'admin_barrutia_index']);
+        $menu->addChild( 'Taula Laguntzaileak', [ 'icon' => 'th-list' ] )->setExtra('translation_domain','messages');;
+        $menu['Taula Laguntzaileak']->addChild('Kanalak', ['icon' => 'road', 'route' => 'admin_kanala_index'])->setExtra('translation_domain','messages');;
+        $menu['Taula Laguntzaileak']->addChild('Bulegoak', ['icon' => 'globe', 'route' => 'admin_barrutia_index'])->setExtra('translation_domain','messages');;
         $menu['Taula Laguntzaileak']->addChild('divider', ['divider' => true]);
-        $menu['Taula Laguntzaileak']->addChild('Tramiteen emaitza motak', ['icon' => 'saved', 'route' => 'admin_result_index']);
-        $menu['Taula Laguntzaileak']->addChild('Tramiteen motak', ['icon' => 'tag', 'route' => 'admin_mota_index']);
+        $menu['Taula Laguntzaileak']->addChild('Tramiteen emaitza motak', ['icon' => 'saved', 'route' => 'admin_result_index'])->setExtra('translation_domain','messages');;
+        $menu['Taula Laguntzaileak']->addChild('Tramiteen motak', ['icon' => 'tag', 'route' => 'admin_mota_index'])->setExtra('translation_domain','messages');;
 
 
         return $menu;
