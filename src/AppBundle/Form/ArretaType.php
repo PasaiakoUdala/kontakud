@@ -106,7 +106,8 @@ class ArretaType extends AbstractType
                     'Donibane' => 'Donibane',
                     'Trintxerpe' => 'Trintxerpe',
                     'Antxo' => 'Antxo',
-                    'San Pedro' => 'San Pedro'
+                    'San Pedro' => 'San Pedro',
+                    'Beste batzuk / Otros' => 'Beste batzuk / Otros'
                 ),
                 'choices_as_values' => true,
                 'multiple'=>false,

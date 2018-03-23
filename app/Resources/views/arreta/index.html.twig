@@ -60,6 +60,7 @@
                 <tr>
                     {#<th></th>#}
                     <th>Id</th>
+                    <th>User</th>
                     <th>{{ "Data" | trans }}</th>
                     <th>{{ "Nan" | trans }}</th>
                     <th>{{ "Kanala" | trans }}</th>
@@ -70,14 +71,13 @@
                 </thead>
                 <tbody>
                 {% for arreta in arretas %}
-                    {#<td>{{ dump(arreta) }}</td>#}
+
                     <tr>
                         <td>
-                            {% if arreta.isclosed == true %}
-                                {{ arreta.id }}
-                            {% else %}
-                                <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.id }}</a>
-                            {% endif %}
+                            <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}">{{ arreta.id }}</a>
+                        </td>
+                        <td>
+                            {{ arreta.user.username }}
                         </td>
                         <td>
                             {% if arreta.created %}
@@ -105,18 +105,18 @@
                             {% endif %}
                         </td>
                         <td>
-                            {#{% if is_granted('ROLE_ADMIN') %}#}
-                                <ul class="list-inline">
-                                    <li>
-                                        <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}"><i class="fa fa-edit"></i> {{ "Aldatu" | trans }}</a>
-                                    </li>
-                                    <li>
-                                        {{ form_start(deleteforms[arreta.id],{'attr': {'id': 'deleteArretaForm' ~ arreta.id}}) }}
-                                        <a class="btnDelete" data-miid="{{ arreta.id }}" href="#"><i class="fa fa-trash text-danger"></i> {{ "Ezabatu" | trans }}</a>
-                                        {{ form_end(deleteforms[arreta.id]) }}
-                                    </li>
-                                </ul>
-                            {#{% endif %}#}
+
+                            <ul class="list-inline">
+                                <li>
+                                    <a href="{{ path('admin_arreta_edit', { 'id': arreta.id }) }}"><i class="fa fa-edit"></i> {{ "Aldatu" | trans }}</a>
+                                </li>
+                                <li>
+                                    {{ form_start(deleteforms[arreta.id],{'attr': {'id': 'deleteArretaForm' ~ arreta.id}}) }}
+                                    <a class="btnDelete" data-miid="{{ arreta.id }}" href="#"><i class="fa fa-trash text-danger"></i> {{ "Ezabatu" | trans }}</a>
+                                    {{ form_end(deleteforms[arreta.id]) }}
+                                </li>
+                            </ul>
+
                         </td>
                     </tr>
                 {% endfor %}
