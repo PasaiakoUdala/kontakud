@@ -31,7 +31,10 @@ class ArretaController extends Controller
         $user = $this->getUser();
 
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            $arretas = $em->getRepository('AppBundle:Arreta')->findAll();
+            $arretas = $em->getRepository('AppBundle:Arreta')->findBy(
+                array(),
+                array('id' => 'desc')
+            );
         } else {
             $arretas = $em->getRepository('AppBundle:Arreta')->findMyAll($user->getId());
         }

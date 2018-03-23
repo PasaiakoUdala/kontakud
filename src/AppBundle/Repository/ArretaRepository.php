@@ -18,6 +18,7 @@ class ArretaRepository extends \Doctrine\ORM\EntityRepository
                 FROM AppBundle:Arreta a
                 INNER JOIN a.user u
                 WHERE u.id = :id
+                ORDER BY a.id DESC
         ";
 
         $consulta = $em->createQuery( $sql );
