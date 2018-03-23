@@ -10,4 +10,32 @@ namespace AppBundle\Repository;
  */
 class UserRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function findLangileak($userid = null) {
+        $em = $this->getEntityManager();
+
+
+        if (isset($userid)) {
+            $sql = /** @lang text */
+                "SELECT DISTINCT(u)
+                FROM AppBundle:User u
+                INNER JOIN u.arretak a
+                WHERE u.id = :userid
+            ";
+            $consulta = $em->createQuery( $sql );
+            $consulta->setParameter('userid', $userid );
+
+            return $consulta->getResult();
+
+        } else {
+            $sql = /** @lang text */
+                "SELECT DISTINCT(u)
+                FROM AppBundle:User u
+                INNER JOIN u.arretak a                
+            ";
+            $consulta = $em->createQuery( $sql );
+
+
+            return $consulta->getResult();
+        }
+    }
 }

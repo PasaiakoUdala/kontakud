@@ -3,7 +3,29 @@
 {% block headline %}
     <div class="row">
         <div class="col-md-1"><a class="btn btn-success" href="{{ path('admin_arreta_new') }}">{{ "Arreta berria" | trans }}</a></div>
-        <div class="col-md-10"></div>
+        <div class="col-md-10">
+
+            <div class="row">
+                <div class="col-xs-2">&nbsp;</div>
+                {% if is_granted('ROLE_ADMIN') %}
+                    <div class="col-xs-5">
+                        {{ "Arretak guztira" | trans }} <span class="label label-success">{{ arretas|length }}</span>
+                    </div>
+                    <div class="col-xs-5">
+                        {{ "Gaurko arretak" | trans }} <span class="label label-success">{{ arretakGaur.zenbat }}</span>
+                    </div>
+                {% else %}
+                    <div class="col-xs-5">
+                        {{ "Zure arretak guztira" | trans }} <span class="label label-success">{{ arretas|length }}</span>
+                    </div>
+                    <div class="col-xs-5">
+                        {{ "Zure gaurko arretak" | trans }} <span class="label label-success">{{ arretakGaur.zenbat }}</span>
+                    </div>
+                {% endif %}
+                
+            </div>
+
+        </div>
         <div class="col-md-1"></div>
     </div>
 {% endblock headline %}

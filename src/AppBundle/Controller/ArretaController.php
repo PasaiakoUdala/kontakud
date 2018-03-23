@@ -35,9 +35,18 @@ class ArretaController extends Controller
                 array(),
                 array('id' => 'desc')
             );
+
+            $users = $em->getRepository( 'AppBundle:User' )->findLangileak();
+            $arretakGaur = $em->getRepository( 'AppBundle:Arreta' )->findGaurkoArretaKopurua();
+
         } else {
             $arretas = $em->getRepository('AppBundle:Arreta')->findMyAll($user->getId());
+            $users = $em->getRepository( 'AppBundle:User' )->findLangileak($user->getId());
+            $arretakGaur = $em->getRepository( 'AppBundle:Arreta' )->findGaurkoArretaKopurua($user->getId());
         }
+
+        $users = $em->getRepository( 'AppBundle:User' )->findLangileak();
+
 
         $deleteForms = array();
         foreach ($arretas as $a) {
@@ -47,6 +56,8 @@ class ArretaController extends Controller
         return $this->render('arreta/index.html.twig', array(
             'arretas' => $arretas,
             'deleteforms' => $deleteForms,
+            'users' => $user,
+            'arretakGaur' => $arretakGaur[0]
         ));
     }
 

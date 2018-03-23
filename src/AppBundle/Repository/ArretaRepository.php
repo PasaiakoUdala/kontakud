@@ -76,4 +76,47 @@ class ArretaRepository extends \Doctrine\ORM\EntityRepository
         return $consulta->getResult();
 
     }
+
+    public function findGaurkoArretaKopurua ( $userid=null )
+    {
+
+        if ( isset($userid) ) {
+            $em = $this->getEntityManager();
+            $d = new \DateTime();
+            $sql = /** @lang text */
+                "
+            SELECT count(a) as zenbat
+                FROM AppBundle:Arreta a
+                INNER JOIN a.user u
+                WHERE a.fetxa > :date_start and a.fetxa < :date_end and u.id = :userid                 
+            ";
+
+            $consulta = $em->createQuery( $sql );
+            $date = new \DateTime();
+            $consulta->setParameter( 'date_start', $date->format( 'Y-m-d 00:00:00' ) );
+            $consulta->setParameter('date_end',   $date->format('Y-m-d 23:59:59'));
+            $consulta->setParameter( 'userid', $userid );
+
+            return $consulta->getResult();
+        } else {
+            $em = $this->getEntityManager();
+            $d = new \DateTime();
+            $sql = /** @lang text */
+                "
+            SELECT count(a) as zenbat
+                FROM AppBundle:Arreta a
+                WHERE a.fetxa > :date_start and a.fetxa < :date_end                 
+            ";
+
+            $consulta = $em->createQuery( $sql );
+            $date = new \DateTime();
+            $consulta->setParameter( 'date_start', $date->format( 'Y-m-d 00:00:00' ) );
+            $consulta->setParameter('date_end',   $date->format('Y-m-d 23:59:59'));
+
+
+            return $consulta->getResult();
+        }
+
+    }
+
 }
