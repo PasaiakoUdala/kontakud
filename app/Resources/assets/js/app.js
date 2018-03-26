@@ -151,8 +151,6 @@ $(function () {
 
         $.getJSON(url, function ( data ) {
             $.each(data, function ( key, val ) {
-                console.log(selId);
-                console.log(val.id);
                 if ( parseInt(val.id) === parseInt(selId) ) {
                     $.each(val.azpisailak, function ( k, v ) {
                         if ( $("#txtLocale").val() === "eu" ) {
@@ -171,12 +169,15 @@ $(function () {
 
     $(document).on("change", "#cmbAzpiFamilia", function () {
 
-
+        $("#afterSpinner").hide();
+        $('#spinnerPlace').show();
 
         $("#cmbFitxa").empty();
 
         var url = "http://zerbikat.test/app_dev.php/api/azpisailenfitxak/" + this.value + ".json";
         $.getJSON(url, function ( data ) {
+            $('#spinnerPlace').hide();
+            $("#afterSpinner").show();
             $.each(data, function ( key, val ) {
                 if ( $("#txtLocale").val() === "eu" ) {
                     $("#cmbFitxa").append("<option data-zerbikatid='" + val.id +"' value='" + val.espedientekodea + "'>" + val.espedientekodea + " - " + val.deskribapenaeu + "</option>");
