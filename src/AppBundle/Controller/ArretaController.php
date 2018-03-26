@@ -55,12 +55,13 @@ class ArretaController extends Controller
             $deleteForms[$a->getId()] = $this->createDeleteForm($a)->createView();
         }
 
+
         return $this->render('arreta/index.html.twig', array(
             'arretas' => $arretas,
             'deleteforms' => $deleteForms,
             'users' => $user,
             'arretakGaur' => $arretakGaur[0],
-            'arretakGaurDenak' => $arretakGaurDenak[0]
+            'arretakGaurDenak' => $arretakGaurDenak
         ));
     }
 

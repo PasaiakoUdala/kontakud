@@ -114,7 +114,7 @@ class ArretaRepository extends \Doctrine\ORM\EntityRepository
             $consulta->setParameter('date_end',   $date->format('Y-m-d 23:59:59'));
 
 
-            return $consulta->getResult();
+            return $consulta->getSingleScalarResult();
         }
 
     }

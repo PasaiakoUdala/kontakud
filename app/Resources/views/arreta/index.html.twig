@@ -21,7 +21,11 @@
                         {{ "Zure gaurko arretak" | trans }} <span class="label label-success">{{ arretakGaur.zenbat }}</span>
                     </div>
                     <div class="col-xs-4">
-                        {{ 'HAZ/SAC gaur' | trans }} <span class="label label-primary">{% if arretakGaurDenak.zenbat is defined %}{{ arretakGaurDenak.zenbat }}{% endif %}</span>
+                        {{ 'HAZ/SAC gaur' | trans }} &nbsp; <span class="label label-primary">
+                            {% if arretakGaurDenak is defined %}
+                                {{ arretakGaurDenak }}
+                            {% endif %}
+                        </span>
                     </div>
                 {% endif %}
                 
