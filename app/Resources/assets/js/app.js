@@ -171,6 +171,8 @@ $(function () {
 
     $(document).on("change", "#cmbAzpiFamilia", function () {
 
+
+
         $("#cmbFitxa").empty();
 
         var url = "http://zerbikat.test/app_dev.php/api/azpisailenfitxak/" + this.value + ".json";

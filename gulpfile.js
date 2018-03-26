@@ -13,6 +13,7 @@ var babel = require('gulp-babel'),
     ;
 
 var config = {
+    imgPath:  './app/Resources/assets/img',
     cssPath:  './app/Resources/assets/css',
     sassPath: './app/Resources/assets/scss',
     jsDir:    './app/Resources/assets/js',
@@ -40,7 +41,6 @@ myJS = [
     config.yarnDir + "/bootstrap/dist/js/bootstrap.min.js",
     config.yarnDir + "/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
     config.yarnDir + "/bootstrap-datepicker/dist/locales/bootstrap-datepicker.eu.min.js",
-
     config.jsDir   + "/app.js"
 ];
 
@@ -49,6 +49,7 @@ myJSNoBabel = [
     config.jsDir   + "/datatables/datatables.min.js",
     config.jsDir + "/bootbox/bootbox.min.js",
     config.yarnDir + "/bootstrap/dist/js/bootstrap.min.js"
+
 ];
 
 myCSS = [
@@ -61,7 +62,7 @@ myCSS = [
 ];
 
 myIMG = [
-
+    config.imgPath + "/spinner-gif-13.gif"
 ];
 
 
