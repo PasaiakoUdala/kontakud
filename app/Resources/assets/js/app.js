@@ -174,7 +174,7 @@ $(function () {
 
         $("#cmbFitxa").empty();
 
-        var url = "http://zerbikat.test/app_dev.php/api/azpisailenfitxak/" + this.value + ".json";
+        var url = "http://zerbikat.sare.gipuzkoa.net/api/azpisailenfitxak/" + this.value + ".json";
         $.getJSON(url, function ( data ) {
             $('#spinnerPlace').hide();
             $("#afterSpinner").show();
@@ -194,7 +194,7 @@ $(function () {
 
     $("#btn-modal-gorde").on("click", function () {
         var zerbikatid = $("#cmbFitxa").find(":selected").data("zerbikatid");
-        console.log(zerbikatid);
+
         $("#appbundle_tramite_kodea").val($("#cmbFitxa").val());
         $("#appbundle_tramite_name").val($("#appbundle_tramite_mota option:selected").text());
         $("#appbundle_tramite_zerbikatid").val(zerbikatid);

@@ -4,12 +4,15 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation\ExclusionPolicy;
+use JMS\Serializer\Annotation\Expose;
 
 /**
  * Tramite
  *
  * @ORM\Table(name="tramite")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\TramiteRepository")
+ * @ExclusionPolicy("all")
  */
 class Tramite
 {
