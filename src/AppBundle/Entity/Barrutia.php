@@ -41,9 +41,18 @@ class Barrutia
      */
     private $users;
 
+    /**
+     * @var arretak[]
+     *
+     * @ORM\OneToMany(targetEntity="AppBundle\Entity\Arreta", mappedBy="sacbarrutia",cascade={"persist"})
+     * @ORM\OrderBy({"fetxa" = "ASC"})
+     */
+    private $arretak;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->arretak = new ArrayCollection();
     }
 
     public function __toString()

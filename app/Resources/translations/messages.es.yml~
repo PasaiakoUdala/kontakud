@@ -53,9 +53,21 @@ frm.arreta.new.barrutia: Distrito
 frm.arreta.new.administrazioa: Administración
 frm.barrutia.non.zaude: '¿Donde estas?'
 frm.barrutia.onartu: 'Aceptar y entrar'
-Datak: "Fechas"
-Egoera: "Estado"
-Irekita: "Abierto"
-Itxita: "Cerrado"
-Data: "Fecha"
-Tramiteak: "Trámites"
+Datak: Fechas
+Egoera: Estado
+Irekita: Abierto
+Itxita: Cerrado
+Data: Fecha
+Tramiteak: Trámites
+'Arreta berria': 'Nueva atención'
+Aldatu: 'Modificar'
+Ezabatu: 'Eliminar'
+Arreta Gorde: 'Guardar Atención'
+Arreta Itxi: 'Guardar y cerrar Atención'
+Arreta Ezabatu: 'Eliminar Atención'
+Langilea: 'Trabajador/a'
+Kokalekua: 'Localización'
+Zure arretak guztira: 'Tus atenciones'
+Zure gaurko arretak: 'Tus atenciones de hoy'
+Arretak guztira: 'Total atenciones'
+Gaurko arretak: 'Total atenciones hoy'

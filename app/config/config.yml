@@ -7,6 +7,7 @@ imports:
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: eu
+    container.autowiring.strict_mode: true
 
 framework:
     #esi: ~
@@ -95,9 +96,9 @@ fos_user:
 
 fr3d_ldap:
    driver:
-      host: %ldap_domain%
-      username: %ldap_username%
-      password: %ldap_password%
+      host: '%ldap_domain%'
+      username: '%ldap_username%'
+      password: '%ldap_password%'
       useSsl:   false
       accountDomainName: donibane.pasaia.net
       accountDomainNameShort: pasaia

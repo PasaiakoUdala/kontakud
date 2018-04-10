@@ -2,6 +2,7 @@
 
 namespace AppBundle\Repository;
 
+
 /**
  * ArretaRepository
  *
@@ -11,7 +12,23 @@ namespace AppBundle\Repository;
 class ArretaRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function findMyAll($id) {
+    public function findAllFetched()
+    {
+
+        return $this->createQueryBuilder( 'a' )
+                    ->leftJoin( 'a.user', 'u' )
+                    ->addSelect( 'u' )
+                    ->leftJoin( 'a.tramiteak', 't' )
+                    ->addSelect( 't' )
+                    ->leftJoin('u.barrutia', 'b')
+                    ->addSelect('b')
+                    ->getQuery()
+                    ->getResult();
+
+    }
+
+    public function findMyAll( $id )
+    {
         $em = $this->getEntityManager();
         $sql = /** @lang text */
             "SELECT a
@@ -28,7 +45,7 @@ class ArretaRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
-    public function bilatzailea ( $hasi=null, $fin=null, $closed=null )
+    public function bilatzailea( $hasi = null, $fin = null, $closed = null )
     {
         $em = $this->getEntityManager();
 
@@ -40,19 +57,19 @@ class ArretaRepository extends \Doctrine\ORM\EntityRepository
                 WHERE                 
         ";
 
-        $where="";
-        if (strlen($hasi) > 0 ) {
+        $where = "";
+        if ( strlen( $hasi ) > 0 ) {
             $where = $where . "a.fetxa > :hasi ";
         }
-        if (strlen($fin) > 0 ) {
-            if ( strlen($where) > 0 ) {
+        if ( strlen( $fin ) > 0 ) {
+            if ( strlen( $where ) > 0 ) {
                 $where = $where . " AND a.fetxa < :fin ";
             } else {
                 $where = $where . "a.fetxa < :fin ";
             }
         }
-        if (strlen($closed) > 0 ) {
-            if ( strlen($where) > 0 ) {
+        if ( strlen( $closed ) > 0 ) {
+            if ( strlen( $where ) > 0 ) {
                 $where = $where . "AND a.isclosed = :closed";
             } else {
                 $where = $where . "a.isclosed = :closed";
@@ -60,15 +77,15 @@ class ArretaRepository extends \Doctrine\ORM\EntityRepository
         }
 
 
-        $consulta = $em->createQuery( $sql.$where );
+        $consulta = $em->createQuery( $sql . $where );
 
-        if (strlen($hasi) > 0 ) {
+        if ( strlen( $hasi ) > 0 ) {
             $consulta->setParameter( 'hasi', $hasi );
         }
-        if (strlen($fin) > 0 ) {
+        if ( strlen( $fin ) > 0 ) {
             $consulta->setParameter( 'fin', $fin );
         }
-        if (strlen($closed) > 0 ) {
+        if ( strlen( $closed ) > 0 ) {
             $consulta->setParameter( 'closed', $closed );
         }
 
@@ -77,10 +94,10 @@ class ArretaRepository extends \Doctrine\ORM\EntityRepository
 
     }
 
-    public function findGaurkoArretaKopurua ( $userid=null )
+    public function findGaurkoArretaKopurua( $userid = null )
     {
 
-        if ( isset($userid) ) {
+        if ( isset( $userid ) ) {
             $em = $this->getEntityManager();
             $d = new \DateTime();
             $sql = /** @lang text */
@@ -94,7 +111,7 @@ class ArretaRepository extends \Doctrine\ORM\EntityRepository
             $consulta = $em->createQuery( $sql );
             $date = new \DateTime();
             $consulta->setParameter( 'date_start', $date->format( 'Y-m-d 00:00:00' ) );
-            $consulta->setParameter('date_end',   $date->format('Y-m-d 23:59:59'));
+            $consulta->setParameter( 'date_end', $date->format( 'Y-m-d 23:59:59' ) );
             $consulta->setParameter( 'userid', $userid );
 
             return $consulta->getResult();
@@ -111,7 +128,7 @@ class ArretaRepository extends \Doctrine\ORM\EntityRepository
             $consulta = $em->createQuery( $sql );
             $date = new \DateTime();
             $consulta->setParameter( 'date_start', $date->format( 'Y-m-d 00:00:00' ) );
-            $consulta->setParameter('date_end',   $date->format('Y-m-d 23:59:59'));
+            $consulta->setParameter( 'date_end', $date->format( 'Y-m-d 23:59:59' ) );
 
 
             return $consulta->getSingleScalarResult();

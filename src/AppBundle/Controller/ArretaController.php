@@ -32,10 +32,7 @@ class ArretaController extends Controller
         $arretakGaurDenak=[];
 
         if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            $arretas = $em->getRepository('AppBundle:Arreta')->findBy(
-                array(),
-                array('id' => 'desc')
-            );
+            $arretas = $em->getRepository( 'AppBundle:Arreta' )->findAllFetched();
 
             $users = $em->getRepository( 'AppBundle:User' )->findLangileak();
             $arretakGaur = $em->getRepository( 'AppBundle:Arreta' )->findGaurkoArretaKopurua();
