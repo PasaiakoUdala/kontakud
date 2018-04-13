@@ -39,6 +39,7 @@ myFonts = [
 
 myJS = [
     config.yarnDir + "/bootstrap/dist/js/bootstrap.min.js",
+    config.jsDir   + "/charts/charts.js",
     config.yarnDir + "/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
     config.yarnDir + "/bootstrap-datepicker/dist/locales/bootstrap-datepicker.eu.min.js",
     config.jsDir   + "/app.js"
