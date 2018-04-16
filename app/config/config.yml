@@ -140,3 +140,12 @@ stof_doctrine_extensions:
             timestampable: true
             sortable: true
             blameable: true
+
+avanzu_admin_theme:
+    knp_menu:
+        enable : true
+    theme:
+        skin: skin-black
+    options:
+        knp_menu:                         # knp menu integration
+            enable: true

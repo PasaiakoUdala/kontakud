@@ -2,6 +2,7 @@
 # https://symfony.com/doc/current/service_container.html
 parameters:
     fr3d_ldap.security.authentication.provider.class: AppBundle\Security\Authentication\LdapAuthenticationProvider
+    avanzu_admin_theme.knp_menu_builder.class: Avanzu\AdminThemeBundle\Menu\MenuBuilder
 
 services:
     # default configuration for services in *this* file
@@ -30,7 +31,6 @@ services:
         tags: ['controller.service_arguments']
 
 
-
     fr3d_ldap.security.authentication.provider:
       class: "%fr3d_ldap.security.authentication.provider.class%"
       arguments:
@@ -43,3 +43,19 @@ services:
           - "@doctrine.orm.entity_manager"
     app.ldap.user_hydrator:
       class: AppBundle\Ldap\UserHydrator
+
+
+    app.setup_knp_menu_listener:
+                class: AppBundle\Event\MyMenuItemListListener
+                tags:
+                    - { name: kernel.event_listener, event: theme.sidebar_setup_knp_menu, method: onSetupMenu }
+
+    avanzu_admin_theme.knp_menu_builder:
+        class: "%avanzu_admin_theme.knp_menu_builder.class%"
+        arguments:
+            - "@knp_menu.factory"
+            - "@avanzu_admin_theme.admin_router"
+            - "@event_dispatcher"
+        tags:
+            - {name: knp_menu.menu_builder, method: createMainMenu, alias: avanzu_main }
+        public: true

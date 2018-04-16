@@ -21,6 +21,13 @@ class ChartsController extends Controller
      */
     public function indexAction( Request $request )
     {
-        return $this->render( 'grafikak/index.html.twig' );
+        $em = $this->getDoctrine()->getManager();
+        $arretak = $em->getRepository( 'AppBundle:Arreta' )->findAll();
+        $tramiteak = $em->getRepository( 'AppBundle:Tramite' )->findAll();
+
+        return $this->render( 'grafikak/index.html.twig', array(
+            'arretak'   => $arretak,
+            'tramiteak' => $tramiteak
+        ));
     }
 }

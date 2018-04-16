@@ -34,6 +34,7 @@ class Builder implements ContainerAwareInterface
         $menu['Taula Laguntzaileak']->addChild('Tramiteen emaitza motak', ['icon' => 'saved', 'route' => 'admin_result_index'])->setExtra('translation_domain','messages');;
         $menu['Taula Laguntzaileak']->addChild('Tramiteen motak', ['icon' => 'tag', 'route' => 'admin_mota_index'])->setExtra('translation_domain','messages');;
 
+        $menu->addChild( 'Grafikak', [ 'icon' => 'th-list', 'route' => 'welcome' ] )->setExtra('translation_domain','messages');
 
         return $menu;
     }
