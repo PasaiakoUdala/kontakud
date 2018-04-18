@@ -27,6 +27,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\MenuBundle\KnpMenuBundle(),
 
             new Avanzu\AdminThemeBundle\AvanzuAdminThemeBundle(),
+            new Sg\DatatablesBundle\SgDatatablesBundle(),
 
             new AppBundle\AppBundle(),
         ];

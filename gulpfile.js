@@ -42,6 +42,10 @@ myJS = [
     config.jsDir   + "/charts/charts.js",
     config.yarnDir + "/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js",
     config.yarnDir + "/bootstrap-datepicker/dist/locales/bootstrap-datepicker.eu.min.js",
+    config.jsDir   + "/datatables/moment-with-locales.min.js",
+    config.jsDir   + "/datatables/daterangepicker.min.js",
+    config.jsDir   + "/datatables/bootstrap-editable.min.js",
+    config.jsDir   + "/datatables/featherlight.min.js",
     config.jsDir   + "/app.js"
 ];
 
@@ -59,6 +63,9 @@ myCSS = [
     config.yarnDir + '/font-awesome/css/font-awesome.min.css',
     config.yarnDir + '/bootstrap-datepicker/dist/css/bootstrap-datepicker3.min.css',
     config.cssPath + '/datatables/datatables.min.css',
+    config.jsDir   + '/datatables/css/daterangepicker.min.css',
+    config.jsDir   + '/datatables/css/bootstrap-editable.css',
+    config.jsDir   + '/datatables/css/featherlight.min.css',
     config.cssPath + '/app.css'
 ];
 

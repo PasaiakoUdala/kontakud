@@ -2,13 +2,17 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Datatables\ArretaDatatable;
 use AppBundle\Entity\Arreta;
 use AppBundle\Entity\User;
+use Doctrine\ORM\EntityManager;
+use Sg\DatatablesBundle\Datatable\DatatableInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Arretum controller.
@@ -22,10 +26,16 @@ class ArretaController extends Controller
      *
      * @Route("/", name="admin_arreta_index")
      * @Method("GET")
+     * @param Request $request
+     *
+     * @return Response
+     * @throws \Exception
      */
-    public function indexAction()
+    public function indexAction(Request $request)
     {
+        /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
+        $isAjax = $request->isXmlHttpRequest();
 
         /** @var User $user */
         $user = $this->getUser();
@@ -44,21 +54,36 @@ class ArretaController extends Controller
             $arretakGaurDenak = $em->getRepository( 'AppBundle:Arreta' )->findGaurkoArretaKopurua();
         }
 
-        $users = $em->getRepository( 'AppBundle:User' )->findLangileak();
+        /** @var DatatableInterface $datatable */
+        $datatable = $this->get('sg_datatables.factory')->create(ArretaDatatable::class);
+        $datatable->buildDatatable();
+
+        if ($isAjax) {
+            $responseService = $this->get('sg_datatables.response');
+            $responseService->setDatatable($datatable);
+            $responseService->getDatatableQueryBuilder();
+
+
+
+            return $responseService->getResponse();
+        }
 
 
         $deleteForms = array();
+        /** @var Arreta $a */
         foreach ($arretas as $a) {
             $deleteForms[$a->getId()] = $this->createDeleteForm($a)->createView();
         }
 
 
+
         return $this->render('arreta/index.html.twig', array(
             'arretas' => $arretas,
+            'datatable' => $datatable,
             'deleteforms' => $deleteForms,
             'users' => $user,
             'arretakGaur' => $arretakGaur[0],
-            'arretakGaurDenak' => $arretakGaurDenak
+            'arretakGaurDenak' => $arretakGaurDenak,
         ));
     }
 
@@ -151,7 +176,7 @@ class ArretaController extends Controller
         $deleteForm = $this->createDeleteForm($arretum);
         $editForm = $this->createForm('AppBundle\Form\ArretaType', $arretum, [
             'action' => $this->generateUrl('admin_arreta_edit', array( 'id' => $arretum->getId())),
-            'method' => 'POST'
+            'method' => 'POST',
         ]);
         $editForm->handleRequest($request);
 

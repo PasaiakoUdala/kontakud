@@ -59,3 +59,10 @@ services:
         tags:
             - {name: knp_menu.menu_builder, method: createMainMenu, alias: avanzu_main }
         public: true
+
+    app.datatable.arreta:
+        class: AppBundle\Datatables\ArretaDatatable
+        parent: sg_datatables.datatable.abstract
+        public: true
+        autowire: true
+        autoconfigure: false
