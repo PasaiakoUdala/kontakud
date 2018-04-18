@@ -62,6 +62,7 @@ class ArretaDatatable extends AbstractDatatable
 
         $users = $this->em->getRepository( 'AppBundle:User' )->findAll();
         $kanalak = $this->em->getRepository( 'AppBundle:Kanala' )->findAll();
+        $barrutiak = $this->em->getRepository( 'AppBundle:Barrutia' )->findAll();
 
         $this->columnBuilder
             ->add( 'id', Column::class, array(
@@ -78,6 +79,12 @@ class ArretaDatatable extends AbstractDatatable
             ) )
             ->add( 'created', DateTimeColumn::class, array(
                 'title' => 'Fetxa',
+                'default_content' => 'No value',
+                'date_format' => 'L',
+                'filter' => array(DateRangeFilter::class, array(
+                    'cancel_button' => true,
+                )),
+                'timeago' => false
             ) )
             ->add( 'nan', Column::class, array(
                 'title' => 'Nan',
@@ -85,6 +92,12 @@ class ArretaDatatable extends AbstractDatatable
             ->add( 'barrutia', Column::class, array(
                 'title' => 'Barrutia',
                 'default_content' => '',
+                'searchable' => true,
+                'orderable'  => true,
+                'filter'     => array( SelectFilter::class, array(
+                    'select_options' => array( '' => 'All' ) + $this->getOptionsArrayFromEntities( $barrutiak, 'name', 'name' ),
+                    'search_type'    => 'eq',
+                ) ),
             ) )
 
             ->add('isclosed', BooleanColumn::class, array(
@@ -119,6 +132,52 @@ class ArretaDatatable extends AbstractDatatable
                     'search_type'    => 'eq',
                 ) ),
             ) )
+
+            ->add(null, ActionColumn::class, array(
+                'title' => '',
+                'start_html' => '<div class="start_actions">',
+                'end_html' => '</div>',
+                'actions' => array(
+                    array(
+                        'route' => 'admin_arreta_edit',
+                        'route_parameters' => array(
+                            'id' => 'id',
+                            'type' => 'testtype',
+                            '_format' => 'html',
+                            '_locale' => 'eu',
+                        ),
+                        'icon' => 'glyphicon glyphicon-eye-open',
+                        'label' => 'Show Posting < a >',
+                        'confirm' => true,
+                        'confirm_message' => 'Are you sure?',
+                        'attributes' => array(
+                            'rel' => 'tooltip',
+                            'title' => 'Show',
+                            'class' => 'btn btn-primary btn-xs',
+                            'role' => 'button',
+                        ),
+                    ),
+//                    array(
+//                        'icon' => 'glyphicon glyphicon-star',
+//                        'label' => 'A < button >',
+//                        'confirm' => false,
+//                        'attributes' => array(
+//                            'rel' => 'tooltip',
+//                            'title' => 'Show',
+//                            'class' => 'btn btn-primary btn-xs',
+//                            'role' => 'button',
+//                        ),
+//                        'button' => true,
+//                        'button_value' => 'id',
+//                        'button_value_prefix' => true,
+//                        'render_if' => function ($row) {
+//                            return $this->authorizationChecker->isGranted('ROLE_ADMIN');
+//                        },
+//                        'start_html' => '<div class="start_show_action">',
+//                        'end_html' => '</div>',
+//                    ),
+                ),
+            ))
 
         ;
     }

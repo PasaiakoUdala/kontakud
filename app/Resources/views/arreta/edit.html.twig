@@ -55,76 +55,95 @@
         <div role="tabpanel" class="tab-pane active" id="datuak">
             <div class="row">&nbsp;</div>
             <div class="row">
-                <div class="col-md-12">
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
 
                     {{ form_start(edit_form, {'attr': {'id': 'frmArretaEdit'}}) }}
 
                     <div class="form-group">
-                        {{ form_label(edit_form.kanala) }}
+                        <div class="col-sm-2">
+                            {{ form_label(edit_form.kanala) }}
+                        </div>
                         <div class="col-sm-10">
-                            {{ form_widget(edit_form.kanala) }}
+                            {{ form_widget(edit_form.kanala, { 'attr': {'class': 'form-inline'} }) }}
                         </div>
                         {{ form_errors(edit_form.kanala) }}
                     </div>
 
                     <div class="form-group">
-                        {{ form_label(edit_form.remitente) }}
+                        <div class="col-sm-2">
+                            {{ form_label(edit_form.remitente) }}
+                        </div>
                         <div class="col-sm-10">
-                            {{ form_widget(edit_form.remitente) }}
+                            {{ form_widget(edit_form.remitente, { 'attr': {'class': 'form-inline'} }) }}
                         </div>
                         {{ form_errors(edit_form.remitente) }}
                     </div>
 
                     <div class="form-group">
-                        {{ form_label(edit_form.genero) }}
+                        <div class="col-sm-2">
+                            {{ form_label(edit_form.genero) }}
+                        </div>
                         <div class="col-sm-10">
-                            {{ form_widget(edit_form.genero) }}
+                            {{ form_widget(edit_form.genero, { 'attr': {'class': 'form-inline'} }) }}
                         </div>
                         {{ form_errors(edit_form.genero) }}
                     </div>
 
                     <div class="form-group">
-                        {{ form_label(edit_form.adina) }}
+                        <div class="col-sm-2">
+                            {{ form_label(edit_form.adina) }}
+                        </div>
                         <div class="col-sm-10">
-                            {{ form_widget(edit_form.adina) }}
+                            {{ form_widget(edit_form.adina, { 'attr': {'class': 'form-inline'} }) }}
                         </div>
                         {{ form_errors(edit_form.adina) }}
                     </div>
 
                     <div class="form-group">
-                        {{ form_label(edit_form.nazionalitatea) }}
+                        <div class="col-sm-2">
+                            {{ form_label(edit_form.nazionalitatea) }}
+                        </div>
                         <div class="col-sm-10">
-                            {{ form_widget(edit_form.nazionalitatea) }}
+                            {{ form_widget(edit_form.nazionalitatea, { 'attr': {'class': 'form-inline'} }) }}
                         </div>
                         {{ form_errors(edit_form.nazionalitatea) }}
                     </div>
 
                     <div class="form-group">
-                        {{ form_label(edit_form.hizkuntza) }}
+                        <div class="col-sm-2">
+                            {{ form_label(edit_form.hizkuntza) }}
+                        </div>
                         <div class="col-sm-10">
-                            {{ form_widget(edit_form.hizkuntza) }}
+                            {{ form_widget(edit_form.hizkuntza, { 'attr': {'class': 'form-inline'} }) }}
                         </div>
                         {{ form_errors(edit_form.hizkuntza) }}
                     </div>
 
                     <div class="form-group">
-                        {{ form_label(edit_form.barrutia) }}
+                        <div class="col-sm-2">
+                            {{ form_label(edit_form.barrutia) }}
+                        </div>
                         <div class="col-sm-10">
-                            {{ form_widget(edit_form.barrutia) }}
+                            {{ form_widget(edit_form.barrutia, { 'attr': {'class': 'form-inline'} }) }}
                         </div>
                         {{ form_errors(edit_form.barrutia) }}
                     </div>
 
                     <div class="form-group">
-                        {{ form_label(edit_form.administrazioa) }}
+                        <div class="col-sm-2">
+                            {{ form_label(edit_form.administrazioa) }}
+                        </div>
                         <div class="col-sm-10">
-                            {{ form_widget(edit_form.administrazioa) }}
+                            {{ form_widget(edit_form.administrazioa, { 'attr': {'class': 'form-inline'} }) }}
                         </div>
                         {{ form_errors(edit_form.administrazioa) }}
                     </div>
 
                     <div class="form-group">
-                        {{ form_label(edit_form.oharra) }}
+                        <div class="col-sm-2">
+                            {{ form_label(edit_form.oharra) }}
+                        </div>
                         <div class="col-sm-10">
                             {{ form_widget(edit_form.oharra) }}
                         </div>

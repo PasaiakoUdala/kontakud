@@ -164,7 +164,7 @@ class ArretaController extends Controller
     /**
      * Displays a form to edit an existing arretum entity.
      *
-     * @Route("/{id}/edit", name="admin_arreta_edit")
+     * @Route("/{id}/edit", name="admin_arreta_edit", options = {"expose" = true})
      * @Method({"GET", "POST"})
      * @param Request $request
      * @param Arreta  $arretum
