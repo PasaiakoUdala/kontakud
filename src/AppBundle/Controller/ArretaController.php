@@ -13,6 +13,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Arretum controller.
@@ -211,6 +212,38 @@ class ArretaController extends Controller
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+
+
+    /**
+     * Bulk delete action.
+     *
+     * @param Request $request
+     *
+     * @Route("/bulk/delete", name="arreta_bulk_delete")
+     * @Method("POST")
+     *
+     * @return Response
+     */
+    public function bulkDeleteAction(Request $request)
+    {
+        $isAjax = $request->isXmlHttpRequest();
+        if ($isAjax) {
+            $choices = $request->request->get('data');
+            $token = $request->request->get('token');
+            if (!$this->isCsrfTokenValid('multiselect', $token)) {
+                throw new AccessDeniedException('The CSRF token is invalid.');
+            }
+            $em = $this->getDoctrine()->getManager();
+            $repository = $em->getRepository('AppBundle:Arreta');
+            foreach ($choices as $choice) {
+                $entity = $repository->find($choice['id']);
+                $em->remove($entity);
+            }
+            $em->flush();
+            return new Response('Success', 200);
+        }
+        return new Response('Bad Request', 400);
     }
 
     /**

@@ -65,6 +65,34 @@ class ArretaDatatable extends AbstractDatatable
         $barrutiak = $this->em->getRepository( 'AppBundle:Barrutia' )->findAll();
 
         $this->columnBuilder
+            ->add(
+                null,
+                MultiselectColumn::class,
+                array(
+                    'start_html' => '<div class="start_checkboxes">',
+                    'end_html' => '</div>',
+                    'value' => 'id',
+                    'value_prefix' => true,
+                    //'render_actions_to_id' => 'sidebar-multiselect-actions',
+                    'actions' => array(
+                        array(
+                            'route' => 'arreta_bulk_delete',
+                            'icon' => 'glyphicon glyphicon-ok',
+                            'label' => 'Ezabatu aukeratutako Arretak',
+                            'attributes' => array(
+                                'rel' => 'tooltip',
+                                'title' => $this->translator->trans('Ezabatu aukeratutako Arretak'),
+                                'class' => 'btn btn-danger',
+                                'role' => 'button',
+                            ),
+                            'confirm' => true,
+                            'confirm_message' => $this->translator->trans('Ziur zaude?'),
+                            'start_html' => '<div class="start_delete_action">',
+                            'end_html' => '</div>',
+                        ),
+                    ),
+                )
+            )
             ->add( 'id', Column::class, array(
                 'title' => 'Id',
             ) )
@@ -135,7 +163,7 @@ class ArretaDatatable extends AbstractDatatable
 
             ->add(null, ActionColumn::class, array(
                 'title' => '',
-                'start_html' => '<div class="start_actions">',
+                'start_html' => '<div class="start_actions btn-group" role="group">',
                 'end_html' => '</div>',
                 'actions' => array(
                     array(
@@ -146,38 +174,18 @@ class ArretaDatatable extends AbstractDatatable
                             '_format' => 'html',
                             '_locale' => 'eu',
                         ),
-                        'icon' => 'glyphicon glyphicon-eye-open',
-                        'label' => 'Show Posting < a >',
-                        'confirm' => true,
-                        'confirm_message' => 'Are you sure?',
+                        'icon' => 'glyphicon glyphicon-pencil',
+                        'label' => $this->translator->trans('Aldatu'),
                         'attributes' => array(
                             'rel' => 'tooltip',
-                            'title' => 'Show',
+                            'title' => $this->translator->trans('Arretako xehetasunak aldatu'),
                             'class' => 'btn btn-primary btn-xs',
                             'role' => 'button',
                         ),
-                    ),
-//                    array(
-//                        'icon' => 'glyphicon glyphicon-star',
-//                        'label' => 'A < button >',
-//                        'confirm' => false,
-//                        'attributes' => array(
-//                            'rel' => 'tooltip',
-//                            'title' => 'Show',
-//                            'class' => 'btn btn-primary btn-xs',
-//                            'role' => 'button',
-//                        ),
-//                        'button' => true,
-//                        'button_value' => 'id',
-//                        'button_value_prefix' => true,
-//                        'render_if' => function ($row) {
-//                            return $this->authorizationChecker->isGranted('ROLE_ADMIN');
-//                        },
-//                        'start_html' => '<div class="start_show_action">',
-//                        'end_html' => '</div>',
-//                    ),
+                    )
                 ),
             ))
+
 
         ;
     }

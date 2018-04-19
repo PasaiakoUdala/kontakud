@@ -106,89 +106,25 @@
 
     <div class="row">&nbsp;</div>
     <hr>
-    <div class="row">
+    <div class="row datatableTaula">
         <div class="col-md-12">
             {{ sg_datatables_render(datatable) }}
         </div>
     </div>
 
+    <input type="hidden" id="txtLehena" value="0">
+
 {% endblock %}
 {% block foot_script %}
 
     <script>
-        $(document).ready(function () {
-            $(".btnDelete").on("click", function () {
-                var r = confirm("{{ 'messages.ziurzaude'|trans }}");
-                if ( r === true ) {
-                    var miid = $(this).data("miid");
-                    var frm = "#deleteArretaForm" + miid;
-                    $(frm).submit();
-                }
-            });
+        $(document).ajaxComplete(function () {
 
-            {% if app.request.locale != "eu" %}
-
-                $('#niredatatable').dataTable({
-                    "pageLength": 30,
-                    "order": [[ 0, "desc" ]],
-                    "language": {
-                        "sProcessing": "Procesando...",
-                        "sLengthMenu": "Mostrar _MENU_ registros",
-                        "sZeroRecords": "No se encontraron resultados",
-                        "sEmptyTable": "Ningún dato disponible en esta tabla",
-                        "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                        "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                        "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                        "sInfoPostFix": "",
-                        "sSearch": "Buscar:",
-                        "sUrl": "",
-                        "sInfoThousands": ",",
-                        "sLoadingRecords": "Cargando...",
-                        "oPaginate": {
-                            "sFirst": "Primero",
-                            "sLast": "Último",
-                            "sNext": "Siguiente",
-                            "sPrevious": "Anterior"
-                        },
-                        "oAria": {
-                            "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                            "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                        }
-                    }
-                });
-
-            {% else %}
-
-                $('#niredatatable').dataTable({
-                    "pageLength": 30,
-                    "order": [[ 0, "desc" ]],
-                    "language": {
-                        "sProcessing":     "Prozesatzen...",
-                        "sLengthMenu":     "Erakutsi _MENU_ erregistro",
-                        "sZeroRecords":    "Ez da emaitzarik aurkitu",
-                        "sEmptyTable":     "Taula hontan ez dago inongo datu erabilgarririk",
-                        "sInfo":           "_START_ -etik _END_ -erako erregistroak erakusten, guztira _TOTAL_ erregistro",
-                        "sInfoEmpty":      "0tik 0rako erregistroak erakusten, guztira 0 erregistro",
-                        "sInfoFiltered":   "(guztira _MAX_ erregistro iragazten)",
-                        "sInfoPostFix":    "",
-                        "sSearch":         "Aurkitu:",
-                        "sUrl":            "",
-                        "sInfoThousands":  ",",
-                        "sLoadingRecords": "Abiarazten...",
-                        "oPaginate": {
-                            "sFirst":    "Lehena",
-                            "sLast":     "Azkena",
-                            "sNext":     "Hurrengoa",
-                            "sPrevious": "Aurrekoa"
-                        },
-                        "oAria": {
-                            "sSortAscending":  ": Zutabea goranzko eran ordenatzeko aktibatu ",
-                            "sSortDescending": ": Zutabea beheranzko eran ordenatzeko aktibatu"
-                        }
-                    }
-                });
-
-            {% endif %}
+            var lehena = $("#txtLehena").val();
+            if ( lehena === "0") {
+                $('#sg-datatables-arreta_datatable-multiselect-actions').prependTo('#sg-datatables-arreta_datatable_wrapper');
+                $("txtLehena").val(1);
+            }
 
         })
     </script>
