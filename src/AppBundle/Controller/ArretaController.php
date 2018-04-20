@@ -62,9 +62,22 @@ class ArretaController extends Controller
         if ($isAjax) {
             $responseService = $this->get('sg_datatables.response');
             $responseService->setDatatable($datatable);
-            $responseService->getDatatableQueryBuilder();
 
+            $datatableQueryBuilder = $responseService->getDatatableQueryBuilder();
 
+            /** @var \Doctrine\ORM\QueryBuilder $qb */
+            $qb = $datatableQueryBuilder->getQb();
+
+            if ( ! $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+                $qb->andWhere('user.id = :userid');
+                $qb->setParameter('userid', $user->getId());
+            }
+
+            $datatableQueryBuilder->useQueryCache(true);            // (1)
+            $datatableQueryBuilder->useCountQueryCache(true);       // (2)
+            $datatableQueryBuilder->useResultCache(true, 60);       // (3)
+            $datatableQueryBuilder->useCountResultCache(true, 60);  // (4)
+//            dump($datatableQueryBuilder->getQb()->getDQL()); die();
 
             return $responseService->getResponse();
         }

@@ -41,17 +41,25 @@ class ArretaDatatable extends AbstractDatatable
         $this->ajax->set( array() );
 
         $this->options->set( array(
-                                 'classes'                       => Style::BOOTSTRAP_3_STYLE,
+                                 'classes'                       => Style::BOOTSTRAP_3_STYLE.' table-condensed',
                                  'individual_filtering'          => true,
                                  'individual_filtering_position' => 'head',
-                                 'length_menu' => array(10, 25, 50, 100),
+                                 'length_menu'                   => array( 10, 25, 50, 100 ),
                                  'order_cells_top'               => true,
                                  'order'                         => array( array( 0, 'asc' ) ),
                                  'dom'                           => 'Bfrtip',
                                  'page_length'                   => 50,
+                             'paging_type'                      => Style::FULL_NUMBERS_PAGINATION,
                              ) );
 
-        $this->features->set( array() );
+        $this->features->set(
+            array(
+                'auto_width' => true,
+                'info'       => true,
+                'paging'     => true,
+                'searching'  => true,
+            )
+        );
 
         $this->extensions->set(
             array(
@@ -69,26 +77,26 @@ class ArretaDatatable extends AbstractDatatable
                 null,
                 MultiselectColumn::class,
                 array(
-                    'start_html' => '<div class="start_checkboxes">',
-                    'end_html' => '</div>',
-                    'value' => 'id',
+                    'start_html'   => '<div class="start_checkboxes">',
+                    'end_html'     => '</div>',
+                    'value'        => 'id',
                     'value_prefix' => true,
                     //'render_actions_to_id' => 'sidebar-multiselect-actions',
-                    'actions' => array(
+                    'actions'      => array(
                         array(
-                            'route' => 'arreta_bulk_delete',
-                            'icon' => 'glyphicon glyphicon-ok',
-                            'label' => 'Ezabatu aukeratutako Arretak',
-                            'attributes' => array(
-                                'rel' => 'tooltip',
-                                'title' => $this->translator->trans('Ezabatu aukeratutako Arretak'),
+                            'route'           => 'arreta_bulk_delete',
+                            'icon'            => 'glyphicon glyphicon-ok',
+                            'label'           => $this->translator->trans( 'Ezabatu aukeratutako Arretak' ),
+                            'attributes'      => array(
+                                'rel'   => 'tooltip',
+                                'title' => $this->translator->trans( 'Ezabatu aukeratutako Arretak' ),
                                 'class' => 'btn btn-danger',
-                                'role' => 'button',
+                                'role'  => 'button',
                             ),
-                            'confirm' => true,
-                            'confirm_message' => $this->translator->trans('Ziur zaude?'),
-                            'start_html' => '<div class="start_delete_action">',
-                            'end_html' => '</div>',
+                            'confirm'         => true,
+                            'confirm_message' => $this->translator->trans( 'Ziur zaude?' ),
+                            'start_html'      => '<div class="start_delete_action">',
+                            'end_html'        => '</div>',
                         ),
                     ),
                 )
@@ -97,7 +105,7 @@ class ArretaDatatable extends AbstractDatatable
                 'title' => 'Id',
             ) )
             ->add( 'user.username', Column::class, array(
-                'title' => 'Langilea',
+                'title'      => 'Langilea',
                 'searchable' => true,
                 'orderable'  => true,
                 'filter'     => array( SelectFilter::class, array(
@@ -105,89 +113,102 @@ class ArretaDatatable extends AbstractDatatable
                     'search_type'    => 'eq',
                 ) ),
             ) )
-            ->add( 'created', DateTimeColumn::class, array(
-                'title' => 'Fetxa',
-                'default_content' => 'No value',
-                'date_format' => 'L',
-                'filter' => array(DateRangeFilter::class, array(
-                    'cancel_button' => true,
-                )),
-                'timeago' => false
-            ) )
+
             ->add( 'nan', Column::class, array(
                 'title' => 'Nan',
             ) )
             ->add( 'barrutia', Column::class, array(
-                'title' => 'Barrutia',
+                'title'           => 'Barrutia',
                 'default_content' => '',
-                'searchable' => true,
-                'orderable'  => true,
-                'filter'     => array( SelectFilter::class, array(
+                'searchable'      => true,
+                'orderable'       => true,
+                'filter'          => array( SelectFilter::class, array(
                     'select_options' => array( '' => 'All' ) + $this->getOptionsArrayFromEntities( $barrutiak, 'name', 'name' ),
                     'search_type'    => 'eq',
                 ) ),
             ) )
-
-            ->add('isclosed', BooleanColumn::class, array(
-                'title' => 'Visible',
-                'searchable' => true,
-                'orderable' => true,
-                'true_label' => 'Yes',
-                'false_label' => 'No',
+            ->add( 'isclosed', BooleanColumn::class, array(
+                'title'           => $this->translator->trans( 'Itxita' ),
+                'searchable'      => true,
+                'orderable'       => true,
+                'true_label'      => 'Yes',
+                'false_label'     => 'No',
                 'default_content' => '',
-                'true_icon' => 'glyphicon glyphicon-ok',
-                'false_icon' => 'glyphicon glyphicon-remove',
-                'filter' => array(SelectFilter::class, array(
-                    'classes' => 'test1 test2',
-                    'search_type' => 'eq',
-                    'multiple' => false,
+                'true_icon'       => 'glyphicon glyphicon-ok',
+                'false_icon'      => 'glyphicon glyphicon-remove',
+                'filter'          => array( SelectFilter::class, array(
+                    'classes'        => 'test1 test2',
+                    'search_type'    => 'eq',
+                    'multiple'       => false,
                     'select_options' => array(
-                        '' => 'Any',
+                        ''  => 'Any',
                         '1' => 'Yes',
-                        '0' => 'No'
+                        '0' => 'No',
                     ),
-                    'cancel_button' => true,
-                ))
-            ))
-
+                    'cancel_button'  => true,
+                ) ),
+            ) )
             ->add( 'kanala.name', Column::class, array(
-                'title' => 'Kanala',
-                'searchable' => true,
-                'orderable'  => true,
+                'title'           => 'Kanala',
+                'searchable'      => true,
+                'orderable'       => true,
                 'default_content' => '',
-                'filter'     => array( SelectFilter::class, array(
+                'filter'          => array( SelectFilter::class, array(
                     'select_options' => array( '' => 'All' ) + $this->getOptionsArrayFromEntities( $kanalak, 'name', 'name' ),
                     'search_type'    => 'eq',
                 ) ),
             ) )
 
-            ->add(null, ActionColumn::class, array(
-                'title' => '',
+            ->add( 'created', DateTimeColumn::class, array(
+                'title'           => 'Hasi',
+                'default_content' => '',
+                'date_format'     => 'YYYY-MM-DD HH:mm:ss',
+                'filter'          => array( DateRangeFilter::class, array(
+                    'cancel_button' => true,
+                ) ),
+                'timeago'         => false,
+            ) )
+
+            ->add( 'amaitu', DateTimeColumn::class, array(
+                'title'           => 'Amaitu',
+                'default_content' => '',
+                'date_format'     => 'YYYY-MM-DD HH:mm:ss',
+                'filter'          => array( DateRangeFilter::class, array(
+                    'cancel_button' => true,
+                ) ),
+                'timeago'         => false,
+            ) )
+
+            ->add( 'denbora', Column::class, array(
+                'title'      => 'denbora',
+                'dql'        => '(SELECT timediff({p}.amaitu,{p}.created) FROM AppBundle:Arreta {p} WHERE {p}.id = arreta.id)',
+                'searchable' => true,
+                'orderable'  => true,
+            ) )
+            ->add( null, ActionColumn::class, array(
+                'title'      => '',
                 'start_html' => '<div class="start_actions btn-group" role="group">',
-                'end_html' => '</div>',
-                'actions' => array(
+                'end_html'   => '</div>',
+                'actions'    => array(
                     array(
-                        'route' => 'admin_arreta_edit',
+                        'route'            => 'admin_arreta_edit',
                         'route_parameters' => array(
-                            'id' => 'id',
-                            'type' => 'testtype',
+                            'id'      => 'id',
+                            'type'    => 'testtype',
                             '_format' => 'html',
                             '_locale' => 'eu',
                         ),
-                        'icon' => 'glyphicon glyphicon-pencil',
-                        'label' => $this->translator->trans('Aldatu'),
-                        'attributes' => array(
-                            'rel' => 'tooltip',
-                            'title' => $this->translator->trans('Arretako xehetasunak aldatu'),
+                        'icon'             => 'glyphicon glyphicon-pencil',
+                        'label'            => $this->translator->trans( 'Aldatu' ),
+                        'attributes'       => array(
+                            'rel'   => 'tooltip',
+                            'title' => $this->translator->trans( 'Arretako xehetasunak aldatu' ),
                             'class' => 'btn btn-primary btn-xs',
-                            'role' => 'button',
+                            'role'  => 'button',
                         ),
-                    )
+                    ),
                 ),
-            ))
-
-
-        ;
+            ) );
     }
 
     /**

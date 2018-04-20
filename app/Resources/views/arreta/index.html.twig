@@ -128,5 +128,12 @@
 
         })
     </script>
+    <script type="text/javascript">
+        $( document ).ready(function() {
+            moment.locale("es");
+            $('input[name="daterange"]').daterangepicker();
+        });
+    </script>
+
 
 {% endblock %}

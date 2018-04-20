@@ -4,12 +4,21 @@
 {% block headline %}
 
 {% endblock headline %}
-{% block content_content %}
+{% block content_row %}
+
+    <div class="row">
+
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
+            {{ form_start(form) }}
+
+            {{ form_end(form) }}
+        </div>
+        <div class="col-md-4"></div>
+
+    </div>
 
 
-    {{ form_start(form) }}
-
-    {{ form_end(form) }}
 
 
-{% endblock content_content %}
+{% endblock  %}
