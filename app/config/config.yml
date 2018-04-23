@@ -162,8 +162,7 @@ stof_doctrine_extensions:
 avanzu_admin_theme:
     knp_menu:
         enable : true
-    theme:
-        skin: skin-black
     options:
+        skin: skin-purple
         knp_menu:                         # knp menu integration
             enable: true

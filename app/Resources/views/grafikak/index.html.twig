@@ -4,11 +4,121 @@
 {% block avanzu_logo_mini %}<b>H</b>AZ{% endblock %}
 {% block avanzu_logo_lg %} HAZtertu {% endblock %}
 {% block aavanzu_document_title %} HAZtertu {% endblock %}
+{% block avanzu_page_title %}Grafikak{% endblock %}
 {% block title %} HAZtertu {% endblock %}
 
 {% block page_title %} HAZtertu graf {% endblock %}
 
 {% block avanzu_page_content %}
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-solid box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Filtroak</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" id="btnCollapse" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                {{ form_start(form, { 'attr': { 'class':'form-horizontal' } }) }}
+                    <div class="box-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    {{ form_label(form.barrutia, null,  { 'label_attr': {'class': 'control-label col-sm-2'} }) }}
+                                    {{ form_widget(form.barrutia, { 'attr': {'class': 'col-sm-10'} }) }}
+                                </div>
+
+                                {{ form_row(form.kanala) }}
+                            </div>
+
+                            <div class="col-md-6">
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md4"></div>
+                            <div class="col-md4">
+                                {{ form_row(form.Onartu) }}
+                            </div>
+                            <div class="col-md4"></div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                {{ form_end(form) }}
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-default">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Datu globalak</h3>
+                    <div class="box-tools pull-right">
+                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                        </button>
+                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-aqua"><i class="fa fa-comments-o"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Arretak guztira</span>
+                                <span class="info-box-number">{{ arretak | length }}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-aqua"><i class="fa fa-object-ungroup"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Tramiteak guztira</span>
+                                <span class="info-box-number">{{ tramiteak | length }}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-aqua"><i class="fa fa-university"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Presentzialak</span>
+                                <span class="info-box-number">{{ arretaPresentzialak  }}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                    <div class="col-md-3 col-sm-6 col-xs-12">
+                        <div class="info-box">
+                            <span class="info-box-icon bg-aqua"><i class="fa fa-phone"></i></span>
+
+                            <div class="info-box-content">
+                                <span class="info-box-text">Telefonoz</span>
+                                <span class="info-box-number">{{ arretaTelefonoz }}</span>
+                            </div>
+                            <!-- /.info-box-content -->
+                        </div>
+                        <!-- /.info-box -->
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-4">
             <div class="box box-info">
@@ -22,9 +132,16 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="chart">
-
-                    </div>
+                   <dl class="dl-horizontal">
+                       <dt>Arretak</dt>
+                       <dd>{{ arretakDonibane }}</dd>
+                       <dt>Presentzialak</dt>
+                       <dd>{{ arretaPresentzialakDonibane }}</dd>
+                       <dt>Telefonoz</dt>
+                       <dd>{{ arretaTelefonozDonibane }}</dd>
+                       <dt>Tramiteak</dt>
+                       <dd>{{ tramiteakDonibane }}</dd>
+                   </dl>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -41,9 +158,16 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="chart">
-
-                    </div>
+                    <dl class="dl-horizontal">
+                        <dt>Arretak</dt>
+                        <dd>{{ arretakAntxo }}</dd>
+                        <dt>Presentzialak</dt>
+                        <dd>{{ arretaPresentzialakAntxo }}</dd>
+                        <dt>Telefonoz</dt>
+                        <dd>{{ arretaTelefonozAntxo }}</dd>
+                        <dt>Tramiteak</dt>
+                        <dd>{{ tramiteakAntxo }}</dd>
+                    </dl>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -60,9 +184,16 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="chart">
-
-                    </div>
+                    <dl class="dl-horizontal">
+                        <dt>Arretak</dt>
+                        <dd>{{ arretakTrintxerpte }}</dd>
+                        <dt>Presentzialak</dt>
+                        <dd>{{ arretaPresentzialakTrintxerpe }}</dd>
+                        <dt>Telefonoz</dt>
+                        <dd>{{ arretaTelefonozTrintxerpe }}</dd>
+                        <dt>Tramiteak</dt>
+                        <dd>{{ tramiteakTrintxerpe }}</dd>
+                    </dl>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -74,7 +205,7 @@
             <!-- LINE CHART -->
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Line Chart</h3>
+                    <h3 class="box-title">Tramite kopurua mota arabera</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -84,27 +215,7 @@
                 </div>
                 <div class="box-body">
                     <div class="chart">
-                        <canvas id="chart1" style="height: 146px; width: 463px;" width="463" height="146"></canvas>
-                    </div>
-                </div>
-                <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
-
-            <!-- BAR CHART -->
-            <div class="box box-success">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Bar Chart</h3>
-
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="box-body">
-                    <div class="chart">
-                        <canvas id="chart2" style="height: 135px; width: 463px;" width="463" height="135"></canvas>
+                        <canvas id="chart1" style="height: 146px; width: 463px;" width="463" height="250"></canvas>
                     </div>
                 </div>
                 <!-- /.box-body -->
@@ -117,7 +228,7 @@
             <!-- LINE CHART -->
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Line Chart</h3>
+                    <h3 class="box-title">Zerbikat Top 10</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -126,29 +237,25 @@
                     </div>
                 </div>
                 <div class="box-body">
-                    <div class="chart">
-                        <canvas id="chart3" style="height: 146px; width: 463px;" width="463" height="146"></canvas>
-                    </div>
-                </div>
-                <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
+                    <table class="table no-margin no-border">
+                        <thead>
+                        <tr>
+                            <th>Kodea</th>
+                            <th>Deskribapena</th>
+                            <th>Kopurua</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            {% for t in topZerbikat %}
+                                <tr>
+                                    <td><a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}" target="_blank"><span class="fitxakodea" data-dest="desk-{{ loop.index0 }}">{{ t.kodea }}</span></a></td>
+                                    <td class="desk-{{ loop.index0 }}"></td>
+                                    <td><a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}" target="_blank">{{ t.zenbat }}</a></td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
 
-            <!-- BAR CHART -->
-            <div class="box box-success">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Bar Chart</h3>
-
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="box-body">
-                    <div class="chart">
-                        <canvas id="chart4" style="height: 135px; width: 463px;" width="463" height="135"></canvas>
-                    </div>
+                    </table>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -177,26 +284,6 @@
             </div>
             <!-- /.box -->
 
-            <!-- BAR CHART -->
-            <div class="box box-success">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Bar Chart</h3>
-
-                    <div class="box-tools pull-right">
-                        <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
-                    </div>
-                </div>
-                <div class="box-body">
-                    <div class="chart">
-                        <canvas id="chart6" style="height: 135px; width: 463px;" width="463" height="135"></canvas>
-                    </div>
-                </div>
-                <!-- /.box-body -->
-            </div>
-            <!-- /.box -->
-
         </div>
 
     </div>
@@ -211,46 +298,77 @@
 
     <script>
         $(function () {
+
+            /** Eskuratu AJAX bidez Fitxa ren deskribapena Kodea erabiliz **/
+
+            $(".fitxakodea").each(function () {
+                var kod = $(this).text();
+                var dest = "."+$(this).data("dest");
+                var url = "http://zerbikat.test/app_dev.php/api/fitxabykodea/064/" + kod + ".json";
+                $.get(url,function ( data ) {
+                    $(dest).text(data[0].deskribapenaeu);
+
+                })
+            });
+
+
+
+            $("#btnCollapse").click();
+
+
             // Get context with jQuery - using jQuery's .get() method.
             var ctx = $("#chart1").get(0).getContext("2d");
             // This will get the first returned node in the jQuery collection.
 
+            var mydata = ({{ top | json_encode | raw  }});
+            var izenak = ["Zerbikat", "Informazioa", "Gerkud"];
+            var baloreak = [];
+
+            for (var i = 0; i < mydata.length; i++) {
+                baloreak.push(parseFloat(mydata[i].zenbat));
+            }
+
+
+
             var myChart = new Chart(ctx, {
                 type: "bar",
                 data: {
-                    labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                    datasets: [{
-                        label: "# of Votes",
-                        data: [12, 19, 3, 5, 2, 3],
-                        backgroundColor: [
-                            "rgba(255, 99, 132, 0.2)",
-                            "rgba(54, 162, 235, 0.2)",
-                            "rgba(255, 206, 86, 0.2)",
-                            "rgba(75, 192, 192, 0.2)",
-                            "rgba(153, 102, 255, 0.2)",
-                            "rgba(255, 159, 64, 0.2)"
-                        ],
-                        borderColor: [
-                            "rgba(255,99,132,1)",
-                            "rgba(54, 162, 235, 1)",
-                            "rgba(255, 206, 86, 1)",
-                            "rgba(75, 192, 192, 1)",
-                            "rgba(153, 102, 255, 1)",
-                            "rgba(255, 159, 64, 1)"
-                        ],
-                        borderWidth: 1
+                    labels: izenak,
+                    datasets: [
+                        {
+                            label: "Tramite kopurua",
+                            data: baloreak,
+                            backgroundColor: [
+                                "rgba(255, 99, 132, 0.2)",
+                                "rgba(54, 162, 235, 0.2)",
+                                "rgba(255, 206, 86, 0.2)",
+                                "rgba(75, 192, 192, 0.2)",
+                                "rgba(153, 102, 255, 0.2)",
+                                "rgba(255, 159, 64, 0.2)"
+                            ],
+                            borderColor: [
+                                "rgba(255,99,132,1)",
+                                "rgba(54, 162, 235, 1)",
+                                "rgba(255, 206, 86, 1)",
+                                "rgba(75, 192, 192, 1)",
+                                "rgba(153, 102, 255, 1)",
+                                "rgba(255, 159, 64, 1)"
+                            ],
+                            borderWidth: 1
                     }]
                 },
                 options: {
                     scales: {
                         yAxes: [{
                             ticks: {
-                                beginAtZero: true
+                                beginAtZero: true,
                             }
                         }]
                     }
                 }
             });
+
+
 
         });
     </script>

@@ -2,6 +2,11 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
+
+
 /**
  * TramiteRepository
  *
@@ -10,4 +15,37 @@ namespace AppBundle\Repository;
  */
 class TramiteRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function topTramites($f=null) {
+
+        /** @var QueryBuilder $query */
+        $query = $this->createQueryBuilder('t');
+
+        $query->Select( 'COUNT(t.id) as zenbat' );
+        $query->addSelect( 'm.name' );
+        $query->innerJoin( 't.mota', 'm' );
+        $query->addGroupBy( 't.mota' );
+
+
+        return $query->getQuery()->getResult();
+
+    }
+
+    public function topZerbikat($f=null) {
+
+        /** @var QueryBuilder $query */
+        $query = $this->createQueryBuilder('t');
+
+        $query->Select( 'COUNT(t.kodea) as zenbat' );
+        $query->addSelect( 't.kodea', 't.zerbikatid' );
+        $query->innerJoin( 't.mota', 'm' );
+        $query->andWhere( 'm.name=:zerbikat' );
+        $query->setParameter( 'zerbikat', 'Zerbikat' );
+        $query->addGroupBy( 't.kodea','t.zerbikatid' );
+        $query->orderBy( 'zenbat', 'desc' );
+        $query->setMaxResults( 10 );
+
+
+        return $query->getQuery()->getResult();
+
+    }
 }

@@ -2,6 +2,10 @@
 
 namespace AppBundle\Repository;
 
+use Doctrine\ORM\NonUniqueResultException;
+use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
+
 
 /**
  * ArretaRepository
@@ -20,8 +24,8 @@ class ArretaRepository extends \Doctrine\ORM\EntityRepository
                     ->addSelect( 'u' )
                     ->leftJoin( 'a.tramiteak', 't' )
                     ->addSelect( 't' )
-                    ->leftJoin('u.barrutia', 'b')
-                    ->addSelect('b')
+                    ->leftJoin( 'u.barrutia', 'b' )
+                    ->addSelect( 'b' )
                     ->getQuery()
                     ->getResult();
 
@@ -29,7 +33,7 @@ class ArretaRepository extends \Doctrine\ORM\EntityRepository
 
     public function findMyAll( $id )
     {
-        $em = $this->getEntityManager();
+        $em  = $this->getEntityManager();
         $sql = /** @lang text */
             "SELECT a
                 FROM AppBundle:Arreta a
@@ -98,8 +102,8 @@ class ArretaRepository extends \Doctrine\ORM\EntityRepository
     {
 
         if ( isset( $userid ) ) {
-            $em = $this->getEntityManager();
-            $d = new \DateTime();
+            $em  = $this->getEntityManager();
+            $d   = new \DateTime();
             $sql = /** @lang text */
                 "
             SELECT count(a) as zenbat
@@ -109,15 +113,15 @@ class ArretaRepository extends \Doctrine\ORM\EntityRepository
             ";
 
             $consulta = $em->createQuery( $sql );
-            $date = new \DateTime();
+            $date     = new \DateTime();
             $consulta->setParameter( 'date_start', $date->format( 'Y-m-d 00:00:00' ) );
             $consulta->setParameter( 'date_end', $date->format( 'Y-m-d 23:59:59' ) );
             $consulta->setParameter( 'userid', $userid );
 
             return $consulta->getResult();
         } else {
-            $em = $this->getEntityManager();
-            $d = new \DateTime();
+            $em  = $this->getEntityManager();
+            $d   = new \DateTime();
             $sql = /** @lang text */
                 "
             SELECT count(a) as zenbat
@@ -125,14 +129,35 @@ class ArretaRepository extends \Doctrine\ORM\EntityRepository
                 WHERE a.fetxa > :date_start and a.fetxa < :date_end                 
             ";
 
+            /** @var Query $consulta */
             $consulta = $em->createQuery( $sql );
-            $date = new \DateTime();
+            $date     = new \DateTime();
             $consulta->setParameter( 'date_start', $date->format( 'Y-m-d 00:00:00' ) );
             $consulta->setParameter( 'date_end', $date->format( 'Y-m-d 23:59:59' ) );
 
 
-            return $consulta->getSingleScalarResult();
+            try {
+                return $consulta->getSingleScalarResult();
+            } catch ( NonUniqueResultException $e ) {
+                return null;
+            }
         }
+
+    }
+
+    public function findAllByFilterForm( $f )
+    {
+
+        /** @var QueryBuilder $query */
+        $query = $this->createQueryBuilder( 'a' );
+
+        if ( !empty( $f[ 'tramiteak' ] ) ) {
+            $query->join( 'AppBundle:Barrutia', 'b', 'WITH', 'b.id = a.barrutia_id' );
+            $query->andWhere( 'b.id = :barrutiaid' )
+                  ->setParameter( 'barrutiaid', $f[ 'barrutiaid' ] );
+        }
+
+        return $query->getQuery()->getResult();
 
     }
 
