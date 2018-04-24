@@ -151,14 +151,86 @@ class ArretaRepository extends \Doctrine\ORM\EntityRepository
         /** @var QueryBuilder $query */
         $query = $this->createQueryBuilder( 'a' );
 
-        if ( !empty( $f[ 'tramiteak' ] ) ) {
-            $query->join( 'AppBundle:Barrutia', 'b', 'WITH', 'b.id = a.barrutia_id' );
-            $query->andWhere( 'b.id = :barrutiaid' )
-                  ->setParameter( 'barrutiaid', $f[ 'barrutiaid' ] );
+        if ( !empty( $f[ 'fIni' ] ) ) {
+            $query->andWhere( 'a.created >= :fini' )
+                  ->setParameter( 'fini', $f[ 'fIni' ] );
+        }
+        if ( !empty( $f[ 'fFin' ] ) ) {
+            $query->andWhere( 'a.created <= :ffin' )
+                  ->setParameter( 'ffin', $f[ 'fFin' ] );
         }
 
         return $query->getQuery()->getResult();
 
+    }
+
+    public function findAllGroupByMonth($f=null) {
+
+        /** @var QueryBuilder $query */
+        $query = $this->createQueryBuilder('a' );
+        $query->select( 'MONTH(a.created) as Hilabetea', 'COUNT(a.id) as Zenbat' );
+        $query->groupBy( 'Hilabetea' );
+        if ( !empty( $f[ 'fIni' ] ) ) {
+            $query->andWhere( 'a.created >= :fini' )
+                  ->setParameter( 'fini', $f[ 'fIni' ] );
+        }
+        if ( !empty( $f[ 'fFin' ] ) ) {
+            $query->andWhere( 'a.created <= :ffin' )
+                  ->setParameter( 'ffin', $f[ 'fFin' ] );
+        }
+        $query->andWhere( 'YEAR(a.created) = :urtea' );
+        $query->setParameter( 'urtea', date( "Y" ) );
+
+
+        return $query->getQuery()->getResult();
+    }
+
+    public function findAllPresentzialakGroupByMonth($f=null) {
+
+        /** @var QueryBuilder $query */
+        $query = $this->createQueryBuilder('a' );
+        $query->select( 'MONTH(a.created) as Hilabetea', 'COUNT(a.id) as Zenbat' );
+        $query->innerJoin( 'a.kanala', 'k' );
+        $query->groupBy( 'Hilabetea' );
+        $query->where( 'k.name LIKE :kanala' );
+        $query->setParameter( 'kanala', 'Pres%' );
+        if ( !empty( $f[ 'fIni' ] ) ) {
+            $query->andWhere( 'a.created >= :fini' )
+                  ->setParameter( 'fini', $f[ 'fIni' ] );
+        }
+        if ( !empty( $f[ 'fFin' ] ) ) {
+            $query->andWhere( 'a.created <= :ffin' )
+                  ->setParameter( 'ffin', $f[ 'fFin' ] );
+        }
+        $query->andWhere( 'YEAR(a.created) = :urtea' );
+        $query->setParameter( 'urtea', date( "Y" ) );
+
+
+        return $query->getQuery()->getResult();
+    }
+
+    public function findAllTelefonozGroupByMonth($f=null) {
+
+        /** @var QueryBuilder $query */
+        $query = $this->createQueryBuilder('a' );
+        $query->select( 'MONTH(a.created) as Hilabetea', 'COUNT(a.id) as Zenbat' );
+        $query->innerJoin( 'a.kanala', 'k' );
+        $query->groupBy( 'Hilabetea' );
+        $query->where( 'k.name LIKE :kanala' );
+        $query->setParameter( 'kanala', 'Tele%' );
+        if ( !empty( $f[ 'fIni' ] ) ) {
+            $query->andWhere( 'a.created >= :fini' )
+                  ->setParameter( 'fini', $f[ 'fIni' ] );
+        }
+        if ( !empty( $f[ 'fFin' ] ) ) {
+            $query->andWhere( 'a.created <= :ffin' )
+                  ->setParameter( 'ffin', $f[ 'fFin' ] );
+        }
+        $query->andWhere( 'YEAR(a.created) = :urtea' );
+        $query->setParameter( 'urtea', date( "Y" ) );
+
+
+        return $query->getQuery()->getResult();
     }
 
 }

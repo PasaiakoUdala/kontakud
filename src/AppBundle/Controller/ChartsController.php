@@ -39,11 +39,26 @@ class ChartsController extends Controller
 
             $data    = $form->getData();
             $arretak = $em->getRepository( 'AppBundle:Arreta' )->findAllByFilterForm( $data );
-
+            $tramiteak           = $em->getRepository( 'AppBundle:Tramite' )->findAllByFilterForm( $data );
+            $top         = $em->getRepository( 'AppBundle:Tramite' )->topTramites($data);
+            $topZerbikat = $em->getRepository( 'AppBundle:Tramite' )->topZerbikat($data);
+            $ArretakGroupByMonth             = $em->getRepository( 'AppBundle:Arreta' )->findAllGroupByMonth($data);
+            $TramiteakGroupByMonth           = $em->getRepository( 'AppBundle:Tramite' )->findAllGroupByMonth($data);
+            $arretaPresentzialakGroupByMonth = $em->getRepository( 'AppBundle:Arreta' )->findAllPresentzialakGroupByMonth($data);
+            $arretaTelefonozGroupByMonth     = $em->getRepository( 'AppBundle:Arreta' )->findAllTelefonozGroupByMonth($data);
+        } else {
+            $arretak            = $em->getRepository( 'AppBundle:Arreta' )->findAll();
+            $tramiteak           = $em->getRepository( 'AppBundle:Tramite' )->findAll();
+            $top         = $em->getRepository( 'AppBundle:Tramite' )->topTramites();
+            $topZerbikat = $em->getRepository( 'AppBundle:Tramite' )->topZerbikat();
+            $ArretakGroupByMonth             = $em->getRepository( 'AppBundle:Arreta' )->findAllGroupByMonth();
+            $TramiteakGroupByMonth           = $em->getRepository( 'AppBundle:Tramite' )->findAllGroupByMonth();
+            $arretaPresentzialakGroupByMonth = $em->getRepository( 'AppBundle:Arreta' )->findAllPresentzialakGroupByMonth();
+            $arretaTelefonozGroupByMonth     = $em->getRepository( 'AppBundle:Arreta' )->findAllTelefonozGroupByMonth();
 
         }
 
-        $arretak            = $em->getRepository( 'AppBundle:Arreta' )->findAll();
+
         $arretakDonibane    = array_filter( $arretak, function ( $arreta ) {
             /** @var Arreta $arreta */
             if ( $arreta->getBarrutia() !== null ) {
@@ -63,8 +78,6 @@ class ChartsController extends Controller
             }
         } );
 
-
-        $tramiteak           = $em->getRepository( 'AppBundle:Tramite' )->findAll();
         $tramiteakDonibane   = array_filter( $tramiteak, function ( $tramite ) {
             /** @var Tramite $tramite */
             if ( $tramite->getArreta() !== null ) {
@@ -90,28 +103,24 @@ class ChartsController extends Controller
             }
         } );
 
-
         $arretaPresentzialak = array_filter( $arretak, function ( $arreta ) {
             /** @var Arreta $arreta */
             if ( $arreta->getKanala() !== null ) {
                 return ( strpos( strtoupper( $arreta->getKanala()->getName() ), 'PRESE' ) !== false );
             }
         } );
-
         $arretaPresentzialakDonibane = array_filter( $arretaPresentzialak, function ( $arreta ) {
             /** @var Arreta $arreta */
             if ( $arreta->getBarrutia() !== null ) {
                 return ( strpos( strtoupper( $arreta->getBarrutia() ), 'DON' ) !== false );
             }
         } );
-
         $arretaPresentzialakAntxo = array_filter( $arretaPresentzialak, function ( $arreta ) {
             /** @var Arreta $arreta */
             if ( $arreta->getBarrutia() !== null ) {
                 return ( strpos( strtoupper( $arreta->getBarrutia() ), 'ANT' ) !== false );
             }
         } );
-
         $arretaPresentzialakTrintxerpe = array_filter( $arretaPresentzialak, function ( $arreta ) {
             /** @var Arreta $arreta */
             if ( $arreta->getBarrutia() !== null ) {
@@ -119,28 +128,24 @@ class ChartsController extends Controller
             }
         } );
 
-
         $arretaTelefonoz = array_filter( $arretak, function ( $arreta ) {
             /** @var Arreta $arreta */
             if ( $arreta->getKanala() !== null ) {
                 return ( strpos( strtoupper( $arreta->getKanala()->getName() ), 'TELE' ) !== false );
             }
         } );
-
         $arretaTelefonozDonibane = array_filter( $arretaTelefonoz, function ( $arreta ) {
             /** @var Arreta $arreta */
             if ( $arreta->getBarrutia() !== null ) {
                 return ( strpos( strtoupper( $arreta->getBarrutia() ), 'DON' ) !== false );
             }
         } );
-
         $arretaTelefonozAntxo = array_filter( $arretaTelefonoz, function ( $arreta ) {
             /** @var Arreta $arreta */
             if ( $arreta->getBarrutia() !== null ) {
                 return ( strpos( strtoupper( $arreta->getBarrutia() ), 'ANT' ) !== false );
             }
         } );
-
         $arretaTelefonozTrintxerpe = array_filter( $arretaTelefonoz, function ( $arreta ) {
             /** @var Arreta $arreta */
             if ( $arreta->getBarrutia() !== null ) {
@@ -149,37 +154,34 @@ class ChartsController extends Controller
         } );
 
 
-        $top = $em->getRepository( 'AppBundle:Tramite' )->topTramites();
-        $topZerbikat = $em->getRepository( 'AppBundle:Tramite' )->topZerbikat();
-
-
-        $users     = $em->getRepository( 'AppBundle:User' )->findAll();
-        $kanalak   = $em->getRepository( 'AppBundle:Kanala' )->findAll();
-        $barrutiak = $em->getRepository( 'AppBundle:Barrutia' )->findAll();
-
         return $this->render( 'grafikak/index.html.twig', array(
-            'arretak'                       => $arretak,
-            'arretakDonibane'               => count( $arretakDonibane ),
-            'arretakAntxo'                  => count( $arretakAntxo ),
-            'arretakTrintxerpte'            => count( $arretakTrintxerpte ),
-            'tramiteak'                     => $tramiteak,
-            'tramiteakDonibane'             => count( $tramiteakDonibane ),
-            'tramiteakAntxo'                => count( $tramiteakAntxo ),
-            'tramiteakTrintxerpe'           => count( $tramiteakTrintxerpe ),
-            'arretaPresentzialak'           => count( $arretaPresentzialak ),
-            'arretaPresentzialakDonibane'   => count( $arretaPresentzialakDonibane ),
-            'arretaPresentzialakAntxo'      => count( $arretaPresentzialakAntxo ),
-            'arretaPresentzialakTrintxerpe' => count( $arretaPresentzialakTrintxerpe ),
-            'arretaTelefonoz'               => count( $arretaTelefonoz ),
-            'arretaTelefonozDonibane'       => count( $arretaTelefonozDonibane ),
-            'arretaTelefonozAntxo'          => count( $arretaTelefonozAntxo ),
-            'arretaTelefonozTrintxerpe'     => count( $arretaTelefonozTrintxerpe ),
-            'users'                         => $users,
-            'kanalak'                       => $kanalak,
-            'barrutiak'                     => $barrutiak,
-            'top'                           => $top ,
-            'topZerbikat'                           => $topZerbikat ,
-            'form' => $form->createView(),
+            'arretak'                         => $arretak,
+            'arretakDonibane'                 => count( $arretakDonibane ),
+            'arretakAntxo'                    => count( $arretakAntxo ),
+            'arretakTrintxerpte'              => count( $arretakTrintxerpte ),
+            'tramiteak'                       => $tramiteak,
+            'tramiteakDonibane'               => count( $tramiteakDonibane ),
+            'tramiteakAntxo'                  => count( $tramiteakAntxo ),
+            'tramiteakTrintxerpe'             => count( $tramiteakTrintxerpe ),
+            'arretaPresentzialak'             => count( $arretaPresentzialak ),
+            'arretaPresentzialakDonibane'     => count( $arretaPresentzialakDonibane ),
+            'arretaPresentzialakAntxo'        => count( $arretaPresentzialakAntxo ),
+            'arretaPresentzialakTrintxerpe'   => count( $arretaPresentzialakTrintxerpe ),
+            'arretaTelefonoz'                 => count( $arretaTelefonoz ),
+            'arretaTelefonozDonibane'         => count( $arretaTelefonozDonibane ),
+            'arretaTelefonozAntxo'            => count( $arretaTelefonozAntxo ),
+            'arretaTelefonozTrintxerpe'       => count( $arretaTelefonozTrintxerpe ),
+//            'users'                           => $users,
+//            'kanalak'                         => $kanalak,
+//            'barrutiak'                       => $barrutiak,
+            'top'                             => $top,
+            'topZerbikat'                     => $topZerbikat,
+            'ArretakGroupByMonth'             => $ArretakGroupByMonth,
+            'TramiteakGroupByMonth'           => $TramiteakGroupByMonth,
+            'arretaPresentzialakGroupByMonth' => $arretaPresentzialakGroupByMonth,
+            'arretaTelefonozGroupByMonth'     => $arretaTelefonozGroupByMonth,
+            'form'                            => $form->createView(),
+
         ) );
     }
 

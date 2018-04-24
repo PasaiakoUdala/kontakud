@@ -4,8 +4,27 @@
 {% block avanzu_logo_mini %}<b>H</b>AZ{% endblock %}
 {% block avanzu_logo_lg %} HAZtertu {% endblock %}
 {% block aavanzu_document_title %} HAZtertu {% endblock %}
-{% block avanzu_page_title %}Grafikak{% endblock %}
+{% block avanzu_page_title %}
+    Datuen esplotazioa:
+    {% if (app.request.get('app_bundlesearch_form_type')['fIni']) is defined %}
+        {{ app.request.get('app_bundlesearch_form_type')['fIni'] }}tik
+    {% endif %}
+
+    {% if (app.request.get('app_bundlesearch_form_type')['fFin']) is defined %}
+        - {{ app.request.get('app_bundlesearch_form_type')['fFin'] }}era
+    {% endif %}
+{% endblock %}
 {% block title %} HAZtertu {% endblock %}
+{% block avanzu_head %}
+
+    <link rel="stylesheet" href="{{ asset('css/bootstrap-datepicker3.min.css') }}">
+    <style>
+        .noleftmargin {
+            margin-left: 0px !important;
+        }
+    </style>
+
+{% endblock %}
 
 {% block page_title %} HAZtertu graf {% endblock %}
 
@@ -17,36 +36,42 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Filtroak</h3>
                     <div class="box-tools pull-right">
-                        <button type="button" id="btnCollapse" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
-                        </button>
-                        <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button>
+                        <button type="button" id="btnCollapse" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                     </div>
                 </div>
                 {{ form_start(form, { 'attr': { 'class':'form-horizontal' } }) }}
-                    <div class="box-body">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    {{ form_label(form.barrutia, null,  { 'label_attr': {'class': 'control-label col-sm-2'} }) }}
-                                    {{ form_widget(form.barrutia, { 'attr': {'class': 'col-sm-10'} }) }}
-                                </div>
-
-                                {{ form_row(form.kanala) }}
-                            </div>
-
-                            <div class="col-md-6">
-
+                <div class="box-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group noleftmargin">
+                                {{ form_label(form.fIni, null,  { 'label_attr': {'class': 'control-label col-sm-2'} }) }}
+                                {{ form_widget(form.fIni, { 'attr': {'class': 'col-sm-10 datepicker'} }) }}
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="col-md4"></div>
-                            <div class="col-md4">
-                                {{ form_row(form.Onartu) }}
+                        <div class="col-md-6">
+                            <div class="form-group noleftmargin">
+                                {{ form_label(form.fFin, null,  { 'label_attr': {'class': 'control-label col-sm-2'} }) }}
+                                {{ form_widget(form.fFin, { 'attr': {'class': 'col-sm-10 datepicker'} }) }}
                             </div>
-                            <div class="col-md4"></div>
+                        </div>
+                        <div class="col-md-12">
+                            <div class="form-group noleftmargin">
+                                <div class="col-sm-5"></div>
+                                {{ form_label(form.Onartu, null,  { 'label_attr': {'class': 'control-label col-sm-1'} }) }}
+                                {{ form_widget(form.Onartu, { 'attr': {'class': 'col-sm-2 datepicker'} }) }}
+                                <div class="col-sm-5"></div>
+                            </div>
                         </div>
                     </div>
-                    <!-- /.box-body -->
+                    <div class="row">
+                        <div class="col-md4"></div>
+                        <div class="col-md4">
+                            {{ form_row(form.Onartu) }}
+                        </div>
+                        <div class="col-md4"></div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
                 {{ form_end(form) }}
 
             </div>
@@ -95,7 +120,7 @@
 
                             <div class="info-box-content">
                                 <span class="info-box-text">Presentzialak</span>
-                                <span class="info-box-number">{{ arretaPresentzialak  }}</span>
+                                <span class="info-box-number">{{ arretaPresentzialak }}</span>
                             </div>
                             <!-- /.info-box-content -->
                         </div>
@@ -132,16 +157,16 @@
                     </div>
                 </div>
                 <div class="box-body">
-                   <dl class="dl-horizontal">
-                       <dt>Arretak</dt>
-                       <dd>{{ arretakDonibane }}</dd>
-                       <dt>Presentzialak</dt>
-                       <dd>{{ arretaPresentzialakDonibane }}</dd>
-                       <dt>Telefonoz</dt>
-                       <dd>{{ arretaTelefonozDonibane }}</dd>
-                       <dt>Tramiteak</dt>
-                       <dd>{{ tramiteakDonibane }}</dd>
-                   </dl>
+                    <dl class="dl-horizontal">
+                        <dt>Arretak</dt>
+                        <dd>{{ arretakDonibane }}</dd>
+                        <dt>Presentzialak</dt>
+                        <dd>{{ arretaPresentzialakDonibane }}</dd>
+                        <dt>Telefonoz</dt>
+                        <dd>{{ arretaTelefonozDonibane }}</dd>
+                        <dt>Tramiteak</dt>
+                        <dd>{{ tramiteakDonibane }}</dd>
+                    </dl>
                 </div>
                 <!-- /.box-body -->
             </div>
@@ -215,7 +240,7 @@
                 </div>
                 <div class="box-body">
                     <div class="chart">
-                        <canvas id="chart1" style="height: 146px; width: 463px;" width="463" height="250"></canvas>
+                        <canvas id="chart1" style="height: 146px; width: 463px;" width="463" height="350"></canvas>
                     </div>
                 </div>
                 <!-- /.box-body -->
@@ -246,13 +271,15 @@
                         </tr>
                         </thead>
                         <tbody>
-                            {% for t in topZerbikat %}
-                                <tr>
-                                    <td><a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}" target="_blank"><span class="fitxakodea" data-dest="desk-{{ loop.index0 }}">{{ t.kodea }}</span></a></td>
-                                    <td class="desk-{{ loop.index0 }}"></td>
-                                    <td><a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}" target="_blank">{{ t.zenbat }}</a></td>
-                                </tr>
-                            {% endfor %}
+                        {% for t in topZerbikat %}
+                            <tr>
+                                <td><a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}" target="_blank"><span class="fitxakodea"
+                                                                                                                                data-dest="desk-{{ loop.index0 }}">{{ t.kodea }}</span></a>
+                                </td>
+                                <td class="desk-{{ loop.index0 }}"></td>
+                                <td><a href="http://zerbikat.sare.gipuzkoa.net/064/es/{{ t.zerbikatid }}" target="_blank">{{ t.zenbat }}</a></td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
 
                     </table>
@@ -267,7 +294,7 @@
             <!-- LINE CHART -->
             <div class="box box-info">
                 <div class="box-header with-border">
-                    <h3 class="box-title">Line Chart</h3>
+                    <h3 class="box-title">Arreta Bilkaera</h3>
 
                     <div class="box-tools pull-right">
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -277,7 +304,7 @@
                 </div>
                 <div class="box-body">
                     <div class="chart">
-                        <canvas id="chart5" style="height: 146px; width: 463px;" width="463" height="146"></canvas>
+                        <canvas id="denboraLerroaChart" style="height: 146px; width: 463px;" width="463" height="350"></canvas>
                     </div>
                 </div>
                 <!-- /.box-body -->
@@ -295,39 +322,218 @@
     {{ parent() }}
 
     <script src="{{ asset('js/charts.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap-datepicker.eu.min.js') }}"></script>
 
     <script>
         $(function () {
 
             /** Eskuratu AJAX bidez Fitxa ren deskribapena Kodea erabiliz **/
-
             $(".fitxakodea").each(function () {
                 var kod = $(this).text();
-                var dest = "."+$(this).data("dest");
-                var url = "http://zerbikat.test/app_dev.php/api/fitxabykodea/064/" + kod + ".json";
-                $.get(url,function ( data ) {
+                var dest = "." + $(this).data("dest");
+                var url = "http://zerbikat.sare.gipuzkoa.net/api/fitxabykodea/064/" + kod + ".json";
+                $.get(url, function ( data ) {
                     $(dest).text(data[0].deskribapenaeu);
 
-                })
+                });
             });
 
 
-
             $("#btnCollapse").click();
+
+            $(".datepicker").datepicker({
+                format: 'dd-mm-yyyy',
+                autoclose: true,
+                language: "eu",
+                todayBtn: "linked",
+                todayHighlight: true
+            });
+
+            /******************************************************************************************/
+            /******************************************************************************************/
+            /**** denboralerroa Grafikoa  *************************************************************/
+            /******************************************************************************************/
+            /******************************************************************************************/
+
+
+            var arretaMonthData = {{ ArretakGroupByMonth | json_encode | raw }}
+            var tramiteMonthData = {{ TramiteakGroupByMonth | json_encode | raw }}
+            var presentzialMonthData = {{ arretaPresentzialakGroupByMonth | json_encode | raw }}
+            var telefonoMonthData = {{ arretaTelefonozGroupByMonth| json_encode | raw }}
+            var hilabeteArretaDatuak = [];
+            var hilabeteTramiteDatuak = [];
+            var hilabetePresentzialDatuak = [];
+            var hilabeteTelefonoDatuak = [];
+
+            for ( var h = 1; h < 13; h += 1 ) {
+                var topatua = false;
+                for ( var k = 0, v, n = arretaMonthData.length; k < n; k += 1 ) {
+                    v = arretaMonthData[k];
+
+                    if ( v.Hilabetea === (h.toString()) ) {
+                        topatua = true;
+                        break;
+                    }
+
+                }
+
+                if ( topatua === true ) {
+                    hilabeteArretaDatuak.push(parseInt(v.Zenbat));
+                } else {
+                    hilabeteArretaDatuak.push(0);
+                }
+            }
+
+            for ( var h = 1; h < 13; h += 1 ) {
+                var topatua = false;
+                for ( var k = 0, v, n = tramiteMonthData.length; k < n; k += 1 ) {
+                    v = tramiteMonthData[k];
+
+                    if ( v.Hilabetea === (h.toString()) ) {
+                        topatua = true;
+                        break;
+                    }
+
+                }
+
+                if ( topatua === true ) {
+                    hilabeteTramiteDatuak.push(parseInt(v.Zenbat));
+                } else {
+                    hilabeteTramiteDatuak.push(0);
+                }
+            }
+
+            for ( var h = 1; h < 13; h += 1 ) {
+                var topatua = false;
+                for ( var k = 0, v, n = presentzialMonthData.length; k < n; k += 1 ) {
+                    v = presentzialMonthData[k];
+
+                    if ( v.Hilabetea === (h.toString()) ) {
+                        topatua = true;
+                        break;
+                    }
+
+                }
+
+                if ( topatua === true ) {
+                    hilabetePresentzialDatuak.push(parseInt(v.Zenbat));
+                } else {
+                    hilabetePresentzialDatuak.push(0);
+                }
+            }
+
+            for ( var h = 1; h < 13; h += 1 ) {
+                var topatua = false;
+                for ( var k = 0, v, n = telefonoMonthData.length; k < n; k += 1 ) {
+                    v = telefonoMonthData[k];
+
+                    if ( v.Hilabetea === (h.toString()) ) {
+                        topatua = true;
+                        break;
+                    }
+
+                }
+
+                if ( topatua === true ) {
+                    hilabeteTelefonoDatuak.push(parseInt(v.Zenbat));
+                } else {
+                    hilabeteTelefonoDatuak.push(0);
+                }
+            }
+
+            var MONTHS = ["Urtarrila", "Otsaila", "Martxoa", "Apirila", "Maiatza", "Ekaina", "Uztaila", "Abuztua", "Iraila", "Urria", "Azaroa", "Abendua"];
+            var config = {
+                type: "line",
+                data: {
+                    labels: ["Urtarrila", "Otsaila", "Martxoa", "Apirila", "Maiatza", "Ekaina", "Uztaila", "Abuztua", "Iraila", "Urria", "Azaroa", "Abendua"],
+                    datasets: [
+                        {
+                            label: "Arretak",
+                            backgroundColor: "rgba(255, 99, 132, 0.2)",
+                            borderColor: "rgba(255,99,132,1)",
+                            data: hilabeteArretaDatuak,
+                            fill: false,
+                        },
+                        {
+                            label: "Tramiteak",
+                            backgroundColor: "rgba(54, 162, 235, 0.2)",
+                            borderColor: "rgba(54, 162, 235, 1)",
+                            data: hilabeteTramiteDatuak,
+                            fill: false,
+                        },
+                        {
+                            label: "Presentzialak",
+                            backgroundColor: "rgba(255, 159, 64, 0.2)",
+                            borderColor: "rgba(255, 159, 64, 1)",
+                            data: hilabetePresentzialDatuak,
+                            fill: false,
+                        },
+                        {
+                            label: "Telefonoz",
+                            backgroundColor: "rgba(153, 102, 255, 0.2)",
+                            borderColor: "rgba(153, 102, 255, 1)",
+                            data: hilabeteTelefonoDatuak,
+                            fill: false,
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    title: {
+                        display: true,
+                        text: "Urteko Bilakaera"
+                    },
+                    tooltips: {
+                        mode: "index",
+                        intersect: false,
+                    },
+                    hover: {
+                        mode: "nearest",
+                        intersect: true
+                    },
+                    scales: {
+                        xAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: "Hilabetea"
+                            }
+                        }],
+                        yAxes: [{
+                            display: true,
+                            scaleLabel: {
+                                display: true,
+                                labelString: "Kopurua"
+                            }
+                        }]
+                    }
+                }
+            };
+
+
+            var lineChartCanvas = $("#denboraLerroaChart").get(0).getContext("2d");
+            new Chart(lineChartCanvas, config);
+
+
+            /******************************************************************************************/
+            /******************************************************************************************/
+            /**** FIN denboralerroa Grafikoa  *********************************************************/
+            /******************************************************************************************/
+            /******************************************************************************************/
 
 
             // Get context with jQuery - using jQuery's .get() method.
             var ctx = $("#chart1").get(0).getContext("2d");
             // This will get the first returned node in the jQuery collection.
 
-            var mydata = ({{ top | json_encode | raw  }});
+            var mydata = ({{ top | json_encode | raw }});
             var izenak = ["Zerbikat", "Informazioa", "Gerkud"];
             var baloreak = [];
 
-            for (var i = 0; i < mydata.length; i++) {
+            for ( var i = 0; i < mydata.length; i++ ) {
                 baloreak.push(parseFloat(mydata[i].zenbat));
             }
-
 
 
             var myChart = new Chart(ctx, {
@@ -355,7 +561,7 @@
                                 "rgba(255, 159, 64, 1)"
                             ],
                             borderWidth: 1
-                    }]
+                        }]
                 },
                 options: {
                     scales: {
@@ -367,7 +573,6 @@
                     }
                 }
             });
-
 
 
         });
