@@ -202,6 +202,8 @@ class ArretaController extends Controller
             $amaia = $arretum->getAmaitu();
             if ( !isset($amaia) && ($arretum->getIsclosed()==true) ) {
                 $arretum->setAmaitu( new \DateTime() );
+                $sec = strtotime($arretum->getAmaitu()->format("Y-m-d H:i:s")) - strtotime( $arretum->getCreated()->format('Y-m-d H:i:s')) ;
+                $arretum->setSegunduak( $sec );
             }
             $em->persist( $arretum );
             $em->flush();
@@ -212,6 +214,8 @@ class ArretaController extends Controller
             $amaia = $arretum->getAmaitu();
             if ( !isset($amaia) && ($arretum->getIsclosed()==true) ) {
                 $arretum->setAmaitu( new \DateTime() );
+                $sec = strtotime($arretum->getAmaitu()->format("Y-m-d H:i:s")) - strtotime( $arretum->getCreated()->format('Y-m-d H:i:s')) ;
+                $arretum->setSegunduak( $sec );
             }
             $em->persist( $arretum );
             $em->flush();

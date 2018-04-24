@@ -127,6 +127,12 @@ class Arreta
      */
     private $contentChangedBy;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="segunduak",type="integer",nullable=true)
+     */
+    private $segunduak;
 
     /*****************************************************************************************************************/
     /*** ERLAZIOAK ***************************************************************************************************/
@@ -172,6 +178,7 @@ class Arreta
     {
         $this->tramiteak = new ArrayCollection();
         $this->created = new \DateTime();
+        $this->segunduak = 0;
     }
 
     public function __toString()
@@ -662,5 +669,29 @@ class Arreta
     public function getAmaitu()
     {
         return $this->amaitu;
+    }
+
+    /**
+     * Set segunduak.
+     *
+     * @param int|null $segunduak
+     *
+     * @return Arreta
+     */
+    public function setSegunduak($segunduak = null)
+    {
+        $this->segunduak = $segunduak;
+
+        return $this;
+    }
+
+    /**
+     * Get segunduak.
+     *
+     * @return int|null
+     */
+    public function getSegunduak()
+    {
+        return $this->segunduak;
     }
 }

@@ -160,7 +160,7 @@ class ArretaDatatable extends AbstractDatatable
             ) )
 
             ->add( 'created', DateTimeColumn::class, array(
-                'title'           => 'Hasi',
+                'title'           => 'Data',
                 'default_content' => '',
                 'date_format'     => 'YYYY-MM-DD HH:mm:ss',
                 'filter'          => array( DateRangeFilter::class, array(
@@ -169,22 +169,22 @@ class ArretaDatatable extends AbstractDatatable
                 'timeago'         => false,
             ) )
 
-            ->add( 'amaitu', DateTimeColumn::class, array(
-                'title'           => 'Amaitu',
-                'default_content' => '',
-                'date_format'     => 'YYYY-MM-DD HH:mm:ss',
-                'filter'          => array( DateRangeFilter::class, array(
-                    'cancel_button' => true,
-                ) ),
-                'timeago'         => false,
-            ) )
+//            ->add( 'amaitu', DateTimeColumn::class, array(
+//                'title'           => 'Amaitu',
+//                'default_content' => '',
+//                'date_format'     => 'YYYY-MM-DD HH:mm:ss',
+//                'filter'          => array( DateRangeFilter::class, array(
+//                    'cancel_button' => true,
+//                ) ),
+//                'timeago'         => false,
+//            ) )
 
-            ->add( 'denbora', Column::class, array(
-                'title'      => 'denbora',
-                'dql'        => '(SELECT timediff({p}.amaitu,{p}.created) FROM AppBundle:Arreta {p} WHERE {p}.id = arreta.id)',
-                'searchable' => true,
-                'orderable'  => true,
-            ) )
+//            ->add( 'denbora', Column::class, array(
+//                'title'      => 'denbora',
+//                'dql'        => '(SELECT timediff({p}.amaitu,{p}.created) FROM AppBundle:Arreta {p} WHERE {p}.id = arreta.id)',
+//                'searchable' => true,
+//                'orderable'  => true,
+//            ) )
             ->add( null, ActionColumn::class, array(
                 'title'      => '',
                 'start_html' => '<div class="start_actions btn-group" role="group">',
