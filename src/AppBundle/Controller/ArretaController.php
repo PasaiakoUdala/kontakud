@@ -73,11 +73,6 @@ class ArretaController extends Controller
                 $qb->setParameter('userid', $user->getId());
             }
 
-            $datatableQueryBuilder->useQueryCache(true);            // (1)
-            $datatableQueryBuilder->useCountQueryCache(true);       // (2)
-            $datatableQueryBuilder->useResultCache(true, 60);       // (3)
-            $datatableQueryBuilder->useCountResultCache(true, 60);  // (4)
-//            dump($datatableQueryBuilder->getQb()->getDQL()); die();
 
             return $responseService->getResponse();
         }
@@ -88,7 +83,6 @@ class ArretaController extends Controller
         foreach ($arretas as $a) {
             $deleteForms[$a->getId()] = $this->createDeleteForm($a)->createView();
         }
-
 
 
         return $this->render('arreta/index.html.twig', array(
