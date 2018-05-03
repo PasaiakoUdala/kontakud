@@ -61,44 +61,44 @@ class ChartsController extends Controller
 
         $arretakDonibane    = array_filter( $arretak, function ( $arreta ) {
             /** @var Arreta $arreta */
-            if ( $arreta->getBarrutia() !== null ) {
-                return ( strpos( strtoupper( $arreta->getBarrutia() ), 'DON' ) !== false );
+            if ( $arreta->getSacbarrutia() !== null ) {
+                return ( strpos( strtoupper( $arreta->getSacbarrutia() ), 'DON' ) !== false );
             }
         } );
         $arretakAntxo       = array_filter( $arretak, function ( $arreta ) {
             /** @var Arreta $arreta */
-            if ( $arreta->getBarrutia() !== null ) {
-                return ( strpos( strtoupper( $arreta->getBarrutia() ), 'ANT' ) !== false );
+            if ( $arreta->getSacbarrutia() !== null ) {
+                return ( strpos( strtoupper( $arreta->getSacbarrutia() ), 'ANT' ) !== false );
             }
         } );
         $arretakTrintxerpte = array_filter( $arretak, function ( $arreta ) {
             /** @var Arreta $arreta */
-            if ( $arreta->getBarrutia() !== null ) {
-                return ( strpos( strtoupper( $arreta->getBarrutia() ), 'TRIN' ) !== false );
+            if ( $arreta->getSacbarrutia() !== null ) {
+                return ( strpos( strtoupper( $arreta->getSacbarrutia() ), 'TRIN' ) !== false );
             }
         } );
 
         $tramiteakDonibane   = array_filter( $tramiteak, function ( $tramite ) {
             /** @var Tramite $tramite */
             if ( $tramite->getArreta() !== null ) {
-                if ( $tramite->getArreta()->getBarrutia() !== null ) {
-                    return ( strpos( strtoupper( $tramite->getArreta()->getBarrutia() ), 'DON' ) !== false );
+                if ( $tramite->getArreta()->getSacbarrutia() !== null ) {
+                    return ( strpos( strtoupper( $tramite->getArreta()->getSacbarrutia() ), 'DON' ) !== false );
                 }
             }
         } );
         $tramiteakAntxo      = array_filter( $tramiteak, function ( $tramite ) {
             /** @var Tramite $tramite */
             if ( $tramite->getArreta() !== null ) {
-                if ( $tramite->getArreta()->getBarrutia() !== null ) {
-                    return ( strpos( strtoupper( $tramite->getArreta()->getBarrutia() ), 'ANT' ) !== false );
+                if ( $tramite->getArreta()->getSacbarrutia() !== null ) {
+                    return ( strpos( strtoupper( $tramite->getArreta()->getSacbarrutia() ), 'ANT' ) !== false );
                 }
             }
         } );
         $tramiteakTrintxerpe = array_filter( $tramiteak, function ( $tramite ) {
             /** @var Tramite $tramite */
             if ( $tramite->getArreta() !== null ) {
-                if ( $tramite->getArreta()->getBarrutia() !== null ) {
-                    return ( strpos( strtoupper( $tramite->getArreta()->getBarrutia() ), 'TRIN' ) !== false );
+                if ( $tramite->getArreta()->getSacbarrutia() !== null ) {
+                    return ( strpos( strtoupper( $tramite->getArreta()->getSacbarrutia() ), 'TRIN' ) !== false );
                 }
             }
         } );
@@ -111,20 +111,20 @@ class ChartsController extends Controller
         } );
         $arretaPresentzialakDonibane = array_filter( $arretaPresentzialak, function ( $arreta ) {
             /** @var Arreta $arreta */
-            if ( $arreta->getBarrutia() !== null ) {
-                return ( strpos( strtoupper( $arreta->getBarrutia() ), 'DON' ) !== false );
+            if ( $arreta->getSacbarrutia() !== null ) {
+                return ( strpos( strtoupper( $arreta->getSacbarrutia() ), 'DON' ) !== false );
             }
         } );
         $arretaPresentzialakAntxo = array_filter( $arretaPresentzialak, function ( $arreta ) {
             /** @var Arreta $arreta */
-            if ( $arreta->getBarrutia() !== null ) {
-                return ( strpos( strtoupper( $arreta->getBarrutia() ), 'ANT' ) !== false );
+            if ( $arreta->getSacbarrutia() !== null ) {
+                return ( strpos( strtoupper( $arreta->getSacbarrutia() ), 'ANT' ) !== false );
             }
         } );
         $arretaPresentzialakTrintxerpe = array_filter( $arretaPresentzialak, function ( $arreta ) {
             /** @var Arreta $arreta */
-            if ( $arreta->getBarrutia() !== null ) {
-                return ( strpos( strtoupper( $arreta->getBarrutia() ), 'TRIN' ) !== false );
+            if ( $arreta->getSacbarrutia() !== null ) {
+                return ( strpos( strtoupper( $arreta->getSacbarrutia() ), 'TRIN' ) !== false );
             }
         } );
 
@@ -136,20 +136,20 @@ class ChartsController extends Controller
         } );
         $arretaTelefonozDonibane = array_filter( $arretaTelefonoz, function ( $arreta ) {
             /** @var Arreta $arreta */
-            if ( $arreta->getBarrutia() !== null ) {
-                return ( strpos( strtoupper( $arreta->getBarrutia() ), 'DON' ) !== false );
+            if ( $arreta->getSacbarrutia() !== null ) {
+                return ( strpos( strtoupper( $arreta->getSacbarrutia() ), 'DON' ) !== false );
             }
         } );
         $arretaTelefonozAntxo = array_filter( $arretaTelefonoz, function ( $arreta ) {
             /** @var Arreta $arreta */
-            if ( $arreta->getBarrutia() !== null ) {
-                return ( strpos( strtoupper( $arreta->getBarrutia() ), 'ANT' ) !== false );
+            if ( $arreta->getSacbarrutia() !== null ) {
+                return ( strpos( strtoupper( $arreta->getSacbarrutia() ), 'ANT' ) !== false );
             }
         } );
         $arretaTelefonozTrintxerpe = array_filter( $arretaTelefonoz, function ( $arreta ) {
             /** @var Arreta $arreta */
-            if ( $arreta->getBarrutia() !== null ) {
-                return ( strpos( strtoupper( $arreta->getBarrutia() ), 'TRIN' ) !== false );
+            if ( $arreta->getSacbarrutia() !== null ) {
+                return ( strpos( strtoupper( $arreta->getSacbarrutia() ), 'TRIN' ) !== false );
             }
         } );
 

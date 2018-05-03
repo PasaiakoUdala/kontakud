@@ -151,13 +151,17 @@ class ArretaRepository extends \Doctrine\ORM\EntityRepository
         /** @var QueryBuilder $query */
         $query = $this->createQueryBuilder( 'a' );
 
+        $fecIni = date_format( $f[ 'fIni' ], 'Y-m-d' );
+        $fecFin = date_format( $f[ 'fFin' ], 'Y-m-d');
+
         if ( !empty( $f[ 'fIni' ] ) ) {
-            $query->andWhere( 'a.created >= :fini' )
-                  ->setParameter( 'fini', $f[ 'fIni' ] );
+            $query->andWhere( 'DATE(a.created) >= :fini' )
+                  ->setParameter( 'fini', $fecIni );
+
         }
         if ( !empty( $f[ 'fFin' ] ) ) {
-            $query->andWhere( 'a.created <= :ffin' )
-                  ->setParameter( 'ffin', $f[ 'fFin' ] );
+            $query->andWhere( 'DATE(a.created) <= :ffin' )
+                  ->setParameter( 'ffin', $fecFin );
         }
 
         return $query->getQuery()->getResult();
