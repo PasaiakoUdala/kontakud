@@ -71,14 +71,12 @@
             <div class="collapse" id="collapseExample">
                 <div class="well">
                     <div class="row">
-                        <form action="{{ path('admin_arreta_find') }}" class="form-inline" method="post">
+                        <form action="{{ path('admin_arreta_index') }}" class="form-inline" method="post">
                             <div class="col-md-12">
                                 <div class="col-md-3" id="divDateRange">
                                     <label>{{ "Datak" | trans }}</label>
                                     <div class="input-daterange input-group" id="filterDatepicker">
-                                        <input type="text" class="input-sm form-control" name="data_hasi" />
-                                        <span class="input-group-addon">-</span>
-                                        <input type="text" class="input-sm form-control" name="data_amaitu" />
+                                        <input type="text" class="input-sm form-control daterange" name="data_hasi" />
                                     </div>
                                 </div>
                                 <div class="col-md-2">
@@ -131,7 +129,9 @@
     <script type="text/javascript">
         $( document ).ready(function() {
             moment.locale("es");
-            $('input[name="daterange"]').daterangepicker();
+
+            // $('input[name="daterange"]').daterangepicker();
+            $('.daterange').daterangepicker();
         });
     </script>
 

@@ -5,6 +5,8 @@ namespace AppBundle\Controller;
 use AppBundle\Datatables\ArretaDatatable;
 use AppBundle\Entity\Arreta;
 use AppBundle\Entity\User;
+use DateInterval;
+use DateTime;
 use Doctrine\ORM\EntityManager;
 use Sg\DatatablesBundle\Datatable\DatatableInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -26,7 +28,7 @@ class ArretaController extends Controller
      * Lists all arretum entities.
      *
      * @Route("/", name="admin_arreta_index")
-     * @Method("GET")
+     * @Method({"GET", "POST"})
      * @param Request $request
      *
      * @return Response
@@ -34,22 +36,51 @@ class ArretaController extends Controller
      */
     public function indexAction(Request $request)
     {
+
+        if  ( $request->isMethod('POST')) {
+            $fet = $request->request->get('data_hasi');
+            $temp = explode( " - ",$fet );
+            $has = $temp[ 0 ];
+            $ama = $temp[ 1 ];
+
+            $ego = $request->request->get('egoera');
+
+            if ( isset($has) ) {
+                $hasi = DateTime::createFromFormat('d/m/Y', $has);
+            } elseif ( isset($amai)) {
+                $ama = DateTime::createFromFormat('d/m/Y', $has);
+                $has = DateTime::createFromFormat('d/m/Y', $has);
+                $amai = $has->sub(new DateInterval('P7D'));
+            }
+
+            if ( isset($ama) && isset($hasi)) {
+                $amai = DateTime::createFromFormat('d/m/Y', $ama);
+            }
+
+        } else {
+            $hasi = new \DateTime();
+            $amai = new \DateTime();
+            $amai = $amai->sub(new DateInterval('P7D'));
+        }
+
+
         /** @var EntityManager $em */
         $em = $this->getDoctrine()->getManager();
         $isAjax = $request->isXmlHttpRequest();
+
 
         /** @var User $user */
         $user = $this->getUser();
         $arretakGaurDenak=[];
 
-        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            $arretas = $em->getRepository( 'AppBundle:Arreta' )->findAllFetched();
 
+        if ($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+            $arretas = $em->getRepository( 'AppBundle:Arreta' )->findAllFetched($hasi, $amai);
             $users = $em->getRepository( 'AppBundle:User' )->findLangileak();
             $arretakGaur = $em->getRepository( 'AppBundle:Arreta' )->findGaurkoArretaKopurua();
 
         } else {
-            $arretas = $em->getRepository('AppBundle:Arreta')->findMyAll($user->getId());
+            $arretas = $em->getRepository('AppBundle:Arreta')->findMyAll($user->getId(), $hasi, $amai);
             $users = $em->getRepository( 'AppBundle:User' )->findLangileak($user->getId());
             $arretakGaur = $em->getRepository( 'AppBundle:Arreta' )->findGaurkoArretaKopurua($user->getId());
             $arretakGaurDenak = $em->getRepository( 'AppBundle:Arreta' )->findGaurkoArretaKopurua();
@@ -95,36 +126,38 @@ class ArretaController extends Controller
         ));
     }
 
-    /**
-     * Arreta bilatzeila filtrokin
-     *
-     * @Route("/bilatu", name="admin_arreta_find")
-     * @Method({"GET", "POST"})
-     * @param Request $request
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function findAction(Request $request)
-    {
-        $em = $this->getDoctrine()->getManager();
-
-        $hasi = $request->request->get('data_hasi');
-        $fin = $request->request->get('data_amaitu');
-        $egoera = $request->request->get('egoera');
-
-
-        $arretas = $em->getRepository( 'AppBundle:Arreta' )->bilatzailea( $hasi, $fin, $egoera );
-
-        $deleteForms = array();
-        foreach ($arretas as $a) {
-            $deleteForms[$a->getId()] = $this->createDeleteForm($a)->createView();
-        }
-
-        return $this->render('arreta/index.html.twig', array(
-            'arretas' => $arretas,
-            'deleteforms' => $deleteForms,
-        ));
-    }
+//    /**
+//     * Arreta bilatzeila filtrokin
+//     *
+//     * @Route("/bilatu", name="admin_arreta_find")
+//     * @Method({"GET", "POST"})
+//     * @param Request $request
+//     *
+//     * @return \Symfony\Component\HttpFoundation\Response
+//     */
+//    public function findAction(Request $request)
+//    {
+//        $em = $this->getDoctrine()->getManager();
+//
+//        $hasi = $request->request->get('data_hasi');
+//        $fin = $request->request->get('data_amaitu');
+//        $egoera = $request->request->get('egoera');
+//
+//
+//        $arretas = $em->getRepository( 'AppBundle:Arreta' )->bilatzailea( $hasi, $fin, $egoera );
+//
+//        $deleteForms = array();
+//        foreach ($arretas as $a) {
+//            $deleteForms[$a->getId()] = $this->createDeleteForm($a)->createView();
+//        }
+//
+//
+//        return $this->render('arreta/index.html.twig', array(
+//            'arretas' => $arretas,
+//            'deleteforms' => $deleteForms,
+//            'arretakGaur' => 0,
+//        ));
+//    }
 
     /**
      * Creates a new arretum entity.
@@ -224,7 +257,6 @@ class ArretaController extends Controller
             'delete_form' => $deleteForm->createView(),
         ));
     }
-
 
     /**
      * Bulk delete action.

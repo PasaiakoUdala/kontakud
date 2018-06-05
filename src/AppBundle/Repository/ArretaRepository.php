@@ -16,7 +16,7 @@ use Doctrine\ORM\QueryBuilder;
 class ArretaRepository extends \Doctrine\ORM\EntityRepository
 {
 
-    public function findAllFetched()
+    public function findAllFetched($hasi, $amai)
     {
 
         return $this->createQueryBuilder( 'a' )
@@ -26,27 +26,28 @@ class ArretaRepository extends \Doctrine\ORM\EntityRepository
                     ->addSelect( 't' )
                     ->leftJoin( 'u.barrutia', 'b' )
                     ->addSelect( 'b' )
+                    ->andWhere('a.fetxa >= :hasi')
+                    ->setParameter('hasi', $hasi)
+                    ->andWhere('a.fetxa <= :amai')
+                    ->setParameter('amai', $amai)
                     ->getQuery()
                     ->getResult();
 
     }
 
-    public function findMyAll( $id )
+    public function findMyAll( $userid, $hasi, $amai )
     {
-        $em  = $this->getEntityManager();
-        $sql = /** @lang text */
-            "SELECT a
-                FROM AppBundle:Arreta a
-                INNER JOIN a.user u
-                WHERE u.id = :id
-                ORDER BY a.id DESC
-        ";
-
-        $consulta = $em->createQuery( $sql );
-        $consulta->setParameter( 'id', $id );
-
-        return $consulta->getResult();
-
+        return $this->createQueryBuilder( 'a' )
+                    ->innerJoin('a.user', 'u' )
+                    ->addSelect( 'u' )
+                    ->andWhere('u.id = :userid')
+                    ->setParameter('userid', $userid)
+                    ->andWhere('a.fetxa >= :hasi')
+                    ->setParameter('hasi', $hasi)
+                    ->andWhere('a.fetxa <= :amai')
+                    ->setParameter('amai', $amai)
+                    ->getQuery()
+                    ->getResult();
     }
 
     public function bilatzailea( $hasi = null, $fin = null, $closed = null )
