@@ -438,6 +438,20 @@
 
 {% endblock %}
 
+{% block content_sidebar %}
+    <div class="row">
+        <div class="col-xs-12">
+            <label for="txtNan">N.A.N.</label>
+            <input id="txtNan" name="txtNan" type="text" value="">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12">
+            <label>Etxebizitza Zenbakia <span id="txtBizilekuZenbakia"></span></label>
+        </div>
+    </div>
+{% endblock content_sidebar %}
+
 {% block foot_script %}
     {{ parent() }}
 

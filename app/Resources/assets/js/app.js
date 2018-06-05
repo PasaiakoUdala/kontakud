@@ -23,7 +23,7 @@ $(function () {
 
     $("#txtNan").on("blur", function () {
 
-        //44152950 Ruth
+        //44152950B Ruth
 
         var url = "http://172.28.64.70:3000/nan/" + $(this).val();
 
