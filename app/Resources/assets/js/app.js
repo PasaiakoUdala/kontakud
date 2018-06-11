@@ -20,28 +20,103 @@ $(function () {
         };
     })(jQuery);
 
+    /*************************************************************************************************************************/
+    /** DNI - DORLET **/
+    var url = document.location.toString();
+    if ( url.match("#") ) {
+        $(".nav-tabs a[href=\"#" + url.split("#")[1] + "\"]").tab("show");
+    }
 
-    $("#txtNan").on("blur", function () {
+    var url3 = "http://zerbikat.sare.gipuzkoa.net/api/sailak/064.json";
+    $.getJSON(url3, function ( data ) {
+        $.each(data, function ( key, val ) {
+            if ( !("parent" in val) ) {
+                if ( $("#txtLocale").val() === "eu" ) {
+                    $("#cmbFamilia").append("<option value='" + val.id + "'>" + val.sailaeu + "</option>");
+                } else {
+                    $("#cmbFamilia").append("<option value='" + val.id + "'>" + val.sailaes + "</option>");
+                }
+            }
+        });
+    }).fail(function ( jqXHR, textStatus, errorThrown ) {
+        console.log("error " + textStatus);
+        console.log("incoming Text " + jqXHR.responseText);
+    });
 
+
+    var urlHelbideak = "http://172.23.64.29:3000/";
+    $.getJSON(urlHelbideak, function ( data ) {
+        $.each(data, function ( key, val ) {
+            $("#helbidea").append("<option value='" + val.izena + "'>" + val.izena + "</option>");
+        });
+    }).fail(function ( jqXHR, textStatus, errorThrown ) {
+        console.log("error " + textStatus);
+        console.log("incoming Text " + jqXHR.responseText);
+    });
+
+    $("#helbidea").on("change", function () {
+        var h = $(this).val();
+
+        if ( h === "-1" ) {
+            $("#txtGerkudHelbidea").val("");
+        } else {
+            $("#txtGerkudHelbidea").val(h);
+        }
+
+    });
+
+
+    function getDataFromDNI() {
         //44152950B Ruth
 
-        var url = "http://172.28.64.70:3000/nan/" + $(this).val();
-
+        var url = "http://172.28.64.70:3000/nan/" + $("#txtNan").val();
         var myPromise = $.getJSON(url);
 
         myPromise.done(function ( data ) {
 
-            console.log(data[0]["NUMERO FIJO"]);
+            var numFijo = data[0]["NUMERO FIJO"];
+            $("#txtBizilekuZenbakia").text(numFijo);
 
-            $("#txtBizilekuZenbakia").text(data[0]["NUMERO FIJO"]);
+            var urlDorlet = "http://haztertu.pasaia.net:8080/api/dorlet/" + numFijo;
+
+            var dorletPromise = $.getJSON(urlDorlet);
+
+            dorletPromise.done(function ( data ) {
+                $.each( data, function( key, value ) {
+                    console.log(value);
+                    $("#txtFullName").text(value.nombre + " " + value.apellidos);
+                    if ( data.length > 0) {
+                        $("#txtTxartelak").text("Etxebitzitza honek badauka.");
+                        $("#txtTxartelak").removeClass("baiDauka");
+                        $("#txtTxartelak").removeClass("ezDauka");
+                        $("#txtTxartelak").addClass("baiDauka");
+
+                    } else {
+                        $("#txtTxartelak").text("Etxebizitza honek ez dauka");
+                        $("#txtTxartelak").removeClass("baiDauka");
+                        $("#txtTxartelak").removeClass("ezDauka");
+                        $("#txtTxartelak").addClass("ezDauka");
+                    }
+                });
+
+            });
+
+            myPromise.fail(function ( jqXHR, textStatus, errorThrown ) {
+                console.log(jqXHR.responseText);
+                console.log("Akats bat egon da datuak eskuratzerakoan.");
+            });
         });
 
         myPromise.fail(function ( jqXHR, textStatus, errorThrown ) {
             console.log(jqXHR.responseText);
             console.log("Akats bat egon da datuak eskuratzerakoan.");
         });
+    }
 
+    $("#btnNan").on("click", function () {
+        getDataFromDNI();
     });
+
 
     $("#btnArretaEzabatu").on("click", function () {
         bootbox.confirm({
