@@ -118,7 +118,7 @@ class ArretaDatatable extends AbstractDatatable
                 'title' => 'Nan',
             ) )
             ->add( 'barrutia', Column::class, array(
-                'title'           => 'Barrutia',
+                'title'           => 'Arretaren barrutia',
                 'default_content' => '',
                 'searchable'      => true,
                 'orderable'       => true,
