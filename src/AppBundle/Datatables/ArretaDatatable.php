@@ -2,6 +2,7 @@
 
 namespace AppBundle\Datatables;
 
+use AppBundle\Entity\Barrutia;
 use Sg\DatatablesBundle\Datatable\AbstractDatatable;
 use Sg\DatatablesBundle\Datatable\Style;
 use Sg\DatatablesBundle\Datatable\Column\Column;
@@ -70,7 +71,29 @@ class ArretaDatatable extends AbstractDatatable
 
         $users = $this->em->getRepository( 'AppBundle:User' )->findAll();
         $kanalak = $this->em->getRepository( 'AppBundle:Kanala' )->findAll();
-        $barrutiak = $this->em->getRepository( 'AppBundle:Barrutia' )->findAll();
+//        $barrutiak = $this->em->getRepository( 'AppBundle:Barrutia' )->findAll();
+
+        $barrutiak = array();
+
+        $b = new Barrutia();
+        $b->setName( 'Donibane' );
+        array_push( $barrutiak, $b );
+
+        $b = new Barrutia();
+        $b->setName( 'Trintxerpe' );
+        array_push( $barrutiak, $b );
+
+        $b = new Barrutia();
+        $b->setName( 'Antxo' );
+        array_push( $barrutiak, $b );
+
+        $b = new Barrutia();
+        $b->setName( 'San Pedro' );
+        array_push( $barrutiak, $b );
+
+        $b = new Barrutia();
+        $b->setName( 'Beste batzuk / Otros' );
+        array_push( $barrutiak, $b );
 
         $this->columnBuilder
             ->add(
