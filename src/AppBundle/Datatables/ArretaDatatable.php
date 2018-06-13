@@ -46,7 +46,7 @@ class ArretaDatatable extends AbstractDatatable
                                  'individual_filtering_position' => 'head',
                                  'length_menu'                   => array( 10, 25, 50, 100 ),
                                  'order_cells_top'               => true,
-                                 'order'                         => array( array( 0, 'asc' ) ),
+                                 'order'                         => array( array( 1, 'desc' ) ),
                                  'dom'                           => 'Bfrtip',
                                  'page_length'                   => 50,
                              'paging_type'                      => Style::FULL_NUMBERS_PAGINATION,
