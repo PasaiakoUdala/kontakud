@@ -27,6 +27,16 @@ class Builder implements ContainerAwareInterface
         /** @var ItemInterface $menu */
         $menu = $factory->createItem( 'root', [ 'navbar' => true ] );
 
+        $menu->addChild( 'Grafikak', [ 'icon' => 'th-list', 'route' => 'welcome' ] )->setExtra('translation_domain','messages');
+
+        return $menu;
+    }
+
+    public function adminMenu( FactoryInterface $factory, array $options )
+    {
+        /** @var ItemInterface $menu */
+        $menu = $factory->createItem( 'root', [ 'navbar' => true ] );
+
         $menu->addChild( 'Taula Laguntzaileak', [ 'icon' => 'th-list' ] )->setExtra('translation_domain','messages');;
         $menu['Taula Laguntzaileak']->addChild('Kanalak', ['icon' => 'road', 'route' => 'admin_kanala_index'])->setExtra('translation_domain','messages');;
         $menu['Taula Laguntzaileak']->addChild('Bulegoak', ['icon' => 'globe', 'route' => 'admin_barrutia_index'])->setExtra('translation_domain','messages');;
