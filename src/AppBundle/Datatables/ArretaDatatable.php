@@ -77,23 +77,23 @@ class ArretaDatatable extends AbstractDatatable
 
         $b = new Barrutia();
         $b->setName( 'Donibane' );
-        array_push( $barrutiak, $b );
+        $barrutiak[] = $b;
 
         $b = new Barrutia();
         $b->setName( 'Trintxerpe' );
-        array_push( $barrutiak, $b );
+        $barrutiak[] = $b;
 
         $b = new Barrutia();
         $b->setName( 'Antxo' );
-        array_push( $barrutiak, $b );
+        $barrutiak[] = $b;
 
         $b = new Barrutia();
         $b->setName( 'San Pedro' );
-        array_push( $barrutiak, $b );
+        $barrutiak[] = $b;
 
         $b = new Barrutia();
         $b->setName( 'Beste batzuk / Otros' );
-        array_push( $barrutiak, $b );
+        $barrutiak[] = $b;
 
         $this->columnBuilder
             ->add(
