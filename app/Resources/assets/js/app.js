@@ -45,9 +45,11 @@ $(function () {
 
 
     var urlHelbideak = "http://172.23.64.29:3000/";
+    // debug...
+     // var urlHelbideak = "http://localhost:3000/";
     $.getJSON(urlHelbideak, function ( data ) {
         $.each(data, function ( key, val ) {
-            $("#helbidea").append("<option value='" + val.izena + "'>" + val.izena + "</option>");
+            $("#helbidea").append("<option value='" + val.google + "'>" + val.izena + "</option>");
         });
     }).fail(function ( jqXHR, textStatus, errorThrown ) {
         console.log("error " + textStatus);
@@ -334,23 +336,20 @@ $(function () {
     $("#btnGerkudSave").click(function () {
 
         var myData = $("#frmGerkud").serializeObject();
-
-
-        var nireData = $("#frmGerkud").serializeFormJSON();
-
-
+        var $username = $.trim($("#username").val());
         var ss = {};
 
         ss.data = JSON.stringify(myData);
         ss.bertsioa = 2;
 
-
-
         var url = "http://gerkud/app.php/horkonpon/";
         var miAjax = $.ajax({
             type: "POST",
             url: url,
-            data: ss
+            data: ss,
+            headers: {
+                'Authorization': "Basic " + btoa('iibarguren@pasaia.net:37d12d33075dc1ecb558042391bc3676')
+            }
         }).done(function ( data ) {
             var myData = jQuery.parseJSON(data);
             if ( myData.status === -1 ) {

@@ -16,6 +16,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use AppBundle\Form\ArretaType;
 
 /**
  * Arretum controller.
@@ -215,7 +216,8 @@ class ArretaController extends Controller
     public function editAction(Request $request, Arreta $arretum)
     {
         $deleteForm = $this->createDeleteForm($arretum);
-        $editForm = $this->createForm('AppBundle\Form\ArretaType', $arretum, [
+        $editForm = $this->createForm(
+          ArretaType::class, $arretum, [
             'action' => $this->generateUrl('admin_arreta_edit', array( 'id' => $arretum->getId())),
             'method' => 'POST',
         ]);
@@ -225,23 +227,24 @@ class ArretaController extends Controller
         $results = $em->getRepository( 'AppBundle:Result' )->findAll();
 
         if($request->isXmlHttpRequest()) {
-            //$this->getDoctrine()->getManager()->flush();
             $amaia = $arretum->getAmaitu();
-            if ( !isset($amaia) && ($arretum->getIsclosed()==true) ) {
+            if ( $amaia === null && ($arretum->getIsclosed()===true) ) {
                 $arretum->setAmaitu( new \DateTime() );
-                $sec = strtotime($arretum->getAmaitu()->format("Y-m-d H:i:s")) - strtotime( $arretum->getCreated()->format('Y-m-d H:i:s')) ;
+                $sec = strtotime($arretum->getAmaitu()->format('Y-m-d H:i:s')) - strtotime( $arretum->getCreated()->format('Y-m-d H:i:s')) ;
                 $arretum->setSegunduak( $sec );
             }
             $em->persist( $arretum );
             $em->flush();
 
             return new JsonResponse(array('message' => 'Success!'), 200);
-        } else if ($editForm->isSubmitted() && $editForm->isValid()) {
+        }
+
+        if ($editForm->isSubmitted() && $editForm->isValid()) {
 
             $amaia = $arretum->getAmaitu();
-            if ( !isset($amaia) && ($arretum->getIsclosed()==true) ) {
+            if ( $amaia === null && ($arretum->getIsclosed()===true) ) {
                 $arretum->setAmaitu( new \DateTime() );
-                $sec = strtotime($arretum->getAmaitu()->format("Y-m-d H:i:s")) - strtotime( $arretum->getCreated()->format('Y-m-d H:i:s')) ;
+                $sec = strtotime($arretum->getAmaitu()->format('Y-m-d H:i:s')) - strtotime( $arretum->getCreated()->format('Y-m-d H:i:s')) ;
                 $arretum->setSegunduak( $sec );
             }
             $em->persist( $arretum );
@@ -250,7 +253,7 @@ class ArretaController extends Controller
             return $this->redirectToRoute('admin_arreta_index');
         }
 
-        return $this->render('arreta/edit.html.twig', array(
+      return $this->render('arreta/edit.html.twig', array(
             'arreta' => $arretum,
             'results'=> $results,
             'edit_form' => $editForm->createView(),
