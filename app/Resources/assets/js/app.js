@@ -348,7 +348,7 @@ $(function () {
             url: url,
             data: ss,
             headers: {
-                'Authorization': "Basic " + btoa('iibarguren@pasaia.net:37d12d33075dc1ecb558042391bc3676')
+                'Authorization': "Basic " + btoa($username +':37d12d33075dc1ecb558042391bc3676')
             }
         }).done(function ( data ) {
             var myData = jQuery.parseJSON(data);
